@@ -1,1 +1,0 @@
-<option>choose room type</option>
