@@ -1,3 +1,0 @@
-<option>Andaman & Nicobor Island</option>
-<option>Laksadeep</option><option>Kerala</option>
-<option>Andhra Pradesh</option>
