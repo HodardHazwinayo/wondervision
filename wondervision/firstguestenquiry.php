@@ -67,6 +67,26 @@ elseif(isset($_REQUEST['save']))
 	<script type="text/javascript" src="bootstrap/js/bootstrap-tab.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap-transition.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap-typeahead.js"></script>
+	<script type="text/javascript">
+	function no_of_room(){
+	
+	  
+	  var k=document.getElementById("adult_count").value;
+	
+	  var g=Math.ceil(k/2);
+	
+	  document.getElementById("noroom").value=g;
+	  noroom.setAttribute('readonly', 'readonly');   
+	  
+	  var date1=new Date(document.getElementById("datepicker").value);
+	var date2=new Date(document.getElementById("datepicker1").value);
+	var diffDays = date2.getDate() - date1.getDate();
+	document.getElementById("totdate").value=diffDays;
+	}
+
+	
+	
+	</script>
 
 	<!-- Uncomment to use LESS The dynamic stylesheet language. | http://lesscss.org/ -->
 	<!-- <link rel="stylesheet/less" type="text/css" href="css/main.less" /> -->
@@ -98,645 +118,7 @@ elseif(isset($_REQUEST['save']))
 	  });
 	  </script>
 	  
-	  <style>
-	  	input[type=checkbox] {
-	  	visibility: hidden;
-	  	}
-
-		/* SLIDE THREE */
-.slideThree {
-	width: 80px;
-	height: 26px;
-	background: #333;
-	margin: 20px auto;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-	position: relative;
-
-	-webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	-moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-}
-
-.slideThree:after {
-	content: 'OFF';
-	font: 12px/26px Arial, sans-serif;
-	color: #FC1919;
-	position: absolute;
-	right: 10px;
-	z-index: 0;
-	font-weight: bold;
-	text-shadow: 1px 1px 0px rgba(255,255,255,.15);
-}
-
-.slideThree:before {
-	content: 'ON';
-	font: 12px/26px Arial, sans-serif;
-	color: #00bf00;
-	position: absolute;
-	left: 10px;
-	z-index: 0;
-	font-weight: bold;
-}
-
-.slideThree label {
-	display: block;
-	width: 34px;
-	height: 20px;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-
-	-webkit-transition: all .4s ease;
-	-moz-transition: all .4s ease;
-	-o-transition: all .4s ease;
-	-ms-transition: all .4s ease;
-	transition: all .4s ease;
-	cursor: pointer;
-	position: absolute;
-	top: 3px;
-	left: 3px;
-	z-index: 1;
-
-	-webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	-moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	background: #fcfff4;
-
-	background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
-}
-
-.slideThree input[type=checkbox]:checked + label {
-	left: 43px;
-}
-
-
-
-
-
-
-
-.slideThree1 {
-	width: 80px;
-	height: 26px;
-	background: #333;
-	margin: 20px auto;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-	position: relative;
-
-	-webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	-moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-}
-
-.slideThree1:after {
-	content: 'OFF';
-	font: 12px/26px Arial, sans-serif;
-	color: #FC1919;
-	position: absolute;
-	right: 10px;
-	z-index: 0;
-	font-weight: bold;
-	text-shadow: 1px 1px 0px rgba(255,255,255,.15);
-}
-
-.slideThree1:before {
-	content: 'ON';
-	font: 12px/26px Arial, sans-serif;
-	color: #00bf00;
-	position: absolute;
-	left: 10px;
-	z-index: 0;
-	font-weight: bold;
-}
-
-.slideThree1 label {
-	display: block;
-	width: 34px;
-	height: 20px;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-
-	-webkit-transition: all .4s ease;
-	-moz-transition: all .4s ease;
-	-o-transition: all .4s ease;
-	-ms-transition: all .4s ease;
-	transition: all .4s ease;
-	cursor: pointer;
-	position: absolute;
-	top: 3px;
-	left: 3px;
-	z-index: 1;
-
-	-webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	-moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	background: #fcfff4;
-
-	background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
-}
-
-.slideThree1 input[type=checkbox]:checked + label {
-	left: 43px;
-}
-
-
-
-
-.slideThree2 {
-	width: 80px;
-	height: 26px;
-	background: #333;
-	margin: 20px auto;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-	position: relative;
-
-	-webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	-moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-}
-
-.slideThree2:after {
-	content: 'OFF';
-	font: 12px/26px Arial, sans-serif;
-	color: #FC1919;
-	position: absolute;
-	right: 10px;
-	z-index: 0;
-	font-weight: bold;
-	text-shadow: 1px 1px 0px rgba(255,255,255,.15);
-}
-
-.slideThree2:before {
-	content: 'ON';
-	font: 12px/26px Arial, sans-serif;
-	color: #00bf00;
-	position: absolute;
-	left: 10px;
-	z-index: 0;
-	font-weight: bold;
-}
-
-.slideThree2 label {
-	display: block;
-	width: 34px;
-	height: 20px;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-
-	-webkit-transition: all .4s ease;
-	-moz-transition: all .4s ease;
-	-o-transition: all .4s ease;
-	-ms-transition: all .4s ease;
-	transition: all .4s ease;
-	cursor: pointer;
-	position: absolute;
-	top: 3px;
-	left: 3px;
-	z-index: 1;
-
-	-webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	-moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	background: #fcfff4;
-
-	background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
-}
-
-.slideThree2 input[type=checkbox]:checked + label {
-	left: 43px;
-}
-
-
-
-
-
-
-.slideThree3 {
-	width: 80px;
-	height: 26px;
-	background: #333;
-	margin: 20px auto;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-	position: relative;
-
-	-webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	-moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-}
-
-.slideThree3:after {
-	content: 'OFF';
-	font: 12px/26px Arial, sans-serif;
-	color: #FC1919;
-	position: absolute;
-	right: 10px;
-	z-index: 0;
-	font-weight: bold;
-	text-shadow: 1px 1px 0px rgba(255,255,255,.15);
-}
-
-.slideThree3:before {
-	content: 'ON';
-	font: 12px/26px Arial, sans-serif;
-	color: #00bf00;
-	position: absolute;
-	left: 10px;
-	z-index: 0;
-	font-weight: bold;
-}
-
-.slideThree3 label {
-	display: block;
-	width: 34px;
-	height: 20px;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-
-	-webkit-transition: all .4s ease;
-	-moz-transition: all .4s ease;
-	-o-transition: all .4s ease;
-	-ms-transition: all .4s ease;
-	transition: all .4s ease;
-	cursor: pointer;
-	position: absolute;
-	top: 3px;
-	left: 3px;
-	z-index: 1;
-
-	-webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	-moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	background: #fcfff4;
-
-	background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
-}
-
-.slideThree3 input[type=checkbox]:checked + label {
-	left: 43px;
-}
-
-			  
-	</style>
-	
-	
-	
-   <style>
-	  	input[type=checkbox] {
-	  	visibility: hidden;
-	  	}
-
-		/* SLIDE THREE */
-.slideThree11 {
-	width: 80px;
-	height: 26px;
-	background: #333;
-	margin: 0px auto;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-	position: relative;
-
-	-webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	-moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-}
-
-.slideThree11:after {
-	content: 'OFF';
-	font: 12px/26px Arial, sans-serif;
-	color: #000;
-	position: absolute;
-	right: 10px;
-	z-index: 0;
-	font-weight: bold;
-	text-shadow: 1px 1px 0px rgba(255,255,255,.15);
-}
-
-.slideThree11:before {
-	content: 'ON';
-	font: 12px/26px Arial, sans-serif;
-	color: #00bf00;
-	position: absolute;
-	left: 10px;
-	z-index: 0;
-	font-weight: bold;
-}
-
-.slideThree11 label {
-	display: block;
-	width: 34px;
-	height: 20px;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-
-	-webkit-transition: all .4s ease;
-	-moz-transition: all .4s ease;
-	-o-transition: all .4s ease;
-	-ms-transition: all .4s ease;
-	transition: all .4s ease;
-	cursor: pointer;
-	position: absolute;
-	top: 3px;
-	left: 3px;
-	z-index: 1;
-
-	-webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	-moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	background: #fcfff4;
-
-	background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
-}
-
-.slideThree11 input[type=checkbox]:checked + label {
-	left: 43px;
-}
-
-
-
-
-
-
-
-.slideThree12 {
-	width: 80px;
-	height: 26px;
-	background: #333;
-	margin: 0px auto;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-	position: relative;
-
-	-webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	-moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-}
-
-.slideThree12:after {
-	content: 'OFF';
-	font: 12px/26px Arial, sans-serif;
-	color: #000;
-	position: absolute;
-	right: 10px;
-	z-index: 0;
-	font-weight: bold;
-	text-shadow: 1px 1px 0px rgba(255,255,255,.15);
-}
-
-.slideThree12:before {
-	content: 'ON';
-	font: 12px/26px Arial, sans-serif;
-	color: #00bf00;
-	position: absolute;
-	left: 10px;
-	z-index: 0;
-	font-weight: bold;
-}
-
-.slideThree12 label {
-	display: block;
-	width: 34px;
-	height: 20px;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-
-	-webkit-transition: all .4s ease;
-	-moz-transition: all .4s ease;
-	-o-transition: all .4s ease;
-	-ms-transition: all .4s ease;
-	transition: all .4s ease;
-	cursor: pointer;
-	position: absolute;
-	top: 3px;
-	left: 3px;
-	z-index: 1;
-
-	-webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	-moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	background: #fcfff4;
-
-	background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
-}
-
-.slideThree12 input[type=checkbox]:checked + label {
-	left: 43px;
-}
-
-
-
-
-.slideThree21 {
-	width: 80px;
-	height: 26px;
-	background: #333;
-	margin: 0px auto;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-	position: relative;
-
-	-webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	-moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-}
-
-.slideThree21:after {
-	content: 'OFF';
-	font: 12px/26px Arial, sans-serif;
-	color: #000;
-	position: absolute;
-	right: 10px;
-	z-index: 0;
-	font-weight: bold;
-	text-shadow: 1px 1px 0px rgba(255,255,255,.15);
-}
-
-.slideThree21:before {
-	content: 'ON';
-	font: 12px/26px Arial, sans-serif;
-	color: #00bf00;
-	position: absolute;
-	left: 10px;
-	z-index: 0;
-	font-weight: bold;
-}
-
-.slideThree21 label {
-	display: block;
-	width: 34px;
-	height: 20px;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-
-	-webkit-transition: all .4s ease;
-	-moz-transition: all .4s ease;
-	-o-transition: all .4s ease;
-	-ms-transition: all .4s ease;
-	transition: all .4s ease;
-	cursor: pointer;
-	position: absolute;
-	top: 3px;
-	left: 3px;
-	z-index: 1;
-
-	-webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	-moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	background: #fcfff4;
-
-	background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
-}
-
-.slideThree21 input[type=checkbox]:checked + label {
-	left: 43px;
-}
-
-
-
-
-
-
-.slideThree31 {
-	width: 80px;
-	height: 26px;
-	background: #333;
-	margin: 0px auto;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-	position: relative;
-
-	-webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	-moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-}
-
-.slideThree31:after {
-	content: 'OFF';
-	font: 12px/26px Arial, sans-serif;
-	color: #000;
-	position: absolute;
-	right: 10px;
-	z-index: 0;
-	font-weight: bold;
-	text-shadow: 1px 1px 0px rgba(255,255,255,.15);
-}
-
-.slideThree31:before {
-	content: 'ON';
-	font: 12px/26px Arial, sans-serif;
-	color: #00bf00;
-	position: absolute;
-	left: 10px;
-	z-index: 0;
-	font-weight: bold;
-}
-
-.slideThree31 label {
-	display: block;
-	width: 34px;
-	height: 20px;
-
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-
-	-webkit-transition: all .4s ease;
-	-moz-transition: all .4s ease;
-	-o-transition: all .4s ease;
-	-ms-transition: all .4s ease;
-	transition: all .4s ease;
-	cursor: pointer;
-	position: absolute;
-	top: 3px;
-	left: 3px;
-	z-index: 1;
-
-	-webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	-moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
-	background: #fcfff4;
-
-	background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
-}
-
-.slideThree31 input[type=checkbox]:checked + label {
-	left: 43px;
-}
-
-			  
-	</style>
+	 
 	
 	<!--<script>
 	function myfunc()
@@ -851,21 +233,21 @@ elseif(isset($_REQUEST['save']))
 							</tr>
 							<tr>
 								<td><h4>From city</h4></td>
-								<td><input type="text" size="30px" name="from_city" value="Kolkata"></td>
+								<td><input type="text" size="30px" name="from_city" value=""></td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 								<td><h4>To city</h4></td>
-								<td><input type="text" size="30px" name="to_city" value="Puri"></td>
+								<td><input type="text" size="30px" name="to_city" value=""></td>
 							</tr>
 						
 							<tr>
 								<td><h4>Adult</h4></td>
 								<td>
-									<select name="adult_count" style="width:220px; height:25px; ">
-										<option value="2">2</option>
-										<option value="0">0</option>
+									<select name="adult_count" id="adult_count" style="width:220px; height:25px;">
+										
+										
 										<option value="1">1</option>
-										<option value="2">2</option>
+										<option value="2" selected>2</option>
 										<option value="3">3</option>
 										<option value="4">4</option>
 										<option value="5">5</option>
@@ -902,93 +284,82 @@ elseif(isset($_REQUEST['save']))
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 								<td><h4>Departure date</h4></td>
-								<td><input type="text" size="30px" id="datepicker1" name="departure_date"></td>
+								<td><input type="text" size="30px" id="datepicker1" name="departure_date" onblur="total_date()"></td>
 							</tr>
 							
 							<tr>
 								<td><h4>No of rooms</h4></td>
 								<td>
-									<select name="no_rooms" style="width:220px; height:25px; ">
-										<option value="0">1</option>
-										<option value="0">0</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-									</select>
+									<input type="text" size="30px" id="noroom" name="noroom" onfocus="no_of_room()">
 									
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 								<td><h4>Total days</h4></td>
 								<td>
-									<select name="tot_days" style="width:220px; height:25px; ">
-										<option value="3">3</option>
-										<option value="0">0</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-										<option value="7">7</option>
-										<option value="8">8</option>
-										<option value="9">9</option>
-										<option value="10">10</option>
-									</select>
+								<input type="text" size="30px" id="totdate" name="totdate" readonly>	
 								</td>
 							</tr>
 					
 							<tr>
-								<td><h4>Hotel</h4></td>
+								<td><h4>Services</h4></td>
 								<td>
-								<div class="slideThree">	
-									<input type="checkbox" value="None" id="slideThree" name="1" />
-									<label for="slideThree"></label>
-								</div>
+								<table border="0" width="100%">
+									<tr>
+										<td><input type="checkbox" value="hotel" id="1" name="1" > Hotel</td>
+										<td><input type="checkbox" value="Resort" id="2" name="2" > Resort</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" value="Package" id="3" name="3" > Package</td>
+										<td><input type="checkbox" value="Transportation" id="4" name="4" > Transportation</td>
+									</tr>
+								</table>
+
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
-								<td><h4>Resort</h4></td>
+								<td><h4>Discount</h4></td>
 								<td>
-								<div class="slideThree1">	
-									<input type="checkbox" value="None" id="slideThree1" name="2" />
-									<label for="slideThree1"></label>
-								</div>
+									
+									<input type="text" size="30px" id="discount" name="discount">	
+								
 								</td>
 							</tr>
 							<tr>
-								<td><h4>Package</h4></td>
+								<td><h4>Net amount</h4></td>
 								<td>
-								<div class="slideThree2">	
-									<input type="checkbox" value="None" id="slideThree2" name="3" />
-									<label for="slideThree2"></label>
-								</div>
+								<input type="text" size="30px" id="net_amount" name="net_amount">	
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
-								<td><h4>Transportation</h4></td>
+								<td><h4>Service TAX</h4></td>
 								<td>
-								<div class="slideThree1">	
-									<input type="checkbox" value="None" id="slideThree3" name="4" />
-									<label for="slideThree3"></label>
-								</div>
+								<input type="text" size="30px" id="s_tax" name="s_tax">	
 								</td>
 							</tr>
 							<tr>
-								<td><h4>Note</h4></td>
-								<td colspan="5">
-								<textarea cols="80" rows="5" name="any_notes"></textarea>
+								<td><h4>Reference</h4></td>
+								<td>
+								<input type="text" size="30px" id="ref" name="ref">	
+								</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td><h4>VAT</h4></td>
+								<td>
+								<input type="text" size="30px" id="vat" name="vat">	
 								</td>
 							</tr>
-							<tr>
-								<td></td>
-								<td><input type="submit" value="Submit" class="bbbtn" style="width:120px;" name="save" onclick="alert('Your enquiry have been saved');"></td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td></td>
-								<td><input type="submit" value="Book" class="bbbtn" style="width:120px;float:right;" name="book"></td>
+								<tr>
+								<td colspan="3">
+								<p align="right">
+								<input type="submit" value="Enquiry" class="bbbtn" style="width:120px;" name="enquiry" id="enquiry">
+								</p>
+								</td>
+								<td colspan="3">
+								<p align="left">
+								<input type="submit" value="Book" class="bbbtn" style="width:120px;" name="book" id="book">
+								</p>
+								</td>
 							</tr>
 						</table>
 						</form>

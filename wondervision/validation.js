@@ -157,5 +157,11 @@ function valid_mail1()
          else
                return true;
 			  
-           
-       }
+
+			  
+	function no_of_room(){
+	
+	  alert("workkkk");
+	  noroom.setAttribute('readonly', 'readonly');   
+	
+	}
