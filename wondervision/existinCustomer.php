@@ -1,83 +1,7 @@
-<?php
+﻿<?php
 session_start();
 
-
-
 include('include/config.php');
- date_default_timezone_set('Asia/Calcutta');
- $date = date('Y-m-d H:i:s');
-
-/*if(isset($_REQUEST['book']))
-{
-$_SESSION['customer_id'] = 'WVC1236'; 
-$_SESSION['name'] = 'Soumyajit Mandal';
-$_SESSION['email'] = 'sendtosoumyajit@gmail.com';
-$_SESSION['addr1'] = '66 Purbachal Road';
-$_SESSION['addr2'] = 'Sonarpur';
-$_SESSION['city'] = 'Kolkata';
-$_SESSION['pin'] = '700150';
-$_SESSION['mobile'] = '9477411305';
-$_SESSION['from_city'] = $_REQUEST['from_city'];
-$_SESSION['to_city'] = $_REQUEST['to_city'];
-$_SESSION['no_rooms'] = $_REQUEST['no_rooms'];
-$_SESSION['tot_days'] = $_REQUEST['tot_days'];
-$_SESSION['arrival_date'] = $_REQUEST['arrival_date'];
-$_SESSION['departure_date'] = $_REQUEST['departure_date'];
-$_SESSION['adult_count'] = $_REQUEST['adult_count'];
-$_SESSION['child_count'] = $_REQUEST['child_count'];
-//$_SESSION['1'] = $_REQUEST['1'];
-//$_SESSION['2'] = $_REQUEST['2'];
-//$_SESSION['3'] = $_REQUEST['3'];
-//$_SESSION['4'] = $_REQUEST['4'];
-$_SESSION['any_notes'] = $_REQUEST['any_notes'];
-
-header("Location:booking_2.php");
-
-}
-else*/if(isset($_REQUEST['save']))
-{
- $get=mysql_query("SELECT guest_id FROM guest_master ORDER BY guest_id DESC LIMIT 1 ");
- $row = mysql_fetch_assoc($get);
-  $idmax=$row['guest_id'];
- 
- $c=0;
- 
-$idmax++;
-
- $idmaxcopy=$idmax;
- $k="";
- $zero="0";
-
- while($idmax>0){
- $c=$c+1;
- $idmax=intval($idmax/10);
- }
-
- while($c<4){
-    $k=$k.$zero;
-	 $c=$c+1;
-}
-
- echo $g_code="WVS".$k.$idmaxcopy;
- $_SESSION['code']=$g_code;
-
- 
- 
- 
-
-
- 
- 
- 
- 
- $sql = "INSERT INTO guest_master(guest_typeid,guest_member_typeid,firstname,lastname,email,gender,phone,mobile, 	address1,address2,place,state,country,zip,membershipfrom,guest_code) VALUES ((select guest_typeid from guest_types where guest_typeid=1),(select guest_member_id from guest_membership_type_master where guest_member_id=3),'".$_REQUEST['c_fname']."','".$_REQUEST['c_lname']."','".$_REQUEST['c_email']."','".$_REQUEST['c_gender']."','".$_REQUEST['c_phone']."','".$_REQUEST['c_mobile']."','".$_REQUEST['c_addrs1']."','".$_REQUEST['c_addrs2']."','".$_REQUEST['c_place']."','".$_REQUEST['c_state']."','".$_REQUEST['c_country']."','".$_REQUEST['c_zip']."','".$_REQUEST['c_mfrom']."','$g_code')";
-	
-	//$rsql = "UPDATE partner_master SET first_name = 'Soumyajit'"; 
-	
-	$rs = mysql_query($sql);
-	
-	header("Location:userregistrationconfirm.php");
-}	
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -104,8 +28,6 @@ $idmax++;
 	<script type="text/javascript" src="bootstrap/js/bootstrap-tab.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap-transition.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap-typeahead.js"></script>
-	
-	<script type="text/javascript" src="validation.js"></script>
 
 	<!-- Uncomment to use LESS The dynamic stylesheet language. | http://lesscss.org/ -->
 	<!-- <link rel="stylesheet/less" type="text/css" href="css/main.less" /> -->
@@ -460,7 +382,60 @@ $idmax++;
 	
    
 	
+	<script>
+	function myfunc()
+	{
+		document.getElementById('name').innerHTML="Abhirup ghosh";
+		document.getElementById('email').innerHTML="abhirupghosh1983@gmail.com";
+		document.getElementById('mobile').innerHTML="9434538735";
+		document.getElementById('addr1').innerHTML="Moulali";
+		document.getElementById('addr2').innerHTML="Sealdah";
+		document.getElementById('city').innerHTML="Kolkata";
+		document.getElementById('pin').innerHTML="700008";
 	
+	}
+	</script>
+	<script src="js/jquery-1.2.6.min.js" type="text/javascript"></script>
+    <script src="js/jquery.tablesorter-2.0.4.js" type="text/javascript"></script>
+    <script src="js/jquery.quicksearch.js" type="text/javascript"></script>
+
+<style type="text/css">    
+    div.quicksearch 
+    {              
+      padding-bottom: 10px;      
+    }
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+
+    //Setup the sorting for the table with the first column initially sorted ascending
+    //and the rows striped using the zebra widget
+        $("#tableOne").tablesorter({ sortList: [[0, 0]], widgets: ['zebra'] });
+
+    //Setup the quickSearch plugin with on onAfter event that first checks to see how
+    //many rows are visible in the body of the table. If there are rows still visible
+    //call tableSorter functions to update the sorting and then hide the tables footer. 
+    //Else show the tables footer  
+        $("#tableOne tbody tr").quicksearch({
+            labelText: 'Search for Customers: ',
+            attached: '#tableOne',
+            position: 'before',
+            delay: 100,
+            loaderText: 'Loading...',
+            onAfter: function() {
+                if ($("#tableOne tbody tr:visible").length != 0) {
+                    $("#tableOne").trigger("update");
+                    $("#tableOne").trigger("appendCache");
+                    $("#tableOne tfoot tr").hide();
+                }
+                else {
+                    $("#tableOne tfoot tr").show();
+                }
+            }
+        });
+
+});   
+</script>   
 	
 	
 	<script type="text/javascript" src="js/myScript.js"></script>
@@ -499,145 +474,63 @@ $idmax++;
 			<div class="row-fluid" id="main-content-row">
 				<!-- BEGIN #main-content-span -->
 				<div class="span6" id="main-content-span">
-				<h2 style="width:195%;">Customer Registration form</h2>
+				<h2 style="width:195%;">Customer Details</h2>
 				
 					<div class="enquiryfrom">
 						
 						<div style="float:left;margin:20px 0px 20px 140px;">
+							<div style="float:left;padding:0px 5px; width:650px; height:125px; overflow:scroll;">
 						
-						<form method="post" action="" onsubmit="return vali()">
-						<table>
-							<tr>
-								<td><h4>First Name*</h4></td>
-								<td>
-									<input type="text" size="30px" name="c_fname" id="c_fname" value="" onblur="valid_fname()">
-								</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>Last Name*</h4></td>
-								<td>
-									<input type="text" size="30px" name="c_lname" id="c_lname" value="" onblur="valid_lname()">
-								</td>
-								
-							</tr>
-							<tr>
-								<td><h4>Mobile</h4></td>
-								<td>
-									<input type="text" size="30px" name="c_mobile" id="c_mobile" value="" onblur="valid_phn()">
-								</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>Phone</h4></td>
-								<td>
-								<input type="text" size="30px" name="c_phone" id="c_phone" value="" onblur="valid_phnland()">
-								</td>
-								
-								
-							</tr>
+						<!-- <table width="100%" border="0" cellpadding="1" cellspacing="1"  id="menu"> -->
+							<table width="100%" border="0" cellpadding="1" cellspacing="1" id="tableOne" class="yui">
+							<thead>
 								<tr>
-								<td><h4>Gender</h4></td>
-								<td>
-									<select name="c_gender" id="c_gender" style="width:220px; height:25px; ">
-									    <option value="">SELECT</option>
-										<option value="male">MALE</option>
-										<option value="female">FEMALE</option>
-										
-									</select>
-									
-								</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>Email</h4></td>
-								<td>
-									<input type="text" size="30px" name="c_email" id="c_email" value="" onblur="valid_mail1()">
-								</td>
-							</tr>
-							<tr>
-								<td><h4>Address Line 1*</h4></td>
-								<td>
-								<input type="text" size="30px" name="c_addrs1" id="c_addrs1" value="">
-								</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>Address Line 2</h4></td>
-								<td>
-								<input type="text" size="30px" name="c_addrs2" id="c_addrs2" value="">
-								</td>
-							</tr>
-							<tr>
-								<td><h4>Place</h4></td>
-								<td>
-								<input type="text" size="30px" name="c_place" id="c_place" value="" onblur="valid_place()">
-								</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>State*</h4></td>
-								<td>
-								<?php
-								 $get=mysql_query("SELECT state_name FROM state_master");
-								 ?>
-								 <select name="c_state" id="c_state" style="width:220px; height:25px; ">
-								 <option value="null">SELECT</option>
-								 <?php
-								    while($row = mysql_fetch_assoc($get))
-										{
-								?>
-											<option value = "<?php echo($row['state_name'])?>" ><?php echo($row['state_name']) ?></option>
-								<?php
-										}
-								?>
-								 </select>	
-								</td>
-							</tr>
-							<tr>
-								<td><h4>Country*</h4></td>
-								<td>
-								 <?php
-								 $get=mysql_query("SELECT short_name FROM country_t");
-								 ?>
-								 <select name="c_country" id="c_country" style="width:220px; height:25px; ">
-								 <option value="null">SELECT</option>
-								 <?php
-								    while($row = mysql_fetch_assoc($get))
-										{
-								?>
-											<option value = "<?php echo($row['short_name'])?>" ><?php echo($row['short_name']) ?></option>
-								<?php
-										}
-								?>
-								 </select>	
-
-								</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>Zip</h4></td>
-								<td>
-								<input type="text" size="30px" name="c_zip" id="c_zip" value="" onblur="valid_zip()">
-								</td>
-							</tr>
+									<th width="10%" align="left">Test Name</th>
+									<th width="30%" align="center">Token Amount</th>
+									<th width="8%" align="center">Action</th>
+								</tr>
+							</thead>	
 							
-							<tr>
-								<td><h4>References</h4></td>
-								<td>
-								<input type="text" size="30px" name="c_references" id="c_references" value="">
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>Membership from*</h4></td>
-								<td>
-								<input type="text" size="30px" name="c_mfrom" id="c_mfrom" value="<?php echo($date) ?>" readonly>
-								</td>
-							</tr>
+							<?php
+								$sub = "SELECT * FROM guest_master";
+								$rs = mysql_query($sub);
+								
+								?>
+								<!-- <table width="100%" border="0" cellpadding="1" cellspacing="1" id="my-table"> -->
+								
+								<?php
+								while($r=mysql_fetch_array($rs))
+								{
+								?>
+			<tbody>					
+			<tr>
+			<td width="10%" align="left"><?php echo $r['guest_code']; ?></td>
+			<td width="30%" align="center"><?php echo $r['firstname']." ".$r['lastname']; ?></td>
+			<td width="8%" align="center"><?php echo $r['mobile']; ?></td>
+			</tr>
+			</tbody>
+								<?php
+								//$k++;
+								}
+								?>
+								<!-- </table> -->
+								<?php 
+								
+								
+							//}
+							
+							?>
+	<tfoot>
+	    <tr style="display:none;">
+	        <td colspan="5">
+	            No rows match the filter...
+	        </td>
+	    </tr>	    
+	</tfoot>
+							
+							</table>
 						
-							
-							<tr>
-								<td colspan="6">
-								<p align="center">
-								<input type="submit" value="Submit" class="bbbtn" style="width:120px;" name="save" id="save">
-								</p>
-								</td>
-							</tr>
-						</table>
-						</form>
+							</div>
 						</div>
 					
 					</div>

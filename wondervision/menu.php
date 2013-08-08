@@ -26,7 +26,7 @@
 			   <li class='active'><a href='dashboard.php'><span>Home</span></a></li>
 			   <li class='has-sub'><a href='#'><span>B2C</span></a>
 				  <ul>
-					 <li><a href='existingpartner.php'><span>Existing Customer</span></a></li>
+					 <li><a href='existinCustomer.php'><span>Existing Customer</span></a></li>
 					 <li class='last'><a href='newcustomer.php'><span>New Customer</span></a></li>
 				  </ul>
 			   </li>

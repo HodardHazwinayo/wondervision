@@ -6,77 +6,71 @@ session_start();
 include('include/config.php');
  date_default_timezone_set('Asia/Calcutta');
  $date = date('Y-m-d H:i:s');
-
-/*if(isset($_REQUEST['book']))
-{
-$_SESSION['customer_id'] = 'WVC1236'; 
-$_SESSION['name'] = 'Soumyajit Mandal';
-$_SESSION['email'] = 'sendtosoumyajit@gmail.com';
-$_SESSION['addr1'] = '66 Purbachal Road';
-$_SESSION['addr2'] = 'Sonarpur';
-$_SESSION['city'] = 'Kolkata';
-$_SESSION['pin'] = '700150';
-$_SESSION['mobile'] = '9477411305';
-$_SESSION['from_city'] = $_REQUEST['from_city'];
-$_SESSION['to_city'] = $_REQUEST['to_city'];
-$_SESSION['no_rooms'] = $_REQUEST['no_rooms'];
-$_SESSION['tot_days'] = $_REQUEST['tot_days'];
-$_SESSION['arrival_date'] = $_REQUEST['arrival_date'];
-$_SESSION['departure_date'] = $_REQUEST['departure_date'];
-$_SESSION['adult_count'] = $_REQUEST['adult_count'];
-$_SESSION['child_count'] = $_REQUEST['child_count'];
-//$_SESSION['1'] = $_REQUEST['1'];
-//$_SESSION['2'] = $_REQUEST['2'];
-//$_SESSION['3'] = $_REQUEST['3'];
-//$_SESSION['4'] = $_REQUEST['4'];
-$_SESSION['any_notes'] = $_REQUEST['any_notes'];
-
-header("Location:booking_2.php");
-
-}
-else*/if(isset($_REQUEST['save']))
-{
- $get=mysql_query("SELECT guest_id FROM guest_master ORDER BY guest_id DESC LIMIT 1 ");
- $row = mysql_fetch_assoc($get);
-  $idmax=$row['guest_id'];
+ $cus_code=$_SESSION['code'];
  
- $c=0;
  
-$idmax++;
+ 
+ $query  = "SELECT * FROM guest_master WHERE guest_code = '$cus_code'";
+$result = mysql_query($query);
 
- $idmaxcopy=$idmax;
- $k="";
- $zero="0";
+while($row = mysql_fetch_assoc($result)) {
 
- while($idmax>0){
- $c=$c+1;
- $idmax=intval($idmax/10);
- }
-
- while($c<4){
-    $k=$k.$zero;
-	 $c=$c+1;
+    $fname = $row['firstname'];
+	$lname=$row['lastname'];
+	$mobile=$row['mobile'];
+	$phone=$row['phone'];
+	$gender=$row['gender'];
+	$email=$row['email'];
+	$addrs1=$row['address1'];
+	$addr2=$row['address2'];
+	$place=$row['place'];
+	$state=$row['state'];
+	$country=$row['country'];
+	$zip=$row['zip'];
+	$mfrom=$row['membershipfrom'];
+	
 }
 
- echo $g_code="WVS".$k.$idmaxcopy;
- $_SESSION['code']=$g_code;
+if(isset($_REQUEST['book']))
+{
+$_SESSION['customer_id'] = $cus_code; 
+$_SESSION['fname'] = $fname;
+$_SESSION['lname'] = $lname;
+$_SESSION['mobile'] = $mobile;
+$_SESSION['phone'] = $phone;
+$_SESSION['gender'] = $gender;
+$_SESSION['email'] = $email;
+$_SESSION['addr1'] = $addrs1;
+$_SESSION['addr2'] = $addr2;
+$_SESSION['place'] = $place;
+$_SESSION['state'] = $state;
+$_SESSION['country'] = $country;
+$_SESSION['zip'] = $zip;
+$_SESSION['mfrom'] = $mfrom;
+
+header("Location:undercontruction.php");
+
+}
+else if(isset($_REQUEST['enquiry']))
+{
 
  
- 
- 
-
-
- 
- 
- 
- 
- $sql = "INSERT INTO guest_master(guest_typeid,guest_member_typeid,firstname,lastname,email,gender,phone,mobile, 	address1,address2,place,state,country,zip,membershipfrom,guest_code) VALUES ((select guest_typeid from guest_types where guest_typeid=1),(select guest_member_id from guest_membership_type_master where guest_member_id=3),'".$_REQUEST['c_fname']."','".$_REQUEST['c_lname']."','".$_REQUEST['c_email']."','".$_REQUEST['c_gender']."','".$_REQUEST['c_phone']."','".$_REQUEST['c_mobile']."','".$_REQUEST['c_addrs1']."','".$_REQUEST['c_addrs2']."','".$_REQUEST['c_place']."','".$_REQUEST['c_state']."','".$_REQUEST['c_country']."','".$_REQUEST['c_zip']."','".$_REQUEST['c_mfrom']."','$g_code')";
+$_SESSION['customer_id'] = $cus_code; 
+$_SESSION['fname'] = $fname;
+$_SESSION['lname'] = $lname;
+$_SESSION['mobile'] = $mobile;
+$_SESSION['phone'] = $phone;
+$_SESSION['gender'] = $gender;
+$_SESSION['email'] = $email;
+$_SESSION['addr1'] = $addrs1;
+$_SESSION['addr2'] = $addr2;
+$_SESSION['place'] = $place;
+$_SESSION['state'] = $state;
+$_SESSION['country'] = $country;
+$_SESSION['zip'] = $zip;
+$_SESSION['mfrom'] = $mfrom;
 	
-	//$rsql = "UPDATE partner_master SET first_name = 'Soumyajit'"; 
-	
-	$rs = mysql_query($sql);
-	
-	header("Location:userregistrationconfirm.php");
+	header("Location:firstguestenquiry.php");
 }	
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -499,7 +493,7 @@ $idmax++;
 			<div class="row-fluid" id="main-content-row">
 				<!-- BEGIN #main-content-span -->
 				<div class="span6" id="main-content-span">
-				<h2 style="width:195%;">Customer Registration form</h2>
+				<h2 style="width:195%;">  WELCOME &nbsp;&nbsp;&nbsp;&nbsp;<?php echo($fname)." ".($lname);?></h2>
 				
 					<div class="enquiryfrom">
 						
@@ -507,29 +501,40 @@ $idmax++;
 						
 						<form method="post" action="" onsubmit="return vali()">
 						<table>
+						    <tr>
+								<td><h4>Guest Code</h4></td>
+								<td>
+								<input type="text" size="30px" name="c_gcode" id="c_gcode" value="<?php echo($cus_code)?>" readonly>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td><h4>Membership from*</h4></td>
+								<td>
+								<input type="text" size="30px" name="c_mfrom" id="c_mfrom" value="<?php echo($mfrom) ?>" readonly>
+								</td>
+							</tr>
 							<tr>
 								<td><h4>First Name*</h4></td>
 								<td>
-									<input type="text" size="30px" name="c_fname" id="c_fname" value="" onblur="valid_fname()">
+									<input type="text" size="30px" name="c_fname" id="c_fname" value="<?php echo($fname) ?>" readonly onblur="valid_fname()">
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 								<td><h4>Last Name*</h4></td>
 								<td>
-									<input type="text" size="30px" name="c_lname" id="c_lname" value="" onblur="valid_lname()">
+									<input type="text" size="30px" name="c_lname" id="c_lname" value="<?php echo($lname) ?>" readonly onblur="valid_lname()">
 								</td>
 								
 							</tr>
 							<tr>
 								<td><h4>Mobile</h4></td>
 								<td>
-									<input type="text" size="30px" name="c_mobile" id="c_mobile" value="" onblur="valid_phn()">
+									<input type="text" size="30px" name="c_mobile" id="c_mobile" value="<?php echo($mobile) ?>" readonly onblur="valid_phn()">
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 								<td><h4>Phone</h4></td>
 								<td>
-								<input type="text" size="30px" name="c_phone" id="c_phone" value="" onblur="valid_phnland()">
+								<input type="text" size="30px" name="c_phone" id="c_phone" value="<?php echo($phone) ?>" readonly onblur="valid_phnland()">
 								</td>
 								
 								
@@ -537,102 +542,67 @@ $idmax++;
 								<tr>
 								<td><h4>Gender</h4></td>
 								<td>
-									<select name="c_gender" id="c_gender" style="width:220px; height:25px; ">
-									    <option value="">SELECT</option>
-										<option value="male">MALE</option>
-										<option value="female">FEMALE</option>
-										
-									</select>
+									<input type="text" size="30px" name="c_gender" id="c_gender" value="<?php echo($gender) ?>" readonly >
 									
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 								<td><h4>Email</h4></td>
 								<td>
-									<input type="text" size="30px" name="c_email" id="c_email" value="" onblur="valid_mail1()">
+									<input type="text" size="30px" name="c_email" id="c_email" value="<?php echo($email) ?>" readonly onblur="valid_mail1()">
 								</td>
 							</tr>
 							<tr>
 								<td><h4>Address Line 1*</h4></td>
 								<td>
-								<input type="text" size="30px" name="c_addrs1" id="c_addrs1" value="">
+								<input type="text" size="30px" name="c_addrs1" id="c_addrs1" value="<?php echo($addrs1) ?>" readonly>
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 								<td><h4>Address Line 2</h4></td>
 								<td>
-								<input type="text" size="30px" name="c_addrs2" id="c_addrs2" value="">
+								<input type="text" size="30px" name="c_addrs2" id="c_addrs2" value="<?php echo($addr2) ?>" readonly>
 								</td>
 							</tr>
 							<tr>
 								<td><h4>Place</h4></td>
 								<td>
-								<input type="text" size="30px" name="c_place" id="c_place" value="" onblur="valid_place()">
+								<input type="text" size="30px" name="c_place" id="c_place" value="<?php echo($place) ?>" readonly onblur="valid_place()">
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 								<td><h4>State*</h4></td>
 								<td>
-								<?php
-								 $get=mysql_query("SELECT state_name FROM state_master");
-								 ?>
-								 <select name="c_state" id="c_state" style="width:220px; height:25px; ">
-								 <option value="null">SELECT</option>
-								 <?php
-								    while($row = mysql_fetch_assoc($get))
-										{
-								?>
-											<option value = "<?php echo($row['state_name'])?>" ><?php echo($row['state_name']) ?></option>
-								<?php
-										}
-								?>
-								 </select>	
+								<input type="text" size="30px" name="c_state" id="c_state" value="<?php echo($state) ?>" readonly>
+		
 								</td>
 							</tr>
 							<tr>
 								<td><h4>Country*</h4></td>
 								<td>
-								 <?php
-								 $get=mysql_query("SELECT short_name FROM country_t");
-								 ?>
-								 <select name="c_country" id="c_country" style="width:220px; height:25px; ">
-								 <option value="null">SELECT</option>
-								 <?php
-								    while($row = mysql_fetch_assoc($get))
-										{
-								?>
-											<option value = "<?php echo($row['short_name'])?>" ><?php echo($row['short_name']) ?></option>
-								<?php
-										}
-								?>
-								 </select>	
-
+								<input type="text" size="30px" name="c_country" id="c_country" value="<?php echo($country) ?>" readonly onblur="valid_place()">
+								 
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 								<td><h4>Zip</h4></td>
 								<td>
-								<input type="text" size="30px" name="c_zip" id="c_zip" value="" onblur="valid_zip()">
+								<input type="text" size="30px" name="c_zip" id="c_zip" value="<?php echo($zip) ?>" readonly onblur="valid_zip()">
 								</td>
 							</tr>
 							
-							<tr>
-								<td><h4>References</h4></td>
-								<td>
-								<input type="text" size="30px" name="c_references" id="c_references" value="">
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>Membership from*</h4></td>
-								<td>
-								<input type="text" size="30px" name="c_mfrom" id="c_mfrom" value="<?php echo($date) ?>" readonly>
-								</td>
-							</tr>
+						
 						
 							
 							<tr>
-								<td colspan="6">
-								<p align="center">
-								<input type="submit" value="Submit" class="bbbtn" style="width:120px;" name="save" id="save">
+								<td colspan="3">
+								<p align="right">
+								<input type="submit" value="Enquiry" class="bbbtn" style="width:120px;" name="enquiry" id="enquiry">
+								</p>
+								</td>
+								<td colspan="3">
+								<p align="left">
+								<input type="submit" value="Book" class="bbbtn" style="width:120px;" name="book" id="book">
 								</p>
 								</td>
 							</tr>
