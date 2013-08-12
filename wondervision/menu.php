@@ -43,7 +43,8 @@
 						<li><a href=':8080/birt-viewer/frameset?__report=revenue_report.rptdesign' target="_blank"'><span>Revenue Report</span></a></li>
 					</ul>
 				</li>
-			   <li><a href='existingpartner_2.php'><span>Quick Enquiry</span></a>
+			  <!-- <li><a href='existingpartner_2.php'><span>Quick Enquiry</span></a> -->
+			  <li><a href='quickenquiry.php'><span>Quick Enquiry</span></a>
 			   <li class='last'><a href='#'><span>Contact</span></a></li>
 			</ul>
 		</div>
