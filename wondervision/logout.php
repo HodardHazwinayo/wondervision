@@ -1,0 +1,1 @@
+<?phpsession_start();include('include/config.php');#session_unregister("admin_name");#session_unregister("Admin_loggedin");#session_unregister("sessid");#unset($admin_name);#unset($Admin_loggedin);#unset($sessid);session_destroy();#$better_token = md5(uniqid(rand(),1));header("location:index.php");exit;?>

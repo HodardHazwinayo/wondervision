@@ -21,6 +21,40 @@
 #cssmenu > ul > li > a:after{border-color:#6ed1ff;} 
 #cssmenu > ul > li > a:hover{background:#36acd2;} 
 </style>
+<?php if(!empty($_SESSION['unikey']) && $_SESSION['user_typeid'] == '1')	{	?>
+<div id='cssmenu'>
+	<ul>
+	   <li class='active'><a href='dashboard.php'><span>Home</span></a></li>
+	   <li class='has-sub'><a href='#'><span>User Management</span></a>
+		  <ul>
+			 <li><a href='userlist.php?unikey=<?php echo $_SESSION['unikey'] ?>&typeid=<?php echo $_SESSION['user_typeid'] ?>'><span>User List</span></a></li>
+			 <li class='last'><a href='adduser.php?unikey=<?php echo $_SESSION['unikey'] ?>&typeid=<?php echo $_SESSION['user_typeid'] ?>'><span>Add User</span></a></li>
+		  </ul>
+	   </li>
+		<li class='has-sub'><a href='#'><span>Enquiry Management</span></a>
+			<ul>
+				<li><a href='#'><span>Add Enquiry</span></a></li>
+				<li class='last'><a href='#'><span>Edit Enquiry</span></a></li>
+			</ul>
+		</li>
+		
+		<li class='has-sub'><a href='#'><span>Booking Management</span></a>
+			<ul>
+				<li><a href='#' target="_blank"><span>Add Booking</span></a></li>
+				<li><a href='#' target="_blank"><span>Edit Booking</span></a></li>
+			</ul>
+		</li>
+		<li class='has-sub'><a href='#'><span>Billing Management</span></a>
+			<ul>
+				<li><a href='#' target="_blank"><span>Add Billing</span></a></li>
+				<li><a href='#' target="_blank"><span>Edit Billing</span></a></li>
+			</ul>
+		</li>
+	 
+	   <li class='last'><a href='#'><span>Contact</span></a></li>
+	</ul>
+</div>
+<?php	} else	{	?>
 <div id='cssmenu'>
 			<ul>
 			   <li class='active'><a href='dashboard.php'><span>Home</span></a></li>
@@ -43,8 +77,8 @@
 						<li><a href=':8080/birt-viewer/frameset?__report=revenue_report.rptdesign' target="_blank"'><span>Revenue Report</span></a></li>
 					</ul>
 				</li>
-			  <!-- <li><a href='existingpartner_2.php'><span>Quick Enquiry</span></a> -->
-			  <li><a href='quickenquiry.php'><span>Quick Enquiry</span></a>
+			   <li><a href='existingpartner_2.php'><span>Quick Enquiry</span></a>
 			   <li class='last'><a href='#'><span>Contact</span></a></li>
 			</ul>
 		</div>
+<?php } ?>		
