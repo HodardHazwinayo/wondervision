@@ -31,54 +31,21 @@
 			 <li class='last'><a href='adduser.php?unikey=<?php echo $_SESSION['unikey'] ?>&typeid=<?php echo $_SESSION['user_typeid'] ?>'><span>Add User</span></a></li>
 		  </ul>
 	   </li>
-		<li class='has-sub'><a href='#'><span>Enquiry Management</span></a>
-			<ul>
-				<li><a href='#'><span>Add Enquiry</span></a></li>
-				<li class='last'><a href='#'><span>Edit Enquiry</span></a></li>
-			</ul>
-		</li>
+		<li class='active'><a href='quickenquiry.php'><span>Quick enquiry</span></a></li>
 		
-		<li class='has-sub'><a href='#'><span>Booking Management</span></a>
-			<ul>
-				<li><a href='#' target="_blank"><span>Add Booking</span></a></li>
-				<li><a href='#' target="_blank"><span>Edit Booking</span></a></li>
-			</ul>
-		</li>
-		<li class='has-sub'><a href='#'><span>Billing Management</span></a>
-			<ul>
-				<li><a href='#' target="_blank"><span>Add Billing</span></a></li>
-				<li><a href='#' target="_blank"><span>Edit Billing</span></a></li>
-			</ul>
-		</li>
-	 
-	   <li class='last'><a href='#'><span>Contact</span></a></li>
+		<li class='active'><a href='#'><span>Booking</span></a></li>
+			 
+		<li class='last'><a href='#'><span>Reporting</span></a></li>
 	</ul>
 </div>
 <?php	} else	{	?>
 <div id='cssmenu'>
 			<ul>
 			   <li class='active'><a href='dashboard.php'><span>Home</span></a></li>
-			   <li class='has-sub'><a href='#'><span>B2C</span></a>
-				  <ul>
-					 <li><a href='existinCustomer.php'><span>Existing Customer</span></a></li>
-					 <li class='last'><a href='newcustomer.php'><span>New Customer</span></a></li>
-				  </ul>
-			   </li>
-				<li class='has-sub'><a href='#'><span>B2B</span></a>
-					<ul>
-						<li><a href='#'><span>Existing Partner</span></a></li>
-						<li class='last'><a href='registerpartner.php'><span>New Partner</span></a></li>
-					</ul>
-				</li>
+			   			
 				
-				<li class='has-sub'><a href='#'><span>Dashboard</span></a>
-					<ul>
-						<li><a href=':8080/birt-viewer/frameset?__report=performance_report.rptdesign' target="_blank"><span>Performance Report</span></a></li>
-						<li><a href=':8080/birt-viewer/frameset?__report=revenue_report.rptdesign' target="_blank"'><span>Revenue Report</span></a></li>
-					</ul>
-				</li>
-			   <li><a href='existingpartner_2.php'><span>Quick Enquiry</span></a>
-			   <li class='last'><a href='#'><span>Contact</span></a></li>
+			   <li><a href='quickenquiry.php'><span>Quick Enquiry</span></a>
+			   <li class='last'><a href='#'><span>Booking</span></a></li>
 			</ul>
 		</div>
 <?php } ?>		

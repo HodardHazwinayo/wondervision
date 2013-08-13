@@ -5,6 +5,8 @@ include('header.php');
 $_SESSION['unikey'];
 $_SESSION['user_typeid'];
 
+
+
 ?>
 <div class="main" id="main">
 		<!-- BEGIN #main-nav -->
@@ -44,10 +46,10 @@ $_SESSION['user_typeid'];
 									<td align="center"><?php echo $row['creation_date']; ?></td>
 									<td align="center"><?php echo $row['name']; ?></td>
 									<td align="center">
-									<a href="adduser.php?action=edit&id=<?php echo $row['user_id']; ?>"><img src="images/group_edit.png"></a> 
+									<a href="edituser.php?action=edit&id=<?php echo $row['user_id']; ?>"><img src="images/group_edit.png"></a> 
 									
 									<?php if($row['user_typeid'] == '1')	{} else {?>	
-									<a href="adduser.php?action=delete&id=<?php echo $row['user_id']; ?>"><img src="images/group_delete.png"></a>
+									<a href="edituser.php?action=delete&delid=<?php echo $row['user_id']; ?>"><img src="images/group_delete.png"></a>
 									<?php } ?>
 									</td>
 								</tr>
