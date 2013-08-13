@@ -14,12 +14,25 @@ var searchReq = getXmlHttpRequestObject();
 //Called from keyup on the search textbox.
 //Starts the AJAX request.
 function bleble() {
+
 	if (searchReq.readyState == 4 || searchReq.readyState == 0) {
 		var str = escape(document.getElementById('amots').value);
 		searchReq.open("GET", 'searchexec.php?search=' + str, true);
 		searchReq.onreadystatechange = handleSearchSuggest; 
 		searchReq.send(null);
 	}		
+}
+
+function bleble1() {
+	alert("test");
+	if (searchReq.readyState == 4 || searchReq.readyState == 0) {
+		var str = escape(document.getElementById('ref').value);
+		/*searchReq.open("GET", 'searchexec.php?search=' + str, true);
+		searchReq.onreadystatechange = handleSearchSuggest; 
+		searchReq.send(null);*/
+		document.getElementById('ref').value=str;
+		
+	}	
 }
 
 //Called when the AJAX response is returned.
