@@ -63,36 +63,12 @@ header("Location:undercontruction.php");
 }
 elseif(isset($_REQUEST['enquiry']))
 {
-	 $sql = "INSERT INTO enquiry_details( 	startdate,enddate,startingplace,destination,enquirydate,totaldiscount,net_amount,servicetax,VAT,user_id,country_name,state_name) VALUES ('".$_REQUEST['arrival_date']."','".$_REQUEST['departure_date']."','".$_REQUEST['from_city']."','".$_REQUEST['to_city']."','$date','".$_REQUEST['discount']."','".$_REQUEST['net_amount']."','".$_REQUEST['s_tax']."','".$_REQUEST['vat']."',(select user_id from user_master where user_id='".$cus_code."'),(select country_name from country_master where country_name='".$_REQUEST['c_country']."'),(select state_name from state_master where state_name='".$_REQUEST['c_state']."'))";
-	
+	$sql = "INSERT INTO enquiry_details( 	startdate,enddate,startingplace,destination,enquirydate,totaldiscount,net_amount,servicetax,VAT,user_id,country_name,state_name) VALUES ('".$_REQUEST['arrival_date']."','".$_REQUEST['departure_date']."','".$_REQUEST['from_city']."','".$_REQUEST['to_city']."',$date,'".$_REQUEST['discount']."','".$_REQUEST['net_amount']."','".$_REQUEST['s_tax']."','".$_REQUEST['vat']."',(select user_id from user_master where user_id='".$cus_code."'),'".$_REQUEST['c_country']."','".$_REQUEST['c_state']."')";
 	
 	$rs = mysql_query($sql);
 	
-	
-	 $get=mysql_query("SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1 ");
-	
-    while($row = mysql_fetch_assoc($get)) {
-	$idmax=$row['enquiry_id'];
-	
-	}
-	
-	
-	 $sql1="INSERT INTO enquiry_comments_details
-	(enquiry_id,updatedate,comment) values
-	((select enquiry_id from enquiry_details where enquiry_id='$idmax'),'$date','".$_REQUEST['any_notes']."')";
-	
-	
-	$rs1 = mysql_query($sql1);
-
 	header("Location:dashboard.php");
-}
-
-elseif(isset($_REQUEST['cancel'])){
-   
-   header("Location:dashboard.php");
-
-}
-		
+}	
 
 
 ?>
@@ -427,7 +403,7 @@ border-bottom:1px solid gray;
 							<!-- new field add here -->
 							
 								<tr>
-								<td><h4>Country</h4></td>
+								<td><h4>Country*</h4></td>
 								<td>
 								 <?php
 								 $get=mysql_query("SELECT country_name FROM country_master");
@@ -447,7 +423,7 @@ border-bottom:1px solid gray;
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
-									<td><h4>State</h4></td>
+									<td><h4>State*</h4></td>
 								<td>
 								<?php
 								 $get=mysql_query("SELECT state_name FROM state_master");
@@ -467,7 +443,7 @@ border-bottom:1px solid gray;
 								
 							</tr>
 							<!-- new field add here -->
-							<!--
+							
 							<tr>
 								<td><h4>From city</h4></td>
 								<td><input type="text" size="30px" name="from_city" id="from_city" value="" onblur="from_city_chk()"></td>
@@ -476,7 +452,7 @@ border-bottom:1px solid gray;
 								<td><h4>To city</h4></td>
 								<td><input type="text" size="30px" name="to_city" id="to_city" value="" onblur="to_city_chk()"></td>
 							</tr>
-					
+						
 							<tr>
 								<td><h4>Adult</h4></td>
 								<td>
@@ -515,14 +491,13 @@ border-bottom:1px solid gray;
 									
 								</td>
 							</tr>
-							
 							<tr>
 								<td><h4>Arrival date</h4></td>
-								<td><input type="text" size="30px" id="datepicker" name="arrival_date" readonly></td>
+								<td><input type="text" size="30px" id="datepicker" name="arrival_date"></td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 								<td><h4>Departure date</h4></td>
-								<td><input type="text" size="30px" id="datepicker1" name="departure_date" readonly onblur="total_date()"></td>
+								<td><input type="text" size="30px" id="datepicker1" name="departure_date" onblur="total_date()"></td>
 							</tr>
 							
 							<tr>
@@ -538,12 +513,20 @@ border-bottom:1px solid gray;
 								<input type="text" size="30px" id="totdate" name="totdate" readonly>	
 								</td>
 							</tr>
-							
 					
 							<tr>
-									<td><h4>Total days</h4></td>
+								<td><h4>Services</h4></td>
 								<td>
-								<input type="text" size="30px" id="totdate" name="totdate" onclick="no_of_days()">	
+								<form>
+								<select id="service" name="service" style="width:180px; height:25px;">
+								<option value="1">HOTEL</option>
+								<option value="2">RESORT</option>
+								<option value="3">PACKAGE</option>
+								<option value="4">TRAVEL</option>
+								</select> 
+								<button id="create-user">ADD</button>
+								</form>
+
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
@@ -566,7 +549,6 @@ border-bottom:1px solid gray;
 								<input type="text" size="30px" id="s_tax" name="s_tax" onblur="service_tax_chk()">	
 								</td>
 							</tr>
-							-->
 							<tr>
 								<td><h4>Reference</h4></td>
 								<td>
@@ -574,13 +556,11 @@ border-bottom:1px solid gray;
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
-								<td><h4>&nbsp;</h4></td>
+								<td><h4>VAT</h4></td>
 								<td>
-								<!--<input type="text" size="30px" id="vat" name="vat" onblur="vat_chk()">	-->
-								&nbsp;
+								<input type="text" size="30px" id="vat" name="vat" onblur="vat_chk()">	
 								</td>
 							</tr>
-							
 							<!-- table create from dilouge box -->
 							<tr>
 							<td colspan="6">
@@ -598,9 +578,9 @@ border-bottom:1px solid gray;
 							
 							  
 								<tr>
-								<td><h4>Note*</h4></td>
+								<td><h4>Note</h4></td>
 								<td colspan="5">
-								<textarea cols="80" rows="5" name="any_notes" id="any_notes"></textarea>
+								<textarea cols="80" rows="5" name="any_notes"></textarea>
 								</td>
 							</tr>
 							
@@ -610,18 +590,12 @@ border-bottom:1px solid gray;
 						    <tr>
 								<td colspan="3">
 								<p align="right">
-								<input type="submit" value="Next" class="bbbtn" style="width:120px;" name="enquiry" id="enquiry">
+								<input type="submit" value="Enquiry" class="bbbtn" style="width:120px;" name="enquiry" id="enquiry">
 								</p>
 								</td>
-								<!--<td colspan="2">
-								<p align="left">
-								<input type="submit" value="Book" class="bbbtn" style="width:120px;" name="book" id="book">
-								</p>
-								</td>
-								-->
 								<td colspan="3">
 								<p align="left">
-								<input type="submit" value="Cancel" class="bbbtn" style="width:120px;" name="cancel" id="cancel">
+								<input type="submit" value="Book" class="bbbtn" style="width:120px;" name="book" id="book">
 								</p>
 								</td>
 							</tr>

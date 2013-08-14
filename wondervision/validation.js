@@ -184,30 +184,6 @@ function valid_mail1()
 	      document.getElementById("totdate").value=diffDays;
 		  
 	  }
-	  
-	  
-	  	   function no_of_days(){
-	   
-	   
-	     
-	   var date1=new Date(document.getElementById("datepicker").value);
-	   var date2=new Date(document.getElementById("datepicker1").value);
-	
-	      var diffDays = (date2- date1)/86400000;
-		  //var diffDays=$date2->diff($date1);
-		  if(diffDays<0 || isNaN(diffDays)){
-		   alert("Wrong Date Selection");
-		  // alert(diffDays);
-		   document.getElementById("datepicker").value="";
-		   document.getElementById("datepicker1").value="";
-		   
-		   
-		   }
-		  else
-	      document.getElementById("totdate").value=diffDays;
-		  totdate.setAttribute('readonly', 'readonly'); 
-		  
-	  }
 	
 	function from_city_chk(){
 	var name;
@@ -321,37 +297,17 @@ function valid_mail1()
  function valid()
        {
            submitOK="true";
-		   var note;
-           /*var fcity,tcity,adate,ddate,norum,totday;
+           var fcity,tcity,adate,ddate,norum,totday;
            fcity=document.getElementById("from_city").value.trim();
-		   tcity=document.getElementById("to_city").value.trim();*/
-		   /*adate=document.getElementById("datepicker").value.trim();
-		   ddate=document.getElementById("datepicker1").value.trim();*/
-		  /* norum=document.getElementById("noroom").value.trim();
-		   totday=document.getElementById("totdate").value.trim();*/
-		   note=document.getElementById("any_notes").value.trim();
-		   
-		   
-			/* if(adate!="")
-          {
-              var cadate=adate.substring(6)+"-"+adate.substring(0,2)+"-"+adate.substring(3,5);
-             document.getElementById("datepicker").value=cadate;
-              
-          }
-			
-		   if(ddate !="" || ddate!="null")
-		    {
-			  var cddate=ddate.substring(6)+"-"+ddate.substring(0,2)+"-"+ddate.substring(3,5);
-             document.getElementById("datepicker1").value=cddate;
-			}*/
+		   tcity=document.getElementById("to_city").value.trim();
+		   adate=document.getElementById("datepicker").value.trim();
+		   ddate=document.getElementById("datepicker1").value.trim();
+		   norum=document.getElementById("noroom").value.trim();
+		   totday=document.getElementById("totdate").value.trim();
 	   
-	   
-           //if(fcity=="" || tcity=="" || adate=="" || ddate=="" || norum=="" || totday=="")*/
-		   if(note=="" || note=="null")
+           if(fcity=="" || tcity=="" || adate=="" || ddate=="" || norum=="" || totday=="")
            	{
-           	      //alert("All necesary data is not given");
-				  alert("Plese fill up the note field");
-                      
+           	      alert("All necesary data is not given");
                       
                    submitOK="false";
             }
