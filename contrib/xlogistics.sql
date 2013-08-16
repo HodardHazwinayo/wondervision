@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2013 at 03:31 PM
+-- Generation Time: Aug 16, 2013 at 03:20 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -48,7 +48,15 @@ CREATE TABLE IF NOT EXISTS `accomodation_type_details` (
   PRIMARY KEY (`accomodation_type_id`),
   KEY `fk_accomodation_type_details_hotel_master1_idx` (`hotel_id`),
   KEY `fk_accomodation_type_details_lodging_details1_idx` (`lodging_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `accomodation_type_details`
+--
+
+INSERT INTO `accomodation_type_details` (`accomodation_type_id`, `hotel_id`, `lodging_id`, `rate`) VALUES
+(1, 1, 2, 1000.00),
+(2, 2, 2, 1200.00);
 
 -- --------------------------------------------------------
 
@@ -74,6 +82,13 @@ CREATE TABLE IF NOT EXISTS `country_master` (
   `country_name` varchar(64) NOT NULL,
   PRIMARY KEY (`country_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `country_master`
+--
+
+INSERT INTO `country_master` (`country_name`) VALUES
+('India');
 
 -- --------------------------------------------------------
 
@@ -111,7 +126,22 @@ CREATE TABLE IF NOT EXISTS `enquiry_comments_details` (
   `comment` longtext,
   PRIMARY KEY (`comment_id`),
   KEY `fk_enquiry_comments_enquiry_details1_idx` (`enquiry_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `enquiry_comments_details`
+--
+
+INSERT INTO `enquiry_comments_details` (`comment_id`, `enquiry_id`, `updatedate`, `comment`) VALUES
+(1, 0, '2013-08-14 13:28:08', ''),
+(2, 0, '2013-08-14 13:28:16', ''),
+(3, 0, '2013-08-16 12:16:31', 'Get to know'),
+(4, 0, '2013-08-16 12:16:38', ''),
+(5, 0, '2013-08-16 12:26:09', ''),
+(6, 0, '2013-08-16 12:29:18', ''),
+(7, 0, '2013-08-16 12:37:02', ''),
+(8, 0, '2013-08-16 12:52:17', 'Hotel with car parking at Goa.'),
+(9, 0, '2013-08-16 12:54:35', '');
 
 -- --------------------------------------------------------
 
@@ -138,6 +168,15 @@ CREATE TABLE IF NOT EXISTS `enquiry_details` (
   KEY `fk_enquiry_details_country_master1_idx` (`country_name`),
   KEY `fk_enquiry_details_state_master1_idx` (`state_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `enquiry_details`
+--
+
+INSERT INTO `enquiry_details` (`enquiry_id`, `startdate`, `enddate`, `startingplace`, `destination`, `enquirydate`, `totaldiscount`, `net_amount`, `servicetax`, `VAT`, `user_id`, `country_name`, `state_name`) VALUES
+(0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '2013-08-14 13:28:08', 0.00, 0.00, 0.00, 0.00, 3, NULL, NULL),
+(1, '2013-09-03 00:00:00', '2013-09-10 00:00:00', 'Kolkata', 'Panjim', '2013-08-15 00:00:00', NULL, NULL, NULL, NULL, 7, 'India', 'West Bengal'),
+(2, '2013-08-27 00:00:00', '2013-08-31 00:00:00', 'Kolkata', 'Vizag', '2013-08-14 00:00:00', NULL, NULL, NULL, NULL, 7, 'India', 'West Bengal');
 
 -- --------------------------------------------------------
 
@@ -324,7 +363,17 @@ CREATE TABLE IF NOT EXISTS `hotel_master` (
   KEY `fk_hotel_master_location_master1_idx` (`location_id`),
   KEY `fk_hotel_master_hotel_group_master1_idx` (`hotel_group_id`),
   KEY `fk_hotel_master_hotel_type_master1_idx` (`hotel_type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `hotel_master`
+--
+
+INSERT INTO `hotel_master` (`hotel_id`, `name`, `address1`, `address2`, `place`, `phonenumber`, `alternativephonenumber`, `updatedon`, `associationfrom`, `zip`, `description`, `location_id`, `hotel_grading`, `hotel_group_id`, `hotel_type_id`, `status`) VALUES
+(1, 'Hotal Regency', 'Sea Road', NULL, 'Digha', 65478963, NULL, NULL, NULL, '75213', NULL, 1, NULL, NULL, 1, 1),
+(2, 'Hotel Pulin Puri', 'Puri', NULL, 'Puri', 9854123, NULL, NULL, NULL, '785412', NULL, 2, NULL, NULL, 1, 1),
+(3, 'Marlin Spike', 'Minamar Beach', NULL, 'Goa', 8541236, NULL, NULL, NULL, '7854123', NULL, 3, NULL, NULL, 2, 1),
+(4, 'Digha hotel', 'digha', NULL, 'digha', 784512369, NULL, NULL, NULL, '124563', NULL, 1, NULL, NULL, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -337,7 +386,15 @@ CREATE TABLE IF NOT EXISTS `hotel_type_master` (
   `typename` varchar(45) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`hotel_type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `hotel_type_master`
+--
+
+INSERT INTO `hotel_type_master` (`hotel_type_id`, `typename`, `description`) VALUES
+(1, 'Hotel', 'Hotel for lodge and if possible then food'),
+(2, 'Resort', 'Have multiple facilities');
 
 -- --------------------------------------------------------
 
@@ -371,7 +428,19 @@ CREATE TABLE IF NOT EXISTS `location_master` (
   PRIMARY KEY (`location_id`),
   KEY `fk_location_master_state_master1_idx` (`state_name`),
   KEY `fk_location_master_country_master1_idx` (`country_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `location_master`
+--
+
+INSERT INTO `location_master` (`location_id`, `name`, `place`, `genre`, `state_name`, `country_name`) VALUES
+(1, 'Digha', 'Digha', NULL, 'West Bengal', 'India'),
+(2, 'Puri', 'Puri', NULL, 'Orissa', 'India'),
+(3, 'Goa', 'Goa', NULL, 'Maharastra', 'India'),
+(4, 'Mumbai', 'Mumbai', NULL, 'Maharastra', 'India'),
+(5, 'Mandarmoni', 'Mandarmoni', 'Sea beach', 'West Bengal', 'India'),
+(6, 'Sunderban', 'Sunderban', 'Jungle ', 'West Bengal', 'India');
 
 -- --------------------------------------------------------
 
@@ -388,7 +457,15 @@ CREATE TABLE IF NOT EXISTS `lodging_details` (
   `maxchild` int(11) NOT NULL DEFAULT '0',
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`lodging_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `lodging_details`
+--
+
+INSERT INTO `lodging_details` (`lodging_id`, `bedtype`, `roomtype`, `foodtype`, `maxadult`, `maxchild`, `description`) VALUES
+(1, 'single', 'Standard', 'Breakfast', 0, 0, NULL),
+(2, 'Double', 'Deluxe', NULL, 0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -543,6 +620,24 @@ CREATE TABLE IF NOT EXISTS `state_master` (
   PRIMARY KEY (`state_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `state_master`
+--
+
+INSERT INTO `state_master` (`state_name`) VALUES
+('Andhra Pradesh'),
+('Assam'),
+('Bihar'),
+('Karnataka'),
+('Kerala'),
+('Madhya Pradesh'),
+('Maharastra'),
+('Orissa'),
+('Punjab'),
+('Tamilnadu'),
+('Uttar Pradesh'),
+('West Bengal');
+
 -- --------------------------------------------------------
 
 --
@@ -675,6 +770,35 @@ CREATE TABLE IF NOT EXISTS `traveller_details` (
   PRIMARY KEY (`traveller_id`),
   KEY `fk_traveller_details_user_master1_idx` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `two_drops`
+--
+
+CREATE TABLE IF NOT EXISTS `two_drops` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tier_one` varchar(255) NOT NULL,
+  `tier_two` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `two_drops`
+--
+
+INSERT INTO `two_drops` (`id`, `tier_one`, `tier_two`) VALUES
+(1, 'Colors', 'Red'),
+(2, 'Colors', 'Blue'),
+(3, 'Colors', 'Green'),
+(4, 'Colors', 'Yellow'),
+(5, 'Colors', 'Black'),
+(6, 'Shapes', 'Square'),
+(7, 'Shapes', 'Circle'),
+(8, 'Shapes', 'Triangle'),
+(9, 'Shapes', 'Rectangle'),
+(10, 'Shapes', 'Oval');
 
 -- --------------------------------------------------------
 
@@ -830,15 +954,17 @@ CREATE TABLE IF NOT EXISTS `user_master` (
   UNIQUE KEY `mobile_UNIQUE` (`mobile`),
   KEY `fk_user_master_user_types1_idx` (`user_typeid`),
   KEY `fk_user_master_guest_membership_type_master1_idx` (`member_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `user_master`
 --
 
 INSERT INTO `user_master` (`user_id`, `username`, `firstname`, `lastname`, `status`, `login_expiry_date`, `email`, `mobile`, `creation_date`, `user_typeid`, `gender`, `member_type_id`, `updatedon`) VALUES
-(2, 'admin', 'Soumyajit', 'Mandal', 1, '2016-10-26 00:00:00', 'smondal@bluecoppertech.com', 9477411305, '2013-08-12 00:00:00', 1, 'MALE', 1, '2013-08-12 00:00:00'),
-(3, 'user', 'Abhirup', 'Ghosh', 1, '2016-02-25 00:00:00', 'aghosh@bluecoppertech.com', NULL, '2013-08-12 00:00:00', 2, 'Male', 2, '2013-08-12 00:00:00');
+(2, 'admin', 'Soumyajit', 'Mandal', 1, '2016-10-26 00:00:00', 'smondal@bluecoppertech.com', 9477411305, '2013-08-12 00:00:00', 1, 'Male', 1, '2013-08-12 00:00:00'),
+(3, 'user', 'Abhirup', 'Ghosh', 1, '2016-02-25 00:00:00', 'aghosh@bluecoppertech.com', 9434538735, '2013-08-12 00:00:00', 2, 'Male', 2, '2013-08-12 00:00:00'),
+(6, 'Parijat', 'Parijat', 'Bose', 1, NULL, NULL, 9038349567, '2013-08-14 01:39:20', 4, NULL, 3, NULL),
+(7, 'Abhisek2013-08-16 12:52:17', 'Abhisek', 'Ghosh', 1, NULL, 'abghosh@gmail.com', 9830078148, '2013-08-16 12:52:17', 4, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -898,9 +1024,23 @@ CREATE TABLE IF NOT EXISTS `user_other_info` (
   `user_id` bigint(20) NOT NULL,
   `attribute` varchar(64) NOT NULL,
   `value` varchar(255) NOT NULL,
+  `address1` varchar(128) NOT NULL,
+  `address2` varchar(128) NOT NULL,
+  `place` varchar(128) NOT NULL,
+  `zip` varchar(128) NOT NULL,
   PRIMARY KEY (`user_id`,`attribute`),
   KEY `fk_user_other_info_user_master2_idx` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_other_info`
+--
+
+INSERT INTO `user_other_info` (`user_id`, `attribute`, `value`, `address1`, `address2`, `place`, `zip`) VALUES
+(2, '', '', 'Sonarpur 66 Purbachal Road', '', 'Kolkata', '700150'),
+(3, '', '', 'Moulali Sealdah', '', 'Kolkata', '700009'),
+(6, '', '', 'Sodepur', '', 'North 24 PGS', '7111111'),
+(7, '', '', 'Moulali', '', 'Kolkata', '700005');
 
 -- --------------------------------------------------------
 
@@ -964,7 +1104,7 @@ CREATE TABLE IF NOT EXISTS `user_privilege_master` (
   `privilege_desc` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`privilege_id`),
   UNIQUE KEY `privilege_name` (`privilege_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1120,18 +1260,20 @@ CREATE TABLE IF NOT EXISTS `user_types` (
   `applicablefor` varchar(45) NOT NULL,
   PRIMARY KEY (`user_typeid`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `user_types`
 --
 
 INSERT INTO `user_types` (`user_typeid`, `name`, `description`, `applicablefor`) VALUES
-(1, 'Administrator', 'Administrator', 'Administration'),
-(2, 'Management', 'Management', 'Management'),
-(3, 'User', 'Normal user', 'Normal user'),
-(4, 'Guest', 'Guest User', 'Guest User'),
-(5, 'Partner', 'Partner user', 'Partner user');
+(1, 'Administrator', 'Administrator', 'system user'),
+(2, 'Management', 'Management', 'system user'),
+(3, 'User', 'Normal user', 'system user'),
+(4, 'Unregistered', 'Unregistered User', 'Guest User'),
+(5, 'Registered', 'Registered user', 'Guest user'),
+(6, 'Service provider', 'Service provider', 'Partner user'),
+(7, 'Clients provider', 'Clients Provider', 'Partner user');
 
 --
 -- Constraints for dumped tables
@@ -1174,9 +1316,9 @@ ALTER TABLE `enquiry_comments_details`
 -- Constraints for table `enquiry_details`
 --
 ALTER TABLE `enquiry_details`
-  ADD CONSTRAINT `fk_enquiry_details_user_master1` FOREIGN KEY (`user_id`) REFERENCES `user_master` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_enquiry_details_country_master1` FOREIGN KEY (`country_name`) REFERENCES `country_master` (`country_name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_enquiry_details_state_master1` FOREIGN KEY (`state_name`) REFERENCES `state_master` (`state_name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_enquiry_details_state_master1` FOREIGN KEY (`state_name`) REFERENCES `state_master` (`state_name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_enquiry_details_user_master1` FOREIGN KEY (`user_id`) REFERENCES `user_master` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `enquiry_package_maping`
@@ -1223,24 +1365,24 @@ ALTER TABLE `feedback_details`
 -- Constraints for table `guest_other_info`
 --
 ALTER TABLE `guest_other_info`
-  ADD CONSTRAINT `fk_guest_master_state_master1` FOREIGN KEY (`state_name`) REFERENCES `state_master` (`state_name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_guest_master_country_master1` FOREIGN KEY (`country_name`) REFERENCES `country_master` (`country_name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_guest_master_guest_id` FOREIGN KEY (`user_id`) REFERENCES `user_master` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_guest_master_guest_id` FOREIGN KEY (`user_id`) REFERENCES `user_master` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_guest_master_state_master1` FOREIGN KEY (`state_name`) REFERENCES `state_master` (`state_name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `hotel_feature_mapping`
 --
 ALTER TABLE `hotel_feature_mapping`
-  ADD CONSTRAINT `fk_hotel_master_has_feature_master_hotel_master1` FOREIGN KEY (`hotel_master_hotel_id`) REFERENCES `hotel_master` (`hotel_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_hotel_master_has_feature_master_feature_master1` FOREIGN KEY (`feature_master_feature_id`) REFERENCES `feature_master` (`feature_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_hotel_master_has_feature_master_feature_master1` FOREIGN KEY (`feature_master_feature_id`) REFERENCES `feature_master` (`feature_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_hotel_master_has_feature_master_hotel_master1` FOREIGN KEY (`hotel_master_hotel_id`) REFERENCES `hotel_master` (`hotel_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `hotel_master`
 --
 ALTER TABLE `hotel_master`
-  ADD CONSTRAINT `fk_hotel_master_location_master1` FOREIGN KEY (`location_id`) REFERENCES `location_master` (`location_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_hotel_master_hotel_group_master1` FOREIGN KEY (`hotel_group_id`) REFERENCES `hotel_group_master` (`hotel_group_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_hotel_master_hotel_type_master1` FOREIGN KEY (`hotel_type_id`) REFERENCES `hotel_type_master` (`hotel_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_hotel_master_hotel_type_master1` FOREIGN KEY (`hotel_type_id`) REFERENCES `hotel_type_master` (`hotel_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_hotel_master_location_master1` FOREIGN KEY (`location_id`) REFERENCES `location_master` (`location_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `hotel_user_mapping`
@@ -1253,8 +1395,8 @@ ALTER TABLE `hotel_user_mapping`
 -- Constraints for table `location_master`
 --
 ALTER TABLE `location_master`
-  ADD CONSTRAINT `fk_location_master_state_master1` FOREIGN KEY (`state_name`) REFERENCES `state_master` (`state_name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_location_master_country_master1` FOREIGN KEY (`country_name`) REFERENCES `country_master` (`country_name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_location_master_country_master1` FOREIGN KEY (`country_name`) REFERENCES `country_master` (`country_name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_location_master_state_master1` FOREIGN KEY (`state_name`) REFERENCES `state_master` (`state_name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `mgmt_news_feed_details`
@@ -1266,17 +1408,17 @@ ALTER TABLE `mgmt_news_feed_details`
 -- Constraints for table `package_master`
 --
 ALTER TABLE `package_master`
-  ADD CONSTRAINT `fk_package_master_user_master1` FOREIGN KEY (`user_id`) REFERENCES `user_master` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_package_master_country_master1` FOREIGN KEY (`country_name`) REFERENCES `country_master` (`country_name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_package_master_state_master1` FOREIGN KEY (`state_name`) REFERENCES `state_master` (`state_name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_package_master_country_master1` FOREIGN KEY (`country_name`) REFERENCES `country_master` (`country_name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_package_master_user_master1` FOREIGN KEY (`user_id`) REFERENCES `user_master` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `partner_other_info`
 --
 ALTER TABLE `partner_other_info`
-  ADD CONSTRAINT `fk_partner_other_info_user_master1` FOREIGN KEY (`user_id`) REFERENCES `user_master` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_partner_other_info_country_master1` FOREIGN KEY (`country_name`) REFERENCES `country_master` (`country_name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_partner_other_info_state_master1` FOREIGN KEY (`state_name`) REFERENCES `state_master` (`state_name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_partner_other_info_state_master1` FOREIGN KEY (`state_name`) REFERENCES `state_master` (`state_name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_partner_other_info_user_master1` FOREIGN KEY (`user_id`) REFERENCES `user_master` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `payment_details`
@@ -1288,16 +1430,16 @@ ALTER TABLE `payment_details`
 -- Constraints for table `service_feedback_mapping`
 --
 ALTER TABLE `service_feedback_mapping`
-  ADD CONSTRAINT `fk_Service_Master_has_Feedback_details_Service_Master1` FOREIGN KEY (`service_id`) REFERENCES `service_master` (`service_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Service_Master_has_Feedback_details_Feedback_details1` FOREIGN KEY (`feedback_id`) REFERENCES `feedback_details` (`feedback_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Service_Master_has_Feedback_details_Feedback_details1` FOREIGN KEY (`feedback_id`) REFERENCES `feedback_details` (`feedback_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Service_Master_has_Feedback_details_Service_Master1` FOREIGN KEY (`service_id`) REFERENCES `service_master` (`service_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `transaction_details`
 --
 ALTER TABLE `transaction_details`
+  ADD CONSTRAINT `fk_transaction_details_payee_type_details1` FOREIGN KEY (`type_id`) REFERENCES `payee_type_details` (`type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_transaction_details_payment_channels1` FOREIGN KEY (`channel_id`) REFERENCES `payment_channels` (`channel_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_transaction_details_user_sessions1` FOREIGN KEY (`session_id`) REFERENCES `user_sessions` (`session_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_transaction_details_payee_type_details1` FOREIGN KEY (`type_id`) REFERENCES `payee_type_details` (`type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_transaction_details_user_sessions1` FOREIGN KEY (`session_id`) REFERENCES `user_sessions` (`session_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `transport_availed_details`
@@ -1310,15 +1452,15 @@ ALTER TABLE `transport_availed_details`
 --
 ALTER TABLE `transport_details`
   ADD CONSTRAINT `fk_transport_details_enquiry_details1` FOREIGN KEY (`enquiry_id`) REFERENCES `enquiry_details` (`enquiry_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_transport_details_user_master1` FOREIGN KEY (`user_id`) REFERENCES `user_master` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_transport_details_transport_mode_master1` FOREIGN KEY (`transport_mode_id`) REFERENCES `transport_mode_master` (`transport_mode_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_transport_details_transport_mode_master1` FOREIGN KEY (`transport_mode_id`) REFERENCES `transport_mode_master` (`transport_mode_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_transport_details_user_master1` FOREIGN KEY (`user_id`) REFERENCES `user_master` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `transport_package_mapping`
 --
 ALTER TABLE `transport_package_mapping`
-  ADD CONSTRAINT `fk_transport_details_has_package_master_transport_details1` FOREIGN KEY (`transport_id`) REFERENCES `transport_details` (`transport_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_transport_details_has_package_master_package_master1` FOREIGN KEY (`package_id`) REFERENCES `package_master` (`package_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_transport_details_has_package_master_package_master1` FOREIGN KEY (`package_id`) REFERENCES `package_master` (`package_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_transport_details_has_package_master_transport_details1` FOREIGN KEY (`transport_id`) REFERENCES `transport_details` (`transport_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `traveller_details`
@@ -1370,15 +1512,15 @@ ALTER TABLE `user_group_map`
 -- Constraints for table `user_master`
 --
 ALTER TABLE `user_master`
-  ADD CONSTRAINT `fk_user_master_user_types1` FOREIGN KEY (`user_typeid`) REFERENCES `user_types` (`user_typeid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_user_master_guest_membership_type_master1` FOREIGN KEY (`member_type_id`) REFERENCES `user_membership_type_master` (`member_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_user_master_guest_membership_type_master1` FOREIGN KEY (`member_type_id`) REFERENCES `user_membership_type_master` (`member_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_master_user_types1` FOREIGN KEY (`user_typeid`) REFERENCES `user_types` (`user_typeid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `user_master_history`
 --
 ALTER TABLE `user_master_history`
-  ADD CONSTRAINT `fk_user_master_user_types10` FOREIGN KEY (`user_typeid`) REFERENCES `user_types` (`user_typeid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_user_master_guest_membership_type_master10` FOREIGN KEY (`member_type_id`) REFERENCES `user_membership_type_master` (`member_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_user_master_guest_membership_type_master10` FOREIGN KEY (`member_type_id`) REFERENCES `user_membership_type_master` (`member_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_master_user_types10` FOREIGN KEY (`user_typeid`) REFERENCES `user_types` (`user_typeid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `user_other_info`
@@ -1436,8 +1578,8 @@ ALTER TABLE `user_role_privilege_map`
 -- Constraints for table `user_service_mapping`
 --
 ALTER TABLE `user_service_mapping`
-  ADD CONSTRAINT `fk_user_master_has_service_master_user_master1` FOREIGN KEY (`user_id`) REFERENCES `user_master` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_user_master_has_service_master_service_master1` FOREIGN KEY (`service_id`) REFERENCES `service_master` (`service_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_user_master_has_service_master_service_master1` FOREIGN KEY (`service_id`) REFERENCES `service_master` (`service_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_master_has_service_master_user_master1` FOREIGN KEY (`user_id`) REFERENCES `user_master` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `user_service_on_booking_master`
