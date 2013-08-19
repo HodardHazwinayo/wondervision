@@ -101,6 +101,18 @@ elseif(isset($_REQUEST['r_save'])){
 
 }
 
+elseif(isset($_REQUEST['t_save'])){
+    /*$sql15 = "INSERT INTO enquiry_accomodation_mapping( 	enquiry_id,accomodation_type_id,checkindate,checkoutdate,noofadults,noofchildren,noofrooms,amount,discount,comments,commission) VALUES ((SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),(SELECT accomodation_type_id FROM accomodation_type_details WHERE hotel_id = (SELECT hotel_id FROM hotel_master WHERE name = '".$_REQUEST['r_name']."')),'".$_REQUEST['arrival_date']."','".$_REQUEST['departure_date']."','".$_REQUEST['adult_count']."','".$_REQUEST['child_count']."','".$_REQUEST['no_room']."','".$_REQUEST['net_amount1']."','".$_REQUEST['discount1']."','".$_REQUEST['comment']."','".$_REQUEST['commision1']."')";
+	
+	
+	$rs15 = mysql_query($sql15);
+
+   
+   
+   header("Location:itinerary.php");*/
+
+}
+
 
 		
 
@@ -167,6 +179,10 @@ elseif(isset($_REQUEST['r_save'])){
 	   $(function() {
 	    $( "#datepicker4" ).datepicker();
 	  });
+	  
+	   $(function() {
+	    $( "#datepicker5" ).datepicker();
+	  });
 	  </script>
 <!-- jquery for fetch value from dilouge box -->	  
 	  <script>
@@ -226,6 +242,16 @@ allFields.val( "" ).removeClass( "ui-state-error" );
 }
 });
 
+$( "#dialog-form2" ).dialog({
+autoOpen: false,
+height: 600,
+width: 700,
+modal: true,
+close: function() {
+allFields.val( "" ).removeClass( "ui-state-error" );
+}
+});
+
 
 $( "#create-user" )
 .button()
@@ -237,10 +263,10 @@ $( "#dialog-form" ).dialog( "open" );
 if(serviceValues==2 )
 $( "#dialog-form1" ).dialog( "open" );
 
-if(serviceValues==3 )
+if(serviceValues==4 )
 $( "#dialog-form2" ).dialog( "open" );
 
-if(serviceValues==4 )
+if(serviceValues==3 )
 $( "#dialog-form3" ).dialog( "open" );
 
 
@@ -791,6 +817,143 @@ $( "#dialog-form3" ).dialog( "open" );
 		<tr>
 			<td width="40%">&nbsp;</td>
 			<td width="20%"><input type="submit" value="Save" class="bbbtn" style="width:120px;" name="r_save" id="r_save"></td>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+	
+</form>
+</p>
+</fieldset>
+
+						</form>
+					</div>
+					
+					
+					<!-- dioluge for travel -->
+					
+					
+					<div id="dialog-form2" title="TRAVEL INFO">
+						<p class="validateTips">* fields are required.</p>
+						<p align=center>
+						<form method="post" onsubmit="return vali_travel()">					
+							<fieldset>
+
+ <table border="0" width="80%" >
+			<tr>
+			<td width="40%"><h4>AC</h4></td>
+			<td width="20%">
+			<select name="ac" id="ac" style="width:240px; height:25px;">
+										<option value="1">YES</option>
+										<option value="0" selected>NO</option>
+									</select>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+	
+		<tr>
+			<td width="40%"><h4>Date</h4></td>
+			<td width="20%"><input type="text" size="30px" id="datepicker5" name="arrival_date" readonly></td>
+			<td>&nbsp;</td>
+		</tr>
+	
+		<tr>
+			<td width="40%"><h4>No of Adults*</h4></td>
+			<td width="20%">
+			<select name="adult_count" id="adult_count" style="width:240px; height:25px;">
+										
+										
+										<option value="1">1</option>
+										<option value="2" selected>2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>No of Children*</h4></td>
+			<td width="20%">
+			<select name="child_count"  id="child_count"style="width:240px; height:25px; ">
+										<option value="0">0</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+			
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Vechile Number</h4></td>
+			<td width="20%">
+			<input type="text" size="30px" id="vno" name="vno">	</td>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Type </h4></td>
+			<td width="20%">
+			<input type="text" size="30px" id="vtype" name="vtype">	</td>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Strating Place* </h4></td>
+			<td width="20%">
+			<input type="text" size="30px" id="vsp" name="vsp">	</td>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Destination* </h4></td>
+			<td width="20%">
+			<input type="text" size="30px" id="vd" name="vd">	</td>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Distance </h4></td>
+			<td width="20%">
+			<input type="text" size="30px" id="vdis" name="vdis">	</td>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Amount*</h4></td>
+			<td width="20%"><input type="text" size="30px" id="net_amount2" name="net_amount2" onblur="net_amount_chk()" onclick="date_format2()">	</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Discount*</h4></td>
+			<td width="20%"><input type="text" size="30px" id="discount2" name="discount2" onblur="discount_chk()">	</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Comment</h4></td>
+			<td width="20%"><input type="text" size="30px" id="comment2" name="comment2" >	</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Commision</h4></td>
+			<td width="20%"><input type="text" size="30px" id="commision2" name="commision2">	</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%">&nbsp;</td>
+			<td width="20%"><input type="submit" value="Save" class="bbbtn" style="width:120px;" name="t_save" id="t_save"></td>
 			<td>&nbsp;</td>
 		</tr>
 	</table>

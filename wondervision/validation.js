@@ -454,7 +454,7 @@ function valid_mail1()
            	{
            	      alert("All necesary data is not given");      
                   submitOK="false";
-				  alert(fname+lname+addrs1+state);
+				
             }
             
             if(submitOK=="false")
@@ -463,14 +463,47 @@ function valid_mail1()
                return true;
 	 
 	 }
-	
-	
-	
-
-
-
-
-			  
-
-			  
+	 
+	 	  function date_format2(){
+	 
+	 var adate=document.getElementById("datepicker5").value.trim();
+		  
+		   if(adate!="")
+          {
+              var cadate=adate.substring(6)+"-"+adate.substring(0,2)+"-"+adate.substring(3,5);
+             document.getElementById("datepicker5").value=cadate;
+              
+          }
+	 
+	 }
+	 
+	 function vali_travel(){
+	 
+	    submitOK="true";
+           var fname,lname,addrs1,state,country;
+           fname=document.getElementById("vsp").value.trim();
+		   lname=document.getElementById("vd").value.trim();
+		   addrs1=document.getElementById("net_amount2").value.trim();
+		   state=document.getElementById("discount2").value.trim();
+		   
+		   
+	   
+           if(fname=="null" || lname=="" || addrs1=="" || state=="")
+           	{
+           	      alert("All necesary data is not given");      
+                  submitOK="false";
+				
+            }
+            
+            if(submitOK=="false")
+         return false;
+         else
+               return true;
+	 
+	 }
+	 
+	 
+	 
+	 
+	 
 	
