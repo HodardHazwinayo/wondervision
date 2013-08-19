@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 
@@ -593,7 +594,7 @@ $idmax++;
 								<td><h4>Country*</h4></td>
 								<td>
 								 <?php
-								 $get=mysql_query("SELECT short_name FROM country_t");
+								 $get=mysql_query("SELECT country_name FROM country_master");
 								 ?>
 								 <select name="c_country" id="c_country" style="width:220px; height:25px; ">
 								 <option value="null">SELECT</option>
@@ -601,7 +602,7 @@ $idmax++;
 								    while($row = mysql_fetch_assoc($get))
 										{
 								?>
-											<option value = "<?php echo($row['short_name'])?>" ><?php echo($row['short_name']) ?></option>
+											<option value = "<?php echo($row['country_name'])?>" ><?php echo($row['country_name']) ?></option>
 								<?php
 										}
 								?>

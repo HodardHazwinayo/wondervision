@@ -59,11 +59,6 @@ if(isset($_REQUEST['enquiry']))
 	header("Location:itinerary.php");
 }
 
-elseif(isset($_REQUEST['cancel'])){
-   
-   header("Location:dashboard.php");
-
-}
 		
 
 
@@ -357,7 +352,7 @@ border-bottom:1px solid gray;
 								</td>
 								<td colspan="3">
 								<p align="left">
-								<input type="submit" value="Cancel" class="bbbtn" style="width:120px;" name="cancel" id="cancel">
+								<input type="reset" value="Cancel" class="bbbtn" style="width:120px;" name="cancel" id="cancel">
 								</p>
 								</td>
 							</tr>

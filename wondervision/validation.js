@@ -376,6 +376,94 @@ function valid_mail1()
 	
 	}
 	
+	 function date_format(){
+	 
+	 adate=document.getElementById("datepicker").value.trim();
+		   ddate=document.getElementById("datepicker1").value.trim();
+		   if(adate!="")
+          {
+              var cadate=adate.substring(6)+"-"+adate.substring(0,2)+"-"+adate.substring(3,5);
+             document.getElementById("datepicker").value=cadate;
+              
+          }
+			
+		   if(ddate !="" || ddate!="null")
+		    {
+			  var cddate=ddate.substring(6)+"-"+ddate.substring(0,2)+"-"+ddate.substring(3,5);
+             document.getElementById("datepicker1").value=cddate;
+			}
+		   
+	 
+	 }
+	 
+	 function vali_hotel(){
+	 
+	    submitOK="true";
+           var fname,lname,addrs1,state,country;
+           fname=document.getElementById("h_name").value.trim();
+		   lname=document.getElementById("net_amount").value.trim();
+		   addrs1=document.getElementById("discount").value.trim();
+		   state=document.getElementById("commision").value.trim();
+		   
+	   
+           if(fname=="null" || lname=="" || addrs1=="" || state=="null")
+           	{
+           	      alert("All necesary data is not given");
+                      
+                   submitOK="false";
+            }
+            
+            if(submitOK=="false")
+         return false;
+         else
+               return true;
+	 
+	 }
+	 
+	  function date_format1(){
+	 
+	 adate=document.getElementById("datepicker3").value.trim();
+		   ddate=document.getElementById("datepicker4").value.trim();
+		   if(adate!="")
+          {
+              var cadate=adate.substring(6)+"-"+adate.substring(0,2)+"-"+adate.substring(3,5);
+             document.getElementById("datepicker3").value=cadate;
+              
+          }
+			
+		   if(ddate !="" || ddate!="null")
+		    {
+			  var cddate=ddate.substring(6)+"-"+ddate.substring(0,2)+"-"+ddate.substring(3,5);
+             document.getElementById("datepicker4").value=cddate;
+			}
+		   
+	 
+	 }
+	 
+	  function vali_resort(){
+	 
+	    submitOK="true";
+           var fname,lname,addrs1,state,country;
+           fname=document.getElementById("r_name").value.trim();
+		   lname=document.getElementById("net_amount1").value.trim();
+		   addrs1=document.getElementById("discount1").value.trim();
+		   state=document.getElementById("commision1").value.trim();
+		   
+	   
+           if(fname=="null" || lname=="" || addrs1=="" || state=="null")
+           	{
+           	      alert("All necesary data is not given");      
+                  submitOK="false";
+				  alert(fname+lname+addrs1+state);
+            }
+            
+            if(submitOK=="false")
+         return false;
+         else
+               return true;
+	 
+	 }
+	
 	
 	
 

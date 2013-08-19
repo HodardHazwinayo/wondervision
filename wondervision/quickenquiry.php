@@ -63,11 +63,6 @@ if(isset($_REQUEST['enquiry']))
 
 	header("Location:itinerary.php");
 }
-elseif(isset($_REQUEST['cancel'])){
-  
-   header("Location:dashboard.php");
-
-}
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -366,7 +361,7 @@ border-bottom:1px solid gray;
 	
 								<td colspan="3">
 								<p align="left">
-								<input type="submit" value="Cancel" class="bbbtn" style="width:120px;" name="cancel" id="cancel">
+								<input type="reset" value="Cancel" class="bbbtn" style="width:120px;" name="cancel" id="cancel">
 								</p>
 								</td>
 							</tr>

@@ -17,29 +17,15 @@ while($row = mysql_fetch_assoc($result)) {
     $fname = $row['firstname'];
 	$lname=$row['lastname'];
 	$mobile=$row['mobile'];
-	$email=$row['email'];
-
-	
+	$email=$row['email'];	
 }
 
 while($row = mysql_fetch_assoc($result1)) {
-
 	$addrs1=$row['address1'];
 	$addr2=$row['address2'];
 	$place=$row['place'];
 	$zip=$row['zip'];
-
 }
-
-/*$cus_code=$_SESSION['customer_id']; 
-$fname=$_SESSION['fname']; 
-$lname=$_SESSION['lname'];  
-$mobile=$_SESSION['mobile']; 
-$email=$_SESSION['email']; 
-$addrs1=$_SESSION['addr1']; 
-$addr2=$_SESSION['addr2']; 
-$place=$_SESSION['place']; 
-$zip=$_SESSION['zip']; */
 
 if(isset($_REQUEST['book']))
 {
@@ -57,13 +43,11 @@ $_SESSION['state'] = $state;
 $_SESSION['country'] = $country;
 $_SESSION['zip'] = $zip;
 $_SESSION['mfrom'] = $mfrom;*/
-
 header("Location:undercontruction.php");
-
 }
 elseif(isset($_REQUEST['enquiry']))
 {
-	 $sql = "INSERT INTO enquiry_details( 	startdate,enddate,startingplace,destination,enquirydate,totaldiscount,net_amount,servicetax,VAT,user_id,country_name,state_name) VALUES ('".$_REQUEST['arrival_date']."','".$_REQUEST['departure_date']."','".$_REQUEST['from_city']."','".$_REQUEST['to_city']."','$date','".$_REQUEST['discount']."','".$_REQUEST['net_amount']."','".$_REQUEST['s_tax']."','".$_REQUEST['vat']."',(select user_id from user_master where user_id='".$cus_code."'),(select country_name from country_master where country_name='".$_REQUEST['c_country']."'),(select state_name from state_master where state_name='".$_REQUEST['c_state']."'))";
+	 /*$sql = "INSERT INTO enquiry_details( 	startdate,enddate,startingplace,destination,enquirydate,totaldiscount,net_amount,servicetax,VAT,user_id,country_name,state_name) VALUES ('".$_REQUEST['arrival_date']."','".$_REQUEST['departure_date']."','".$_REQUEST['from_city']."','".$_REQUEST['to_city']."','$date','".$_REQUEST['discount']."','".$_REQUEST['net_amount']."','".$_REQUEST['s_tax']."','".$_REQUEST['vat']."',(select user_id from user_master where user_id='".$cus_code."'),(select country_name from country_master where country_name='".$_REQUEST['c_country']."'),(select state_name from state_master where state_name='".$_REQUEST['c_state']."'))";
 	
 	
 	$rs = mysql_query($sql);
@@ -82,7 +66,7 @@ elseif(isset($_REQUEST['enquiry']))
 	((select enquiry_id from enquiry_details where enquiry_id='$idmax'),'$date','".$_REQUEST['any_notes']."')";
 	
 	
-	$rs1 = mysql_query($sql1);
+	$rs1 = mysql_query($sql1);*/
 
 	header("Location:itinerary.php");
 }
@@ -92,6 +76,32 @@ elseif(isset($_REQUEST['cancel'])){
    header("Location:dashboard.php");
 
 }
+
+elseif(isset($_REQUEST['h_save'])){
+    $sql15 = "INSERT INTO enquiry_accomodation_mapping( 	enquiry_id,accomodation_type_id,checkindate,checkoutdate,noofadults,noofchildren,noofrooms,amount,discount,comments,commission) VALUES ((SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),(SELECT accomodation_type_id FROM accomodation_type_details WHERE hotel_id = (SELECT hotel_id FROM hotel_master WHERE name = '".$_REQUEST['h_name']."')),'".$_REQUEST['arrival_date']."','".$_REQUEST['departure_date']."','".$_REQUEST['adult_count']."','".$_REQUEST['child_count']."','".$_REQUEST['no_room']."','".$_REQUEST['net_amount']."','".$_REQUEST['discount']."','".$_REQUEST['comment']."','".$_REQUEST['commision']."')";
+	
+	
+	$rs15 = mysql_query($sql15);
+
+   
+   
+   header("Location:itinerary.php");
+
+}
+
+elseif(isset($_REQUEST['r_save'])){
+    $sql15 = "INSERT INTO enquiry_accomodation_mapping( 	enquiry_id,accomodation_type_id,checkindate,checkoutdate,noofadults,noofchildren,noofrooms,amount,discount,comments,commission) VALUES ((SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),(SELECT accomodation_type_id FROM accomodation_type_details WHERE hotel_id = (SELECT hotel_id FROM hotel_master WHERE name = '".$_REQUEST['r_name']."')),'".$_REQUEST['arrival_date']."','".$_REQUEST['departure_date']."','".$_REQUEST['adult_count']."','".$_REQUEST['child_count']."','".$_REQUEST['no_room']."','".$_REQUEST['net_amount1']."','".$_REQUEST['discount1']."','".$_REQUEST['comment']."','".$_REQUEST['commision1']."')";
+	
+	
+	$rs15 = mysql_query($sql15);
+
+   
+   
+   header("Location:itinerary.php");
+
+}
+
+
 		
 
 
@@ -161,11 +171,15 @@ elseif(isset($_REQUEST['cancel'])){
 <!-- jquery for fetch value from dilouge box -->	  
 	  <script>
 			$(function() {
-			var name = $( "#name" ),
-			email = $( "#email" ),
-			password = $( "#password" ),
-			allFields = $( [] ).add( name ).add( email ).add( password ),
+			var h_name = $( "#h_name" ),
+			cd = $( "#datepicker" ),
+			dd = $( "#departure_date" ),
+			allFields = $( [] ).add(h_name).add(cd).add(dd),
 			tips = $( ".validateTips" );
+			
+		
+			
+			
 			function updateTips( t ) {
 tips
 .text( t )
@@ -195,39 +209,24 @@ return true;
 }
 $( "#dialog-form" ).dialog({
 autoOpen: false,
-height: 300,
-width: 350,
+height: 600,
+width: 700,
 modal: true,
-buttons: {
-"ADD HOTEL": function() {
-var bValid = true;
-allFields.removeClass( "ui-state-error" );
-bValid = bValid && checkLength( name, "username", 3, 16 );
-bValid = bValid && checkLength( email, "email", 6, 80 );
-bValid = bValid && checkLength( password, "password", 5, 16 );
-/*bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
-// From jquery.validate.js (by joern), contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
-bValid = bValid && checkRegexp( email, /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i, "eg. ui@jquery.com" );
-bValid = bValid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );*/
-if ( bValid ) {
-$( "#users tbody" ).append( "<tr>" +
-"<td> <h4>HOTEL NAME</h4> </td>" +
-"  <td> <input type='text' size='27px'  value="+ name.val()+"> </td>" +
-
-"<td>" + email.val() + "</td>" +
-"<td>" + password.val() + "</td>" +
-"</tr>" );
-$( this ).dialog( "close" );
-}
-},
-Cancel: function() {
-$( this ).dialog( "close" );
-}
-},
 close: function() {
 allFields.val( "" ).removeClass( "ui-state-error" );
 }
 });
+$( "#dialog-form1" ).dialog({
+autoOpen: false,
+height: 600,
+width: 700,
+modal: true,
+close: function() {
+allFields.val( "" ).removeClass( "ui-state-error" );
+}
+});
+
+
 $( "#create-user" )
 .button()
 .click(function() {
@@ -248,78 +247,11 @@ $( "#dialog-form3" ).dialog( "open" );
 });
 });
 </script>
-	  
-	 
-	
-	<!--<script>
-	function myfunc()
-	{
-		document.getElementById('name').innerHTML="Abhirup ghosh";
-		document.getElementById('email').innerHTML="abhirupghosh1983@gmail.com";
-		document.getElementById('mobile').innerHTML="9434538735";
-		document.getElementById('addr1').innerHTML="Moulali";
-		document.getElementById('addr2').innerHTML="Sealdah";
-		document.getElementById('city').innerHTML="Kolkata";
-		document.getElementById('pin').innerHTML="700008";
-	
-	}
-	</script>
-	-->
-	
-	
+
+<!-- end here the dilouge box -->
+	  	
 	<script type="text/javascript" src="js/myScript.js"></script>
-	<script language="JavaScript" type="text/javascript" src="search.js"></script>
 	
-<style>	
-	#main1{
-float:right;
-padding:15px;
-margin:0px 0px 0px 360px;
-width: 265px;
-}
-#layer2{
-	width:262px;
-	/*border:1px solid gray;*/
-	margin-top: -2px;
-	border-bottom-width: 0px;
-	position: absolute;
-	z-index:3px;
-}
-#layer2 a{
-	text-decoration:none;
-	text-transform:capitalize;
-	padding:5px;
-}
-.suggest_link{
-background-color:#fff;
-border-bottom:1px solid gray;
-}
-.small{
-background-color:#fff;
-border-bottom:1px solid gray;
-}
-.suggest_link_over{
-background-color:#fff;
-border-bottom:1px solid gray;
-}
-.suggest_link:hover{
-background-color:#6d84b4;
-border-bottom:1px solid gray;
-}
-.suggest_link_over:hover{
-background-color:#6d84b4;
-border-bottom:1px solid gray;
-}
-#amots{
-	padding:5px;
-	border-radius:none;
-	width:250px;
-	border:2px solid gray;
-	background: url("search.png") no-repeat scroll right 0 transparent;
-}
-
-</style>
-
 </head>
 <body>
 	<!-- BEGIN #navbar -->
@@ -356,21 +288,11 @@ border-bottom:1px solid gray;
 				<!-- BEGIN #main-content-span -->
 				<div class="span6" id="main-content-span">
 				<h2 style="width:195%;">Enquiry form</h2>
-				
-					<div class="enquiryfrom">
-					<div id="main1">
-					Search By Name or Mobile:<br />
-					<input type="text" id="amots" name="amots" onKeyUp="bleble();" autocomplete="off"/>
-					<div id="layer2"></div>
-					</div> 
-						<?php /*isset($_REQUEST['action']='edit')
-						{ */
-						?>
-						
+								
 						<div style="float:left;margin:0px 0px 20px 140px;">
 						
 						
-						<form method="post" action="" onsubmit="return valid()">
+						<form method="post" action="">
 						<table>
 							<tr>
 								<td><h4>Mobile</h4></td>
@@ -396,9 +318,7 @@ border-bottom:1px solid gray;
 								<td><h4>Last Name</h4></td>
 								<td>
 									<input type="text" size="30px" name="c_lname" id="c_lname" value="<?php echo($lname) ?>" readonly>
-								</td>
-								
-								
+								</td>		
 							</tr>
 							<tr>
 								<td><h4>Address Line 1</h4></td>
@@ -525,39 +445,89 @@ border-bottom:1px solid gray;
 								</td>
 							</tr>
 							-->
-							
-							
-							<!-- table create from dilouge box -->
 							<tr>
-							<td colspan="6">
-							<div id="users-contain" class="ui-widget">
-
-							<table id="users" class="ui-widget ui-widget-content" >
-
-							<tbody >
-							</tbody>
-							</table>
-							</div>
-							</td>
-							
+								<td><h4>Services</h4></td>
+								<td>
+								<select id="service" name="service" id="service" style="width:220px; height:25px; ">
+								<option value="1">HOTEL</option>
+								<option value="2">RESORT</option>
+								<option value="3">PACKAGE</option>
+								<option value="4">TRAVEL</option>
+								</select> 
+								</td>
+								<td><input type="button" id="create-user"/ value="ADD"></td>
+								<td>&nbsp;</td>
+								<td><h4>&nbsp;</h4></td>
+								<td>
+								&nbsp;
+								</td>
 							</tr>
 							
+							<!-- Dynamicaly create table for hotel booking-->
+							
+							<?php
+							
+							$get=mysql_query("SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1 ");
+	
+							while($row = mysql_fetch_assoc($get)) {
+							$idmax=$row['enquiry_id'];
+							}
+							
+							$query10  = "SELECT * FROM enquiry_accomodation_mapping WHERE enquiry_id = '$idmax'";
+							
+							$result10 = mysql_query($query10);
+							while($row10 = mysql_fetch_assoc($result10)) {
+							?>
+							
+							<tr style="background-color:#aaaaaa;border:1px solid #ffffff; height:25px; color:#fff">
+								<td >
+								Name &nbsp;<?php echo $row10['accomodation_type_id'] ;
+								/* echo $query100="SELECT name FROM hotel_master where (hotel_id=(select hotel_id from accomodation_type_details where accomodation_type_id=$row10['accomodation_type_id']))";
+								$result100 = mysql_query($query100);
+								echo $row100['name']; */								
+								?>
+								</td>
+								<td >Adult&nbsp; <?php echo $row10['noofadults'] ?></td>
+								<td >Children&nbsp; <?php echo $row10['noofchildren'] ?></td>
+								<td >Room&nbsp; <?php echo $row10['noofrooms'] ?></td>
+								<td >Amount&nbsp; <?php echo $row10['amount'] ?> </td>
+								<td >Discount&nbsp; <?php echo $row10['discount'] ?></td>
+								<td >
+								Check In&nbsp;
+								<?php echo $row10['checkindate'] ?> &nbsp;&nbsp;&nbsp;
+								</td>
+								<td >
+								Check Out&nbsp;
+								<?php echo $row10['checkoutdate'] ?>
+
+								</td>
+								
+							</tr>
+							
+							
+							<?php
+							}
+							?>
+							
+							
+							 
+							 
+							 <!-- Dynamicaly create table for travel booking -->
 							
 							
 							
 						    <tr>
-								<td colspan="3">
+								<td colspan="2">
 								<p align="right">
-								<input type="submit" value="Next" class="bbbtn" style="width:120px;" name="enquiry" id="enquiry">
+								<input type="submit" value="Save" class="bbbtn" style="width:120px;" name="enquiry" id="enquiry">
 								</p>
 								</td>
-								<!--<td colspan="2">
+								<td colspan="2">
 								<p align="left">
 								<input type="submit" value="Book" class="bbbtn" style="width:120px;" name="book" id="book">
 								</p>
-								</td>
-								-->
-								<td colspan="3">
+								</td>	
+								<td colspan="2">
 								<p align="left">
 								<input type="submit" value="Cancel" class="bbbtn" style="width:120px;" name="cancel" id="cancel">
 								</p>
@@ -566,24 +536,269 @@ border-bottom:1px solid gray;
 						</table>
 						</form>
 						</div>
-						<?php
-						/* } */
-						?>
 					</div>
 					
 					<!-- dilouge for hotel -->
 					
 					<div id="dialog-form" title="HOTEL INFO">
-						<p class="validateTips">All form fields are required.</p>
-						<form>
+						<p class="validateTips">* fields are required.</p>
+						<p align=center>
+						<form method="post" onsubmit="return vali_hotel()">					
 							<fieldset>
-							<label for="name">Hotel Name</label>
-							<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
-							<label for="email">Phone</label>
-							<input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all" />
-							<label for="password">Address</label>
-							<input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
-							</fieldset>
+
+ <table border="0" width="80%" >
+		<tr>
+			<td width="40%"><h4>Resort Name*</h4></td>
+			<td width="20%">
+			 <?php
+								 $get=mysql_query("SELECT name FROM hotel_master where hotel_type_id=1 and status=1");
+								 ?>
+								 <select name="h_name" id="h_name" style="width:240px; height:25px; ">
+								 <option value="null">SELECT</option>
+								 <?php
+								    while($row = mysql_fetch_assoc($get))
+										{
+								?>
+											<option value = "<?php echo($row['name'])?>" ><?php echo($row['name']) ?></option>
+								<?php
+										}
+								?>
+								 </select>	
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Check In Date</h4></td>
+			<td width="20%"><input type="text" size="30px" id="datepicker" name="arrival_date" readonly></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Check Out date</h4></td>
+			<td width="20%"><input type="text" size="30px" id="datepicker1" name="departure_date" readonly onblur="total_date()"></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>No of Adults*</h4></td>
+			<td width="20%">
+			<select name="adult_count" id="adult_count" style="width:240px; height:25px;">
+										
+										
+										<option value="1">1</option>
+										<option value="2" selected>2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>No of Children*</h4></td>
+			<td width="20%">
+			<select name="child_count"  id="child_count"style="width:240px; height:25px; ">
+										<option value="0">0</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+			
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Room</h4></td>
+			<td width="20%">
+			<select name="no_room"  id="no_room" style="width:240px; height:25px; ">
+										<option value="0">0</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Amount*</h4></td>
+			<td width="20%"><input type="text" size="30px" id="net_amount" name="net_amount" onblur="net_amount_chk()" onclick="date_format()">	</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Discount*</h4></td>
+			<td width="20%"><input type="text" size="30px" id="discount" name="discount" onblur="discount_chk()">	</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Comment</h4></td>
+			<td width="20%"><input type="text" size="30px" id="comment" name="comment" >	</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Commision*</h4></td>
+			<td width="20%"><input type="text" size="30px" id="commision" name="commision">	</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%">&nbsp;</td>
+			<td width="20%"><input type="submit" value="Save" class="bbbtn" style="width:120px;" name="h_save" id="h_save"></td>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+	
+</form>
+</p>
+</fieldset>
+
+						</form>
+					</div>
+					
+					<!-- dilouge for resort -->
+					
+					<div id="dialog-form1" title="RESORT INFO">
+						<p class="validateTips">* fields are required.</p>
+						<p align=center>
+						<form method="post" onsubmit="return vali_resort()">					
+							<fieldset>
+
+ <table border="0" width="80%" >
+		<tr>
+			<td width="40%"><h4>RESORT Name*</h4></td>
+			<td width="20%">
+			 <?php
+								 $get=mysql_query("SELECT name FROM hotel_master where hotel_type_id=2 and status=1");
+								 ?>
+								 <select name="r_name" id="r_name" style="width:240px; height:25px; ">
+								 <option value="null">SELECT</option>
+								 <?php
+								    while($row = mysql_fetch_assoc($get))
+										{
+								?>
+											<option value = "<?php echo($row['name'])?>" ><?php echo($row['name']) ?></option>
+								<?php
+										}
+								?>
+								 </select>	
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Check In Date</h4></td>
+			<td width="20%"><input type="text" size="30px" id="datepicker3" name="arrival_date" readonly></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Check Out date</h4></td>
+			<td width="20%"><input type="text" size="30px" id="datepicker4" name="departure_date" readonly onblur="total_date()"></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>No of Adults*</h4></td>
+			<td width="20%">
+			<select name="adult_count" id="adult_count" style="width:240px; height:25px;">
+										
+										
+										<option value="1">1</option>
+										<option value="2" selected>2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>No of Children*</h4></td>
+			<td width="20%">
+			<select name="child_count"  id="child_count"style="width:240px; height:25px; ">
+										<option value="0">0</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+			
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Room</h4></td>
+			<td width="20%">
+			<select name="no_room"  id="no_room" style="width:240px; height:25px; ">
+										<option value="0">0</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Amount*</h4></td>
+			<td width="20%"><input type="text" size="30px" id="net_amount1" name="net_amount1" onblur="net_amount_chk()" onclick="date_format1()">	</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Discount*</h4></td>
+			<td width="20%"><input type="text" size="30px" id="discount1" name="discount1" onblur="discount_chk()">	</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Comment</h4></td>
+			<td width="20%"><input type="text" size="30px" id="comment" name="comment" >	</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Commision*</h4></td>
+			<td width="20%"><input type="text" size="30px" id="commision1" name="commision1">	</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%">&nbsp;</td>
+			<td width="20%"><input type="submit" value="Save" class="bbbtn" style="width:120px;" name="r_save" id="r_save"></td>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+	
+</form>
+</p>
+</fieldset>
+
 						</form>
 					</div>
 					
