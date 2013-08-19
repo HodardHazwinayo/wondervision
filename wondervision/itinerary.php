@@ -102,14 +102,15 @@ elseif(isset($_REQUEST['r_save'])){
 }
 
 elseif(isset($_REQUEST['t_save'])){
-    /*$sql15 = "INSERT INTO enquiry_accomodation_mapping( 	enquiry_id,accomodation_type_id,checkindate,checkoutdate,noofadults,noofchildren,noofrooms,amount,discount,comments,commission) VALUES ((SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),(SELECT accomodation_type_id FROM accomodation_type_details WHERE hotel_id = (SELECT hotel_id FROM hotel_master WHERE name = '".$_REQUEST['r_name']."')),'".$_REQUEST['arrival_date']."','".$_REQUEST['departure_date']."','".$_REQUEST['adult_count']."','".$_REQUEST['child_count']."','".$_REQUEST['no_room']."','".$_REQUEST['net_amount1']."','".$_REQUEST['discount1']."','".$_REQUEST['comment']."','".$_REQUEST['commision1']."')";
+    /*$sql155 = "INSERT INTO transport_details( 	transport_id,vehicle_no,vehicletype,noofadults,airconditioning,pickuptime,enquiry_id,user_id,startingplace,destination,estimateddistance,noofchildren,rate,discount,comments,commission,transport_mode_id) VALUES
+	('".$_REQUEST['vno']."',vechile type,$_REQUEST['adult_count']."','".$_REQUEST['ac']."','".$_REQUEST['arrival_date']."',(SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),user id,'".$_REQUEST['vsp']."','".$_REQUEST['vd']."','".$_REQUEST['vdis']."','".$_REQUEST['child_count']."','".$_REQUEST['net_amount2']."','".$_REQUEST['discount2']."','".$_REQUEST['comment2']."','".$_REQUEST['commision2']."',transport_mode_id);*/
 	
 	
 	$rs15 = mysql_query($sql15);
 
    
    
-   header("Location:itinerary.php");*/
+   header("Location:itinerary.php");
 
 }
 
@@ -840,6 +841,26 @@ $( "#dialog-form3" ).dialog( "open" );
 
  <table border="0" width="80%" >
 			<tr>
+			<td width="40%"><h4>Type*</h4></td>
+			<td width="20%">
+			 <?php
+								 $get=mysql_query("SELECT transport_mode_id,modetype FROM transport_mode_master ");
+								 ?>
+								 <select name="t_type" id="t_type" style="width:240px; height:25px; ">
+								
+								 <?php
+								    while($row = mysql_fetch_assoc($get))
+										{
+								?>
+											<option value = "<?php echo($row['transport_mode_id'])?>" ><?php echo($row['modetype']) ?></option>
+								<?php
+										}
+								?>
+								 </select>	
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+			<tr>
 			<td width="40%"><h4>AC</h4></td>
 			<td width="20%">
 			<select name="ac" id="ac" style="width:240px; height:25px;">
@@ -903,12 +924,6 @@ $( "#dialog-form3" ).dialog( "open" );
 			</td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td width="40%"><h4>Type </h4></td>
-			<td width="20%">
-			<input type="text" size="30px" id="vtype" name="vtype">	</td>
-			</td>
-			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td width="40%"><h4>Strating Place* </h4></td>
