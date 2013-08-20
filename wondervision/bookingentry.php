@@ -140,8 +140,8 @@ function finishAjax(id, response) {
 											  
 						
 						 
-						 <select name="guests" style="width:245px; border-radius:5px;">
-							<option value="0">Guests</option>
+						 <select name="noofrooms" style="width:245px; border-radius:5px;">
+							<option value="0">No of rooms</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -189,8 +189,7 @@ function finishAjax(id, response) {
 						
 						<br />
 						
-						<input type="text" size="30px" id="noofrooms" name="noofrooms" placeholder="Number of rooms"><br />
-						
+											
 						<input type="text" size="30px" id="roomtype" name="roomtype" placeholder="Room type"><br />
 						
 						<input type="text" size="30px" id="total_amount" name="total_amount" placeholder="Total Amount"><br />
@@ -264,12 +263,32 @@ function finishAjax(id, response) {
 					$myq = mysql_query("SELECT * FROM location_master INNER JOIN hotel_master ON location_master.location_id = hotel_master.location_id WHERE location_master.location_id='".$drop."' AND hotel_master.hotel_id='".$tier_two."'");
 					$myr = mysql_fetch_array($myq);
 					
+					$csql = mysql_query("SELECT country_name FROM country_master WHERE country_name='India'");
+					$cq = mysql_fetch_assoc($csql);
 					
-					echo "You selected ";
-					echo $myr['name']." @ ".$myr['place']." of ".$_REQUEST['state_s']." on ".$_REQUEST['arrival_date']." to ". $_REQUEST['departure_date']." with # of guests ".$_REQUEST['guests']." Adults ".$_REQUEST['adults']." Children ".$_REQUEST['child']." Room type ".$_REQUEST['roomtype']." Total amount ".$_REQUEST['total_amount']." ";
+					$ssql = mysql_query("(SELECT state_name FROM state_master WHERE state_name='West Bengal')");
+						$sq = mysql_fetch_array($ssql);
+						
+						$uql = mysql_query("SELECT user_id FROM user_master WHERE user_id='".$_REQUEST['uid']."'");
+						$us = mysql_fetch_array($uql);
+					
+					//echo "You selected ";
+					//echo $myr['name']." @ ".$myr['place']." of ".$_REQUEST['state_s']." on ".$_REQUEST['arrival_date']." to ". $_REQUEST['departure_date']." with # of guests ".$_REQUEST['guests']." Adults ".$_REQUEST['adults']." Children ".$_REQUEST['child']." Room type ".$_REQUEST['roomtype']." Total amount ".$_REQUEST['total_amount']." ";
 					
 					
-					$isq = "INSERT INTO ";
+					$isq = "INSERT INTO enquiry_details (startdate,enddate,destination,country_name,state_name,user_id) VALUES ('".date("Y-m-d h:i:s", strtotime($_REQUEST['arrival_date']))."','". date("Y-m-d h:i:s",strtotime($_REQUEST['departure_date']))."','".$myr['place']."','".$cq['country_name']."','".$sq['state_name']."','".$us['user_id']."')";
+					
+					$rrq = mysql_query($isq);
+					
+								
+					
+					$esq = "INSERT INTO enquiry_accomodation_mapping(enquiry_id,checkindate,checkoutdate,noofadults,noofchildren,noofrooms,roomtype,amount) VALUES ((SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),'".date("Y-m-d h:i:s", strtotime($_REQUEST['arrival_date']))."','". date("Y-m-d h:i:s",strtotime($_REQUEST['departure_date']))."','".$_REQUEST['adults']."','".$_REQUEST['child']."','".$_REQUEST['noofrooms']."','".$_REQUEST['roomtype']."','".$_REQUEST['total_amount']."')";
+					
+					$ers = mysql_query($esq);
+					
+					$bsql="INSERT INTO booking_details (bookingdate,enquiry_id) VALUES ('".date('Y-m-d H:i:s')."',(SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1))";
+					
+					 $rsqlb = mysql_query($bsql);
 				}
 				
 				if(isset($_POST['submit2'])){
