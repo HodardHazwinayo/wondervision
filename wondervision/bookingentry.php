@@ -106,10 +106,19 @@ function finishAjax(id, response) {
 					<div style="float:left;width:93%;background-color:#DDDBDB;height:auto;padding:20px;margin-bottom:10px;">
 					<form action="" method="post">
 					
-						<input type="text" size="30px" id="datepicker" name="arrival_date" placeholder="Arrival"><br />
-						
-						<input type="text" size="30px" id="datepicker1" name="departure_date" placeholder="Departure"><br />
-											  
+						<select name="state_s" style="width:245px; border-radius:5px;">
+							<option value="0">Choose state</option>
+							<?php
+							$s = mysql_query("SELECT * FROM `state_master`");
+							while($gr = mysql_fetch_array($s))
+							{
+							?>
+								<option value="<?php echo $gr['state_name'] ?>"><?php echo $gr['state_name'] ?></option>
+							<?php
+							}
+							?>
+						</select>
+						<br />
 						<select name="drop_1" id="drop_1" style="width:245px; border-radius:5px;">
 						
 						  <option value="" selected="selected" disabled="disabled">Select a Place</option>
@@ -122,8 +131,14 @@ function finishAjax(id, response) {
 						<img alt="Please Wait" src="ajax-loader.gif"/>
 						</span>
 						<span id="result_1" style="display: none;"></span> 
-						 
-						 <br />
+						
+						<br />
+						
+						<input type="text" size="30px" id="datepicker" name="arrival_date" placeholder="Arrival"><br />
+						
+						<input type="text" size="30px" id="datepicker1" name="departure_date" placeholder="Departure"><br />
+											  
+						
 						 
 						 <select name="guests" style="width:245px; border-radius:5px;">
 							<option value="0">Guests</option>
@@ -138,10 +153,111 @@ function finishAjax(id, response) {
 							<option value="9">9</option>
 							<option value="10">10</option>
 						</select>
+						
+						<br />
+						
+						<select name="adults" style="width:245px; border-radius:5px;">
+							<option value="0">adults</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+						</select>
+						
+						<br />
+						
+						<select name="child" style="width:245px; border-radius:5px;">
+							<option value="">Children</option>
+							<option value="0">0</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+						</select>
+						
+						<br />
+						
+						<input type="text" size="30px" id="noofrooms" name="noofrooms" placeholder="Number of rooms"><br />
+						
+						<input type="text" size="30px" id="roomtype" name="roomtype" placeholder="Room type"><br />
+						
+						<input type="text" size="30px" id="total_amount" name="total_amount" placeholder="Total Amount"><br />
+						
+						<input type="submit" name="submit" value="Submit" />
 					</form>
+					
 					</div>
 										
-				 <?php if(isset($_POST['submit'])){
+				
+				  </div>
+				  
+				  <div id="tabs-2">
+					
+					<div style="float:left;width:93%;background-color:#DDDBDB;height:auto;padding:20px;margin-bottom:10px;">
+					<form action="" method="post">
+					
+					
+					  <select name="vehicle_type" style="width:245px; border-radius:5px;">
+							<option value="0">Select car type</option>
+							<option value="ac">AC</option>
+							<option value="nonac">Non AC</option>
+							
+					</select>
+						
+						<br />
+						
+					  <input type="text" size="30px" id="from_place" name="from_place" placeholder="Place from"><br />
+					  
+					  <input type="text" size="30px" id="to_place" name="to_place" placeholder="Place to"><br />
+					  
+					  <input type="text" size="30px" id="datepicker4" name="from_date" placeholder="Date from"><br />
+						
+					  <input type="text" size="30px" id="datepicker3" name="to_date" placeholder="Date to"><br />
+					  
+					  <select name="seat" style="width:245px; border-radius:5px;">
+							<option value="0">Select seat type</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+						</select>
+							<br />
+							<input type="submit" name="submit2" value="Submit">
+					</div>	
+						
+						
+						
+						
+					  
+					  
+				  </div>
+				  <!-- <div id="tabs-3">
+					  
+				  </div>-->
+				 
+			</div>
+					
+					
+					<div style="float:left;width:500px;height:auto;">
+				<?php if(isset($_POST['submit'])){
 					$drop = $_POST['drop_1'];
 					$tier_two = $_POST['tier_two'];
 					
@@ -150,20 +266,21 @@ function finishAjax(id, response) {
 					
 					
 					echo "You selected ";
-					echo $myr['name']." @ ".$myr['place']." on ".$_REQUEST['arrival_date']." to ". $_REQUEST['departure_date']." with # of guests".$_REQUEST['guests'];
+					echo $myr['name']." @ ".$myr['place']." of ".$_REQUEST['state_s']." on ".$_REQUEST['arrival_date']." to ". $_REQUEST['departure_date']." with # of guests ".$_REQUEST['guests']." Adults ".$_REQUEST['adults']." Children ".$_REQUEST['child']." Room type ".$_REQUEST['roomtype']." Total amount ".$_REQUEST['total_amount']." ";
+					
+					
+					$isq = "INSERT INTO ";
+				}
+				
+				if(isset($_POST['submit2'])){
+					echo "Vehicle type ".$_REQUEST['vehicle_type']." From place ".$_REQUEST['from_place']." To place ".$_REQUEST['to_place']." Date From ".$_REQUEST['from_date']." To ".$_REQUEST['to_date']." and No of seats ".$_REQUEST['seat']." ";
 				}
 				?>
-				  </div>
-				  
-				  <div id="tabs-2">
-					  
-				  </div>
-				  <!-- <div id="tabs-3">
-					  
-				  </div>-->
-				 
-			</div>
-			
+					
+					
+					</div>
+					
+					
 			
 						<table>
 							<tr>

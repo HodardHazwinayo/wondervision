@@ -33,7 +33,7 @@
 	   </li>
 		<li class='active'><a href='quickenquiry.php'><span>Quick enquiry</span></a></li>
 		
-		<li class='active'><a href='#'><span>Booking</span></a></li>
+		<li class='active'><a href='enquirysearch.php'><span>Booking</span></a></li>
 			 
 		<li class='last'><a href='#'><span>Reporting</span></a></li>
 	</ul>

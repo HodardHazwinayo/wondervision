@@ -41,6 +41,6 @@ function drop_1($drop_var)
 	
 	echo '</select> ';
 	
-    echo '<input type="submit" name="submit" value="Submit" />';
+    //echo '<input type="submit" name="submit" value="Submit" />';
 }
 ?>
