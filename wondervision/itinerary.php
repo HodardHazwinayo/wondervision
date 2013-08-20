@@ -47,28 +47,7 @@ header("Location:undercontruction.php");
 }
 elseif(isset($_REQUEST['enquiry']))
 {
-	 /*$sql = "INSERT INTO enquiry_details( 	startdate,enddate,startingplace,destination,enquirydate,totaldiscount,net_amount,servicetax,VAT,user_id,country_name,state_name) VALUES ('".$_REQUEST['arrival_date']."','".$_REQUEST['departure_date']."','".$_REQUEST['from_city']."','".$_REQUEST['to_city']."','$date','".$_REQUEST['discount']."','".$_REQUEST['net_amount']."','".$_REQUEST['s_tax']."','".$_REQUEST['vat']."',(select user_id from user_master where user_id='".$cus_code."'),(select country_name from country_master where country_name='".$_REQUEST['c_country']."'),(select state_name from state_master where state_name='".$_REQUEST['c_state']."'))";
-	
-	
-	$rs = mysql_query($sql);
-	
-	
-	 $get=mysql_query("SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1 ");
-	
-    while($row = mysql_fetch_assoc($get)) {
-	$idmax=$row['enquiry_id'];
-	
-	}
-	
-	
-	 $sql1="INSERT INTO enquiry_comments_details
-	(enquiry_id,updatedate,comment) values
-	((select enquiry_id from enquiry_details where enquiry_id='$idmax'),'$date','".$_REQUEST['any_notes']."')";
-	
-	
-	$rs1 = mysql_query($sql1);*/
-
-	header("Location:itinerary.php");
+	header("Location:dashboard.php");
 }
 
 elseif(isset($_REQUEST['cancel'])){
@@ -78,7 +57,10 @@ elseif(isset($_REQUEST['cancel'])){
 }
 
 elseif(isset($_REQUEST['h_save'])){
-    $sql15 = "INSERT INTO enquiry_accomodation_mapping( 	enquiry_id,accomodation_type_id,checkindate,checkoutdate,noofadults,noofchildren,noofrooms,amount,discount,comments,commission) VALUES ((SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),(SELECT accomodation_type_id FROM accomodation_type_details WHERE hotel_id = (SELECT hotel_id FROM hotel_master WHERE name = '".$_REQUEST['h_name']."')),'".$_REQUEST['arrival_date']."','".$_REQUEST['departure_date']."','".$_REQUEST['adult_count']."','".$_REQUEST['child_count']."','".$_REQUEST['no_room']."','".$_REQUEST['net_amount']."','".$_REQUEST['discount']."','".$_REQUEST['comment']."','".$_REQUEST['commision']."')";
+
+	$arrdate=date("Y-m-d", strtotime($_REQUEST['arrival_date']));
+	$deptdate=date("Y-m-d", strtotime($_REQUEST['departure_date']));
+    $sql15 = "INSERT INTO enquiry_accomodation_mapping( 	enquiry_id,accomodation_type_id,checkindate,checkoutdate,noofadults,noofchildren,noofrooms,amount,comments) VALUES ((SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),(SELECT accomodation_type_id FROM accomodation_type_details WHERE hotel_id = (SELECT hotel_id FROM hotel_master WHERE name = '".$_REQUEST['h_name']."')),'$arrdate','$deptdate','".$_REQUEST['adult_count']."','".$_REQUEST['child_count']."','".$_REQUEST['no_room']."','".$_REQUEST['net_amount']."','".$_REQUEST['comment']."')";
 	
 	
 	$rs15 = mysql_query($sql15);
@@ -90,7 +72,9 @@ elseif(isset($_REQUEST['h_save'])){
 }
 
 elseif(isset($_REQUEST['r_save'])){
-    $sql15 = "INSERT INTO enquiry_accomodation_mapping( 	enquiry_id,accomodation_type_id,checkindate,checkoutdate,noofadults,noofchildren,noofrooms,amount,discount,comments,commission) VALUES ((SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),(SELECT accomodation_type_id FROM accomodation_type_details WHERE hotel_id = (SELECT hotel_id FROM hotel_master WHERE name = '".$_REQUEST['r_name']."')),'".$_REQUEST['arrival_date']."','".$_REQUEST['departure_date']."','".$_REQUEST['adult_count']."','".$_REQUEST['child_count']."','".$_REQUEST['no_room']."','".$_REQUEST['net_amount1']."','".$_REQUEST['discount1']."','".$_REQUEST['comment']."','".$_REQUEST['commision1']."')";
+	$arrdate=date("Y-m-d", strtotime($_REQUEST['arrival_date']));
+	$deptdate=date("Y-m-d", strtotime($_REQUEST['departure_date']));
+    $sql15 = "INSERT INTO enquiry_accomodation_mapping( 	enquiry_id,accomodation_type_id,checkindate,checkoutdate,noofadults,noofchildren,noofrooms,amount,comments) VALUES ((SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),(SELECT accomodation_type_id FROM accomodation_type_details WHERE hotel_id = (SELECT hotel_id FROM hotel_master WHERE name = '".$_REQUEST['r_name']."')),'$arrdate','$deptdate','".$_REQUEST['adult_count']."','".$_REQUEST['child_count']."','".$_REQUEST['no_room']."','".$_REQUEST['net_amount1']."','".$_REQUEST['comment']."')";
 	
 	
 	$rs15 = mysql_query($sql15);
@@ -102,11 +86,17 @@ elseif(isset($_REQUEST['r_save'])){
 }
 
 elseif(isset($_REQUEST['t_save'])){
-    /*$sql155 = "INSERT INTO transport_details( 	transport_id,vehicle_no,vehicletype,noofadults,airconditioning,pickuptime,enquiry_id,user_id,startingplace,destination,estimateddistance,noofchildren,rate,discount,comments,commission,transport_mode_id) VALUES
-	('".$_REQUEST['vno']."',vechile type,$_REQUEST['adult_count']."','".$_REQUEST['ac']."','".$_REQUEST['arrival_date']."',(SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),user id,'".$_REQUEST['vsp']."','".$_REQUEST['vd']."','".$_REQUEST['vdis']."','".$_REQUEST['child_count']."','".$_REQUEST['net_amount2']."','".$_REQUEST['discount2']."','".$_REQUEST['comment2']."','".$_REQUEST['commision2']."',transport_mode_id);*/
+
+	$arrdate=date("Y-m-d", strtotime($_REQUEST['arrival_date']));
+	$deptdate=date("Y-m-d", strtotime($_REQUEST['dept_date']));
+
+
+    echo $sql10 = "INSERT INTO transport_details( 	vehicletype,noofadults,pickuptime,enquiry_id,startingplace,destination,noofchildren,rate,comments,estimatedtime) VALUES
+	('".$_REQUEST['ac']."','".$_REQUEST['adult_count']."','$arrdate',(SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),'".$_REQUEST['vsp']."','".$_REQUEST['vd']."','".$_REQUEST['child_count']."','".$_REQUEST['net_amount2']."','".$_REQUEST['comment2']."','$deptdate')";
 	
 	
-	$rs15 = mysql_query($sql15);
+	$rs15 = mysql_query($sql10);
+	
 
    
    
@@ -150,13 +140,7 @@ elseif(isset($_REQUEST['t_save'])){
 	<script type="text/javascript" src="bootstrap/js/bootstrap-transition.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap-typeahead.js"></script>
 	<script type="text/javascript" src="validation.js"></script>
-	
 
-	<!-- Uncomment to use LESS The dynamic stylesheet language. | http://lesscss.org/ -->
-	<!-- <link rel="stylesheet/less" type="text/css" href="css/main.less" /> -->
-	<!-- <script type="text/javascript" src="js/less-1.3.0.min.js"></script> -->
-
-	<!-- Uncomment to use CSS -->
 	<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.css" />
 	
 
@@ -183,6 +167,10 @@ elseif(isset($_REQUEST['t_save'])){
 	  
 	   $(function() {
 	    $( "#datepicker5" ).datepicker();
+	  });
+	  
+	   $(function() {
+	    $( "#datepicker6" ).datepicker();
 	  });
 	  </script>
 <!-- jquery for fetch value from dilouge box -->	  
@@ -226,8 +214,8 @@ return true;
 }
 $( "#dialog-form" ).dialog({
 autoOpen: false,
-height: 600,
-width: 700,
+height: 472,
+width: 550,
 modal: true,
 close: function() {
 allFields.val( "" ).removeClass( "ui-state-error" );
@@ -235,8 +223,8 @@ allFields.val( "" ).removeClass( "ui-state-error" );
 });
 $( "#dialog-form1" ).dialog({
 autoOpen: false,
-height: 600,
-width: 700,
+height: 472,
+width: 550,
 modal: true,
 close: function() {
 allFields.val( "" ).removeClass( "ui-state-error" );
@@ -245,8 +233,8 @@ allFields.val( "" ).removeClass( "ui-state-error" );
 
 $( "#dialog-form2" ).dialog({
 autoOpen: false,
-height: 600,
-width: 700,
+height: 472,
+width: 550,
 modal: true,
 close: function() {
 allFields.val( "" ).removeClass( "ui-state-error" );
@@ -289,9 +277,7 @@ $( "#dialog-form3" ).dialog( "open" );
 			</a>
 			<a class="brand" href="#">XLogistics<br><h3>Tour Management Edition</h3></a>
 			<div class="nav-collapse collapse">
-				<!--<form class="navbar-search pull-left" action="">
-					<input type="text" class="search-query span2" placeholder="Search">
-				</form>-->
+				
 				<ul class="nav pull-right">
 					<li><a href="index.php"><i class="icon-off icon-white"></i> logout</a></li>
 				</ul>
@@ -372,113 +358,14 @@ $( "#dialog-form3" ).dialog( "open" );
 								</td>
 							</tr>
 
-							<!--
-							<tr>
-								<td><h4>From city</h4></td>
-								<td><input type="text" size="30px" name="from_city" id="from_city" value="" onblur="from_city_chk()"></td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>To city</h4></td>
-								<td><input type="text" size="30px" name="to_city" id="to_city" value="" onblur="to_city_chk()"></td>
-							</tr>
-					
-							<tr>
-								<td><h4>Adult</h4></td>
-								<td>
-									<select name="adult_count" id="adult_count" style="width:220px; height:25px;" onchange="document.getElementById('noroom').value='';alert('SELECT NO. OF ROOM')">
-										
-										
-										<option value="1">1</option>
-										<option value="2" selected>2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-										<option value="7">7</option>
-										<option value="8">8</option>
-										<option value="9">9</option>
-										<option value="10">10</option>
-									</select>
-								</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>Child</h4></td>
-								<td>
-									<select name="child_count"  style="width:220px; height:25px; ">
-										<option value="0">0</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-										<option value="7">7</option>
-										<option value="8">8</option>
-										<option value="9">9</option>
-										<option value="10">10</option>
-									</select>
-									
-								</td>
-							</tr>
 							
-							<tr>
-								<td><h4>Arrival date</h4></td>
-								<td><input type="text" size="30px" id="datepicker" name="arrival_date" readonly></td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>Departure date</h4></td>
-								<td><input type="text" size="30px" id="datepicker1" name="departure_date" readonly onblur="total_date()"></td>
-							</tr>
-							
-							<tr>
-								<td><h4>No of rooms</h4></td>
-								<td>
-									<input type="text" size="30px" id="noroom" name="noroom" onfocus="no_of_room()">
-									
-								</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>Total days</h4></td>
-								<td>
-								<input type="text" size="30px" id="totdate" name="totdate" readonly>	
-								</td>
-							</tr>
-							
-					
-							<tr>
-									<td><h4>Total days</h4></td>
-								<td>
-								<input type="text" size="30px" id="totdate" name="totdate" onclick="no_of_days()">	
-								</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>Discount</h4></td>
-								<td>
-									
-									<input type="text" size="30px" id="discount" name="discount" onblur="discount_chk()">	
-								
-								</td>
-							</tr>
-							<tr>
-								<td><h4>Net amount</h4></td>
-								<td>
-								<input type="text" size="30px" id="net_amount" name="net_amount" onblur="net_amount_chk()">	
-								</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>Service TAX</h4></td>
-								<td>
-								<input type="text" size="30px" id="s_tax" name="s_tax" onblur="service_tax_chk()">	
-								</td>
-							</tr>
-							-->
 							<tr>
 								<td><h4>Services</h4></td>
 								<td>
 								<select id="service" name="service" id="service" style="width:220px; height:25px; ">
 								<option value="1">HOTEL</option>
 								<option value="2">RESORT</option>
-								<option value="3">PACKAGE</option>
+								
 								<option value="4">TRAVEL</option>
 								</select> 
 								</td>
@@ -506,26 +393,44 @@ $( "#dialog-form3" ).dialog( "open" );
 							while($row10 = mysql_fetch_assoc($result10)) {
 							?>
 							
-							<tr style="background-color:#aaaaaa;border:1px solid #ffffff; height:25px; color:#fff">
-								<td >
-								Name &nbsp;<?php echo $row10['accomodation_type_id'] ;
-								/* echo $query100="SELECT name FROM hotel_master where (hotel_id=(select hotel_id from accomodation_type_details where accomodation_type_id=$row10['accomodation_type_id']))";
+							<tr style="background-color:#EEEEEE;border:1px solid #ffffff; height:25px; color:#000000">								<td colspan="6">
+								 		<table border="0" width="100%">
+			<tr>
+				<td align="center" colspan="4"><b>NAME&nbsp;&nbsp; </b>
+
+				
+				<?php
+								  
+								  $query100="SELECT name FROM hotel_master where (hotel_id=(select hotel_id from accomodation_type_details where accomodation_type_id='".$row10['accomodation_type_id']."'))";
 								$result100 = mysql_query($query100);
-								echo $row100['name']; */								
+								
+								$row100=mysql_fetch_array($result100);
+								
+								echo $row100['name']; 								
 								?>
-								</td>
-								<td >Adult&nbsp; <?php echo $row10['noofadults'] ?></td>
-								<td >Children&nbsp; <?php echo $row10['noofchildren'] ?></td>
-								<td >Room&nbsp; <?php echo $row10['noofrooms'] ?></td>
-								<td >Amount&nbsp; <?php echo $row10['amount'] ?> </td>
-								<td >Discount&nbsp; <?php echo $row10['discount'] ?></td>
-								<td >
-								Check In&nbsp;
-								<?php echo $row10['checkindate'] ?> &nbsp;&nbsp;&nbsp;
-								</td>
-								<td >
-								Check Out&nbsp;
-								<?php echo $row10['checkoutdate'] ?>
+				</td>
+				
+			</tr>
+			<tr>
+				<td width="20%" align="left"><b>ADULT</b></td>
+				<td width="30%" align="left"><?php echo $row10['noofadults'] ?></td>
+				<td width="20%" align="left"><b>CHILDREN</b></td>
+				<td align="left"><?php echo $row10['noofchildren'] ?></td>
+			</tr>
+			<tr>
+				<td width="20%" align="left"><b>ROOM</b></td>
+				<td width="30%" align="left"><?php echo $row10['noofrooms'] ?></td>
+				<td width="20%" align="left"><b>AMOUNT</b></td>
+				<td align="left"><?php echo $row10['amount'] ?></td>
+			</tr>
+			<tr>
+				<td width="20%" align="left"><b>CHECK_IN_DATE</b></td>
+				<td width="30%" align="left"><?php echo $row10['checkindate'] ?> </td>
+				<td width="20%" align="left"><b>CHECK_OUT_DATE</b></td>
+				<td align="left"><?php echo $row10['checkoutdate'] ?></td>
+			</tr>
+		</table>
+
 
 								</td>
 								
@@ -535,18 +440,67 @@ $( "#dialog-form3" ).dialog( "open" );
 							<?php
 							}
 							?>
-							
-							
-							 
-							 
+
 							 <!-- Dynamicaly create table for travel booking -->
+							 
+							 <!-- edit korte hobe -->
+							 
+				<?php
+							
+							$get1=mysql_query("SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1 ");
+	
+							while($row1 = mysql_fetch_assoc($get1)) {
+							$idmax=$row1['enquiry_id'];
+							}
+							
+							$query101  = "SELECT * FROM transport_details WHERE enquiry_id = '$idmax'";
+							
+							$result101 = mysql_query($query101);
+							while($row101 = mysql_fetch_assoc($result101)) {
+							?>
+							
+							<tr style="background-color:#EEFFEE;border:1px solid #ffffff; height:25px; color:#000000">								<td colspan="6">
+								 		<table border="0" width="100%">
+			<tr>
+				<td width="20%" align="left"><b>ADULT</b></td>
+				<td width="30%" align="left"><?php echo $row101['noofadults'] ?></td>
+				<td width="20%" align="left"><b>CHILDREN</b></td>
+				<td align="left"><?php echo $row101['noofchildren'] ?></td>
+			</tr>
+			<tr>
+				<td width="20%" align="left"><b>START PLACE</b></td>
+				<td width="30%" align="left"><?php echo $row101['startingplace'] ?></td>
+				<td width="20%" align="left"><b>DESTINATION</b></td>
+				<td align="left"><?php echo $row101['destination'] ?></td>
+			</tr>
+			<tr>
+				<td width="20%" align="left"><b>FROM_DATE</b></td>
+				<td width="30%" align="left"><?php echo $row101['pickuptime'] ?> </td>
+				<td width="20%" align="left"><b>TO_DATE</b></td>
+				<td align="left"><?php echo $row101['estimatedtime'] ?></td>
+			</tr>
+			<tr>
+				<td width="20%" align="left"><b>RATE</b></td>
+				<td width="30%" align="left"><?php echo $row101['rate'] ?> </td>
+				<td width="20%" align="left"><b>TYPE</b></td>
+				<td align="left"><?php echo $row101['vehicletype'] ?></td>
+			</tr>
+		</table>
+
+
+								</td>
+								
+							</tr>
 							
 							
-							
+							<?php
+							}
+							?>
+
 						    <tr>
 								<td colspan="2">
 								<p align="right">
-								<input type="submit" value="Save" class="bbbtn" style="width:120px;" name="enquiry" id="enquiry">
+								<input type="submit" value="Save" class="bbbtn" style="width:120px;" name="enquiry" id="enquiry" onclick="fake_submit()">
 								</p>
 								</td>
 								<td colspan="2">
@@ -575,7 +529,7 @@ $( "#dialog-form3" ).dialog( "open" );
 
  <table border="0" width="80%" >
 		<tr>
-			<td width="40%"><h4>Resort Name*</h4></td>
+			<td width="40%"><h4>Hotel Name*</h4></td>
 			<td width="20%">
 			 <?php
 								 $get=mysql_query("SELECT name FROM hotel_master where hotel_type_id=1 and status=1");
@@ -665,24 +619,16 @@ $( "#dialog-form3" ).dialog( "open" );
 		</tr>
 		<tr>
 			<td width="40%"><h4>Amount*</h4></td>
-			<td width="20%"><input type="text" size="30px" id="net_amount" name="net_amount" onblur="net_amount_chk()" onclick="date_format()">	</td>
+			<td width="20%"><input type="text" size="30px" id="net_amount" name="net_amount" onblur="net_amount_chk()" >	</td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td width="40%"><h4>Discount*</h4></td>
-			<td width="20%"><input type="text" size="30px" id="discount" name="discount" onblur="discount_chk()">	</td>
-			<td>&nbsp;</td>
-		</tr>
+		
 		<tr>
 			<td width="40%"><h4>Comment</h4></td>
 			<td width="20%"><input type="text" size="30px" id="comment" name="comment" >	</td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td width="40%"><h4>Commision*</h4></td>
-			<td width="20%"><input type="text" size="30px" id="commision" name="commision">	</td>
-			<td>&nbsp;</td>
-		</tr>
+		
 		<tr>
 			<td width="40%">&nbsp;</td>
 			<td width="20%"><input type="submit" value="Save" class="bbbtn" style="width:120px;" name="h_save" id="h_save"></td>
@@ -733,7 +679,7 @@ $( "#dialog-form3" ).dialog( "open" );
 		</tr>
 		<tr>
 			<td width="40%"><h4>Check Out date</h4></td>
-			<td width="20%"><input type="text" size="30px" id="datepicker4" name="departure_date" readonly onblur="total_date()"></td>
+			<td width="20%"><input type="text" size="30px" id="datepicker4" name="departure_date" readonly></td>
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
@@ -797,24 +743,16 @@ $( "#dialog-form3" ).dialog( "open" );
 		</tr>
 		<tr>
 			<td width="40%"><h4>Amount*</h4></td>
-			<td width="20%"><input type="text" size="30px" id="net_amount1" name="net_amount1" onblur="net_amount_chk()" onclick="date_format1()">	</td>
+			<td width="20%"><input type="text" size="30px" id="net_amount1" name="net_amount1" onblur="net_amount_chk()" >	</td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td width="40%"><h4>Discount*</h4></td>
-			<td width="20%"><input type="text" size="30px" id="discount1" name="discount1" onblur="discount_chk()">	</td>
-			<td>&nbsp;</td>
-		</tr>
+		
 		<tr>
 			<td width="40%"><h4>Comment</h4></td>
 			<td width="20%"><input type="text" size="30px" id="comment" name="comment" >	</td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td width="40%"><h4>Commision*</h4></td>
-			<td width="20%"><input type="text" size="30px" id="commision1" name="commision1">	</td>
-			<td>&nbsp;</td>
-		</tr>
+	
 		<tr>
 			<td width="40%">&nbsp;</td>
 			<td width="20%"><input type="submit" value="Save" class="bbbtn" style="width:120px;" name="r_save" id="r_save"></td>
@@ -841,39 +779,25 @@ $( "#dialog-form3" ).dialog( "open" );
 
  <table border="0" width="80%" >
 			<tr>
-			<td width="40%"><h4>Type*</h4></td>
-			<td width="20%">
-			 <?php
-								 $get=mysql_query("SELECT transport_mode_id,modetype FROM transport_mode_master ");
-								 ?>
-								 <select name="t_type" id="t_type" style="width:240px; height:25px; ">
-								
-								 <?php
-								    while($row = mysql_fetch_assoc($get))
-										{
-								?>
-											<option value = "<?php echo($row['transport_mode_id'])?>" ><?php echo($row['modetype']) ?></option>
-								<?php
-										}
-								?>
-								 </select>	
-			</td>
-			<td>&nbsp;</td>
-		</tr>
-			<tr>
 			<td width="40%"><h4>AC</h4></td>
 			<td width="20%">
 			<select name="ac" id="ac" style="width:240px; height:25px;">
-										<option value="1">YES</option>
-										<option value="0" selected>NO</option>
+										<option value="AC">YES</option>
+										<option value="NON-AC" selected>NO</option>
 									</select>
 			</td>
 			<td>&nbsp;</td>
 		</tr>
 	
 		<tr>
-			<td width="40%"><h4>Date</h4></td>
+			<td width="40%"><h4> From Date</h4></td>
 			<td width="20%"><input type="text" size="30px" id="datepicker5" name="arrival_date" readonly></td>
+			<td>&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td width="40%"><h4> To Date</h4></td>
+			<td width="20%"><input type="text" size="30px" id="datepicker6" name="dept_date" readonly></td>
 			<td>&nbsp;</td>
 		</tr>
 	
@@ -901,7 +825,7 @@ $( "#dialog-form3" ).dialog( "open" );
 			<td width="40%"><h4>No of Children*</h4></td>
 			<td width="20%">
 			<select name="child_count"  id="child_count"style="width:240px; height:25px; ">
-										<option value="0">0</option>
+										<option value="0" selected>0</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
@@ -914,13 +838,6 @@ $( "#dialog-form3" ).dialog( "open" );
 										<option value="10">10</option>
 									</select>
 			
-			</td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr>
-			<td width="40%"><h4>Vechile Number</h4></td>
-			<td width="20%">
-			<input type="text" size="30px" id="vno" name="vno">	</td>
 			</td>
 			<td>&nbsp;</td>
 		</tr>
@@ -939,33 +856,19 @@ $( "#dialog-form3" ).dialog( "open" );
 			</td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td width="40%"><h4>Distance </h4></td>
-			<td width="20%">
-			<input type="text" size="30px" id="vdis" name="vdis">	</td>
-			</td>
-			<td>&nbsp;</td>
-		</tr>
+	
 		<tr>
 			<td width="40%"><h4>Amount*</h4></td>
-			<td width="20%"><input type="text" size="30px" id="net_amount2" name="net_amount2" onblur="net_amount_chk()" onclick="date_format2()">	</td>
+			<td width="20%"><input type="text" size="30px" id="net_amount2" name="net_amount2" onblur="net_amount_chk()" >	</td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td width="40%"><h4>Discount*</h4></td>
-			<td width="20%"><input type="text" size="30px" id="discount2" name="discount2" onblur="discount_chk()">	</td>
-			<td>&nbsp;</td>
-		</tr>
+	
 		<tr>
 			<td width="40%"><h4>Comment</h4></td>
 			<td width="20%"><input type="text" size="30px" id="comment2" name="comment2" >	</td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td width="40%"><h4>Commision</h4></td>
-			<td width="20%"><input type="text" size="30px" id="commision2" name="commision2">	</td>
-			<td>&nbsp;</td>
-		</tr>
+		
 		<tr>
 			<td width="40%">&nbsp;</td>
 			<td width="20%"><input type="submit" value="Save" class="bbbtn" style="width:120px;" name="t_save" id="t_save"></td>
@@ -979,24 +882,15 @@ $( "#dialog-form3" ).dialog( "open" );
 
 						</form>
 					</div>
-					
-					
-					
+		
 				</div><!-- END #main-content-span -->
-				
-				
-				
 
 				<!-- BEGIN #main-content-span -->
-				
 
 			</div><!-- END main-content-row -->
 
-			
-
 		</div><!-- END #main-content -->
-		
-	
+
 		
 	</div><!-- END #main -->
 

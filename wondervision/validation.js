@@ -402,11 +402,10 @@ function valid_mail1()
            var fname,lname,addrs1,state,country;
            fname=document.getElementById("h_name").value.trim();
 		   lname=document.getElementById("net_amount").value.trim();
-		   addrs1=document.getElementById("discount").value.trim();
-		   state=document.getElementById("commision").value.trim();
+		   
 		   
 	   
-           if(fname=="null" || lname=="" || addrs1=="" || state=="null")
+           if(fname=="null" || lname=="")
            	{
            	      alert("All necesary data is not given");
                       
@@ -446,11 +445,9 @@ function valid_mail1()
            var fname,lname,addrs1,state,country;
            fname=document.getElementById("r_name").value.trim();
 		   lname=document.getElementById("net_amount1").value.trim();
-		   addrs1=document.getElementById("discount1").value.trim();
-		   state=document.getElementById("commision1").value.trim();
 		   
 	   
-           if(fname=="null" || lname=="" || addrs1=="" || state=="null")
+           if(fname=="null" || lname=="")
            	{
            	      alert("All necesary data is not given");      
                   submitOK="false";
@@ -484,11 +481,7 @@ function valid_mail1()
            fname=document.getElementById("vsp").value.trim();
 		   lname=document.getElementById("vd").value.trim();
 		   addrs1=document.getElementById("net_amount2").value.trim();
-		   state=document.getElementById("discount2").value.trim();
-		   
-		   
-	   
-           if(fname=="null" || lname=="" || addrs1=="" || state=="")
+           if(fname=="null" || lname=="" || addrs1=="" )
            	{
            	      alert("All necesary data is not given");      
                   submitOK="false";
@@ -500,6 +493,10 @@ function valid_mail1()
          else
                return true;
 	 
+	 }
+	 
+	 function fake_submit(){
+	  alert("Enquiry Saveed Successfully to the database");
 	 }
 	 
 	 
