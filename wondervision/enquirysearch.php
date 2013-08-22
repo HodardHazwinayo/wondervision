@@ -7,7 +7,10 @@ if(isset($_REQUEST['search']))
 {
 	$searchv = $_REQUEST['searchv'];
 	
-	$query = mysql_query("SELECT * FROM `user_master` INNER JOIN `enquiry_details` ON user_master.user_id = enquiry_details.user_id WHERE firstname like('" .$searchv . "%') OR mobile like('" .$searchv . "%')");
+	$sql = ("SELECT * FROM `user_master` INNER JOIN `enquiry_details` ON user_master.user_id = enquiry_details.user_id INNER JOIN `enquiry_accomodation_mapping` ON enquiry_details.enquiry_id = enquiry_accomodation_mapping.enquiry_id WHERE user_master.firstname like('" .$searchv . "%') OR user_master.mobile like('" .$searchv . "%')");
+		$query = mysql_query($sql);
+	
+	
 	
 	
 }
@@ -37,25 +40,31 @@ if(isset($_REQUEST['search']))
 						</table>	
 						</form>
 						
-						<div style="float:left;margin:0px 0px 20px 140px;">
+						<div style="float:left;margin:0px 0px 20px 0px;">
 							<table width="100%" cellpadding="15" cellspacing="0">
 								<tr>
+									<th>Enquiry #</th>
 									<th>Name</th>
 									<th>Mobile</th>
-									<th>From</th>
-									<th>Start Date</th>
-									<th>To</th>
-									<th>End Date</th>
+									<th>Checkin date</th>
+									<th>Checkout date</th>
+									<th>Amount</th>
+									<th>No of adults</th>
+									<th>No of children</th>
+									<th>No of rooms</th>
 									<th></th>
 								</tr>
 							<?php while($row = mysql_fetch_array($query))	{ ?>
 								<tr>
+									<td><?php echo $row['enquiry_id']; ?></td>
 									<td><?php echo $row['firstname']." ".$row['lastname']; ?></td>
 									<td><?php echo $row['mobile']; ?></td>
-									<td><?php echo $row['startingplace']; ?></td>
-									<td><?php echo $row['startdate']; ?></td>
-									<td><?php echo $row['destination']; ?></td>
-									<td><?php echo $row['enddate']; ?></td>
+									<td><?php echo $row['checkindate']; ?></td>
+									<td><?php echo $row['checkoutdate']; ?></td>
+									<td><?php echo $row['amount']; ?></td>
+									<td><?php echo $row['noofadults']; ?></td>
+									<td><?php echo $row['noofchildren']; ?></td>
+									<td><?php echo $row['noofrooms']; ?></td>
 									<td><a href="bookingentry.php?eid=<?php echo $row['enquiry_id'] ?>&uid=<?php echo $row['user_id']?>">Book</a></td>
 								</tr>	
 						

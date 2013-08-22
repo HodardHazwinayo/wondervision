@@ -80,7 +80,7 @@ function finishAjax(id, response) {
 							<tr>
 								<td><h4>First Name</h4></td>
 								<td>
-									<input type="text" size="30px" name="c_fname" id="c_fname" value="<?php echo $rows['firstname'] ?>" readonly >
+									<input type="text" size="30px" name="c_fname" id="c_fname" value="<?php echo $rows['firstname'] ?>" readonly>
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
@@ -90,7 +90,10 @@ function finishAjax(id, response) {
 								</td>
 							</tr>
 							
+							
+							
 							<?php	}	?>
+							
 						</table>
 																			  
 							
@@ -104,22 +107,29 @@ function finishAjax(id, response) {
 				</ul>
 				  <div id="tabs-1">
 					<div style="float:left;width:93%;background-color:#DDDBDB;height:auto;padding:20px;margin-bottom:10px;">
-					<form action="" method="post">
-					
-						<select name="state_s" style="width:245px; border-radius:5px;">
-							<option value="0">Choose state</option>
-							<?php
-							$s = mysql_query("SELECT * FROM `state_master`");
-							while($gr = mysql_fetch_array($s))
-							{
-							?>
-								<option value="<?php echo $gr['state_name'] ?>"><?php echo $gr['state_name'] ?></option>
-							<?php
-							}
-							?>
-						</select>
-						<br />
-						<select name="drop_1" id="drop_1" style="width:245px; border-radius:5px;">
+					<form method="post" onsubmit="return vali_hotel()">					
+							<fieldset>
+
+ <table border="0" width="80%" >
+		<tr>
+			<td width="40%"><h4>Hotel Name*</h4></td>
+			<td width="20%">
+			 <?php
+								// $get=mysql_query("SELECT name FROM hotel_master where hotel_type_id=1 and status=1");
+								 ?>
+								 <!--<select name="h_name" id="h_name" style="width:240px; height:25px; ">
+								 <option value="null">SELECT</option> -->
+								 <?php
+								    //while($row = mysql_fetch_assoc($get))
+										//{
+								?>
+											<!--<option value = "<?php //echo($row['name'])?>" ><?php //echo($row['name']) ?></option>-->
+								<?php
+										//}
+								?>
+								<!-- </select>	 -->
+								 
+								 <select name="drop_1" id="drop_1" style="width:245px; border-radius:5px;">
 						
 						  <option value="" selected="selected" disabled="disabled">Select a Place</option>
 						  
@@ -131,71 +141,98 @@ function finishAjax(id, response) {
 						<img alt="Please Wait" src="ajax-loader.gif"/>
 						</span>
 						<span id="result_1" style="display: none;"></span> 
-						
-						<br />
-						
-						<input type="text" size="30px" id="datepicker" name="arrival_date" placeholder="Arrival"><br />
-						
-						<input type="text" size="30px" id="datepicker1" name="departure_date" placeholder="Departure"><br />
-											  
-						
-						 
-						 <select name="noofrooms" style="width:245px; border-radius:5px;">
-							<option value="0">No of rooms</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
-						</select>
-						
-						<br />
-						
-						<select name="adults" style="width:245px; border-radius:5px;">
-							<option value="0">adults</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
-						</select>
-						
-						<br />
-						
-						<select name="child" style="width:245px; border-radius:5px;">
-							<option value="">Children</option>
-							<option value="0">0</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
-						</select>
-						
-						<br />
-						
-											
-						<input type="text" size="30px" id="roomtype" name="roomtype" placeholder="Room type"><br />
-						
-						<input type="text" size="30px" id="total_amount" name="total_amount" placeholder="Total Amount"><br />
-						
-						<input type="submit" name="submit" value="Submit" />
-					</form>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Check In Date</h4></td>
+			<td width="20%"><input type="text" size="30px" id="datepicker" name="arrival_date"></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Check Out date</h4></td>
+			<td width="20%"><input type="text" size="30px" id="datepicker1" name="departure_date" onblur="total_date()"></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>No of Adults*</h4></td>
+			<td width="20%">
+			<select name="adult_count" id="adult_count" style="width:240px; height:25px;">
+										
+										
+										<option value="1">1</option>
+										<option value="2" selected>2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>No of Children*</h4></td>
+			<td width="20%">
+			<select name="child_count"  id="child_count"style="width:240px; height:25px; ">
+										<option value="0">0</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+			
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Room</h4></td>
+			<td width="20%">
+			<select name="no_room"  id="no_room" style="width:240px; height:25px; ">
+										<option value="0">0</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Amount*</h4></td>
+			<td width="20%"><input type="text" size="30px" id="net_amount" name="net_amount" onblur="net_amount_chk()" >	</td>
+			<td>&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td width="40%"><h4>Comment</h4></td>
+			<td width="20%"><input type="text" size="30px" id="comment" name="comment" >	</td>
+			<td>&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td width="40%">&nbsp;</td>
+			<td width="20%"><input type="submit" name="submit" value="Submit" /></td>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+	
+</form>
 					
 					</div>
 										
@@ -205,41 +242,110 @@ function finishAjax(id, response) {
 				  <div id="tabs-2">
 					
 					<div style="float:left;width:93%;background-color:#DDDBDB;height:auto;padding:20px;margin-bottom:10px;">
-					<form action="" method="post">
 					
-					
-					  <select name="vehicle_type" style="width:245px; border-radius:5px;">
-							<option value="0">Select car type</option>
-							<option value="ac">AC</option>
-							<option value="nonac">Non AC</option>
+						<form method="post" onsubmit="return vali_travel()">					
 							
-					</select>
-						
-						<br />
-						
-					  <input type="text" size="30px" id="from_place" name="from_place" placeholder="Place from"><br />
-					  
-					  <input type="text" size="30px" id="to_place" name="to_place" placeholder="Place to"><br />
-					  
-					  <input type="text" size="30px" id="datepicker4" name="from_date" placeholder="Date from"><br />
-						
-					  <input type="text" size="30px" id="datepicker3" name="to_date" placeholder="Date to"><br />
-					  
-					  <select name="seat" style="width:245px; border-radius:5px;">
-							<option value="0">Select seat type</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
-						</select>
-							<br />
-							<input type="submit" name="submit2" value="Submit">
+
+ <table border="0" width="80%" >
+			<tr>
+			<td width="40%"><h4>AC</h4></td>
+			<td width="20%">
+			<select name="ac" id="ac" style="width:240px; height:25px;">
+										<option value="AC">YES</option>
+										<option value="NON-AC" selected>NO</option>
+									</select>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+	
+		<tr>
+			<td width="40%"><h4> From Date</h4></td>
+			<td width="20%"><input type="text" size="30px" id="datepicker4" name="arrival_date"></td>
+			<td>&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td width="40%"><h4> To Date</h4></td>
+			<td width="20%"><input type="text" size="30px" id="datepicker3" name="dept_date"></td>
+			<td>&nbsp;</td>
+		</tr>
+	
+		<tr>
+			<td width="40%"><h4>No of Adults*</h4></td>
+			<td width="20%">
+			<select name="adult_count" id="adult_count" style="width:240px; height:25px;">
+										
+										
+										<option value="1">1</option>
+										<option value="2" selected>2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>No of Children*</h4></td>
+			<td width="20%">
+			<select name="child_count"  id="child_count"style="width:240px; height:25px; ">
+										<option value="0" selected>0</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+			
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Strating Place* </h4></td>
+			<td width="20%">
+			<input type="text" size="30px" id="vsp" name="vsp">	</td>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="40%"><h4>Destination* </h4></td>
+			<td width="20%">
+			<input type="text" size="30px" id="vd" name="vd">	</td>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+	
+		<tr>
+			<td width="40%"><h4>Amount*</h4></td>
+			<td width="20%"><input type="text" size="30px" id="net_amount2" name="net_amount2" onblur="net_amount_chk()" >	</td>
+			<td>&nbsp;</td>
+		</tr>
+	
+		<tr>
+			<td width="40%"><h4>Comment</h4></td>
+			<td width="20%"><input type="text" size="30px" id="comment2" name="comment2" >	</td>
+			<td>&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td width="40%">&nbsp;</td>
+			<td width="20%"><input type="submit" value="Save" style="width:120px;" name="t_save" id="t_save"></td>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+	
+</form>
 					</div>	
 						
 						
@@ -260,39 +366,60 @@ function finishAjax(id, response) {
 					$drop = $_POST['drop_1'];
 					$tier_two = $_POST['tier_two'];
 					
-					$myq = mysql_query("SELECT * FROM location_master INNER JOIN hotel_master ON location_master.location_id = hotel_master.location_id WHERE location_master.location_id='".$drop."' AND hotel_master.hotel_id='".$tier_two."'");
-					$myr = mysql_fetch_array($myq);
+					/*$myq = mysql_query("SELECT * FROM location_master INNER JOIN hotel_master ON location_master.location_id = hotel_master.location_id WHERE location_master.location_id='".$drop."' AND hotel_master.hotel_id='".$tier_two."'");
+					$myr = mysql_fetch_array($myq);*/
 					
-					$csql = mysql_query("SELECT country_name FROM country_master WHERE country_name='India'");
+					/* $csql = mysql_query("SELECT country_name FROM country_master WHERE country_name='India'");
 					$cq = mysql_fetch_assoc($csql);
 					
 					$ssql = mysql_query("(SELECT state_name FROM state_master WHERE state_name='West Bengal')");
 						$sq = mysql_fetch_array($ssql);
 						
 						$uql = mysql_query("SELECT user_id FROM user_master WHERE user_id='".$_REQUEST['uid']."'");
-						$us = mysql_fetch_array($uql);
+						$us = mysql_fetch_array($uql);*/
 					
 					//echo "You selected ";
 					//echo $myr['name']." @ ".$myr['place']." of ".$_REQUEST['state_s']." on ".$_REQUEST['arrival_date']." to ". $_REQUEST['departure_date']." with # of guests ".$_REQUEST['guests']." Adults ".$_REQUEST['adults']." Children ".$_REQUEST['child']." Room type ".$_REQUEST['roomtype']." Total amount ".$_REQUEST['total_amount']." ";
 					
 					
-					$isq = "INSERT INTO enquiry_details (startdate,enddate,destination,country_name,state_name,user_id) VALUES ('".date("Y-m-d h:i:s", strtotime($_REQUEST['arrival_date']))."','". date("Y-m-d h:i:s",strtotime($_REQUEST['departure_date']))."','".$myr['place']."','".$cq['country_name']."','".$sq['state_name']."','".$us['user_id']."')";
+					/*$isq = "INSERT INTO enquiry_details (startdate,enddate,destination,country_name,state_name,user_id) VALUES ('".date("Y-m-d h:i:s", strtotime($_REQUEST['arrival_date']))."','". date("Y-m-d h:i:s",strtotime($_REQUEST['departure_date']))."','".$myr['place']."','".$cq['country_name']."','".$sq['state_name']."','".$us['user_id']."')";
 					
-					$rrq = mysql_query($isq);
+					$rrq = mysql_query($isq);*/
 					
 								
 					
-					$esq = "INSERT INTO enquiry_accomodation_mapping(enquiry_id,checkindate,checkoutdate,noofadults,noofchildren,noofrooms,roomtype,amount) VALUES ((SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),'".date("Y-m-d h:i:s", strtotime($_REQUEST['arrival_date']))."','". date("Y-m-d h:i:s",strtotime($_REQUEST['departure_date']))."','".$_REQUEST['adults']."','".$_REQUEST['child']."','".$_REQUEST['noofrooms']."','".$_REQUEST['roomtype']."','".$_REQUEST['total_amount']."')";
+				/*	$esq = "INSERT INTO enquiry_accomodation_mapping(enquiry_id,checkindate,checkoutdate,noofadults,noofchildren,noofrooms,roomtype,amount) VALUES ((SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),'".date("Y-m-d h:i:s", strtotime($_REQUEST['arrival_date']))."','". date("Y-m-d h:i:s",strtotime($_REQUEST['departure_date']))."','".$_REQUEST['adults']."','".$_REQUEST['child']."','".$_REQUEST['noofrooms']."','".$_REQUEST['roomtype']."','".$_REQUEST['total_amount']."')";
 					
 					$ers = mysql_query($esq);
 					
 					$bsql="INSERT INTO booking_details (bookingdate,enquiry_id) VALUES ('".date('Y-m-d H:i:s')."',(SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1))";
 					
-					 $rsqlb = mysql_query($bsql);
+					 $rsqlb = mysql_query($bsql); */
+					 
+					 
+	$arrdate=date("Y-m-d", strtotime($_REQUEST['arrival_date']));
+	$deptdate=date("Y-m-d", strtotime($_REQUEST['departure_date']));
+   $sql15 = "INSERT INTO enquiry_accomodation_mapping( 	enquiry_id,accomodation_type_id,checkindate,checkoutdate,noofadults,noofchildren,noofrooms,amount,comments) VALUES ((SELECT enquiry_id FROM enquiry_details where enquiry_id='".$_REQUEST['eid']."'),(SELECT accomodation_type_id FROM accomodation_type_details WHERE hotel_id = (SELECT hotel_id FROM hotel_master WHERE hotel_id = '".$tier_two."')),'$arrdate','$deptdate','".$_REQUEST['adult_count']."','".$_REQUEST['child_count']."','".$_REQUEST['no_room']."','".$_REQUEST['net_amount']."','".$_REQUEST['comment']."')";
+	
+	
+	$rs15 = mysql_query($sql15);
+	
+	if(!empty($rs15))
+	{
+		$accsql = mysql_query("SELECT * FROM enquiry_accomodation_mapping "); 
+	}
 				}
 				
-				if(isset($_POST['submit2'])){
-					echo "Vehicle type ".$_REQUEST['vehicle_type']." From place ".$_REQUEST['from_place']." To place ".$_REQUEST['to_place']." Date From ".$_REQUEST['from_date']." To ".$_REQUEST['to_date']." and No of seats ".$_REQUEST['seat']." ";
+				if(isset($_POST['t_save'])){
+					$arrdate=date("Y-m-d", strtotime($_REQUEST['arrival_date']));
+	$deptdate=date("Y-m-d", strtotime($_REQUEST['dept_date']));
+
+
+    echo $sql10 = "INSERT INTO transport_details( 	vehicletype,noofadults,pickuptime,enquiry_id,startingplace,destination,noofchildren,rate,comments,estimatedtime) VALUES
+	('".$_REQUEST['ac']."','".$_REQUEST['adult_count']."','$arrdate',(SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),'".$_REQUEST['vsp']."','".$_REQUEST['vd']."','".$_REQUEST['child_count']."','".$_REQUEST['net_amount2']."','".$_REQUEST['comment2']."','$deptdate')";
+	
+	
+	$rs15 = mysql_query($sql10);
 				}
 				?>
 					

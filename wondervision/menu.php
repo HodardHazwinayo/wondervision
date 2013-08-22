@@ -35,7 +35,7 @@
 		
 		<li class='active'><a href='enquirysearch.php'><span>Booking</span></a></li>
 			 
-		<li class='last'><a href='#'><span>Reporting</span></a></li>
+		<li class='last'><a target="blank_" href='http://localhost:8080/birt-viewer/frameset?__report=performance_report.rptdesign'><span>Reporting</span></a></li>
 	</ul>
 </div>
 <?php	} else	{	?>

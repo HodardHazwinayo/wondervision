@@ -1,8 +1,8 @@
 ﻿<?php
 session_start();
 include('header.php'); ?>
-
-<style type="text/css" media="all">
+	
+	<style type="text/css" media="all">
 		
 		#news-container
 		{
@@ -20,6 +20,11 @@ include('header.php'); ?>
 		}
 	</style>
 	
+	<!-- Uncomment to use LESS The dynamic stylesheet language. | http://lesscss.org/ -->
+	<!-- <link rel="stylesheet/less" type="text/css" href="css/main.less" /> -->
+	<!-- <script type="text/javascript" src="js/less-1.3.0.min.js"></script> -->
+
+	<!-- Uncomment to use CSS -->
 	<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.css" />
 	
 
@@ -30,9 +35,11 @@ include('header.php'); ?>
 	<link href="css/global.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 <link href='http://fonts.googleapis.com/css?family=IM+Fell+DW+Pica+SC' rel='stylesheet' type='text/css'>
+	
 
 	  
-	  <style type="text/css">
+	  
+<style type="text/css">
 
 /*Example CSS for the two demo scrollers*/
 
@@ -175,10 +182,14 @@ return 0
 
 </script>
 	
-
+	<script type="text/javascript" src="js/myScript.js"></script>	
+	
+	
+	
 	<div class="main" id="main">
 		<!-- BEGIN #main-nav -->
-		<?php include('sidebar.php');?>
+		
+		<?php //include('sidebar.php');?>
 		
 
 		<!-- BEGIN #main-content -->
