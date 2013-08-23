@@ -26,7 +26,7 @@ function drop_1($drop_var)
 {  
     include_once('include/config.php');
 	
-	//echo '<input type="text" size="10px" id="datepicker" name="arrival_date" placeholder="Arrival">';
+	
 	$result = mysql_query("SELECT * FROM hotel_master WHERE location_id='$drop_var'") 
 	or die(mysql_error());
 	

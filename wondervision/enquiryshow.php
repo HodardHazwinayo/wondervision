@@ -8,7 +8,7 @@ $cus_code=$_GET["id"];
    $query1 = mysql_query($sql1);
    $row1=mysql_fetch_array($query1);
    
-   $sql2=("SELECT enquiry_id,startdate from enquiry_details WHERE user_id='$cus_code'");
+   $sql2=("SELECT enquiry_id,enquirydate from enquiry_details WHERE user_id='$cus_code'");
    $query2 = mysql_query($sql2);
    
    
@@ -76,7 +76,7 @@ $cus_code=$_GET["id"];
 									<td align="center"><?php echo $row2['enquiry_id']; ?></td>
 									<td align="center">
 									
-									<?php echo $row2['startdate']; ?>
+									<?php echo $row2['enquirydate']; ?>
 									</td >
 									
 									

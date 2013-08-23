@@ -128,8 +128,18 @@ if(isset($_REQUEST['enquiry']))
 	    $( "#datepicker4" ).datepicker();
 	  });
 	  </script>
+	  <!--Include JQuery File-->
+<script type="text/javascript" language="Javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+ 
+<!--Include JQuery UI File-->
+<script type="text/javascript" language="Javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js"></script>
+ 
+</head>
+<body>
+ 
 	<script type="text/javascript" src="js/myScript.js"></script>
 	<script language="JavaScript" type="text/javascript" src="search.js"></script>
+
 	
 
 
@@ -173,14 +183,14 @@ if(isset($_REQUEST['enquiry']))
 							while($row10 = mysql_fetch_assoc($result10)) {
 							
 					?>
-													 		<table border="0" width="100%" style="background-color:#EEEEEE;">
+		 <table border="0" width="100%" style="background-color:#EEEEEE;">
 			<tr style="background-color:#F9F9F9;border:1px solid #ffffff; height:25px; color:#000000">
 				<td align="center" colspan="4"><b>NAME&nbsp;&nbsp; </b>
 
 				
 				<?php
 								  
-								  $query100="SELECT name FROM hotel_master where (hotel_id=(select hotel_id from accomodation_type_details where accomodation_type_id='".$row10['accomodation_type_id']."'))";
+								  $query100="SELECT name,hotel_id FROM hotel_master where (hotel_id=(select hotel_id from accomodation_type_details where accomodation_type_id='".$row10['accomodation_type_id']."'))";
 								$result100 = mysql_query($query100);
 								
 								$row100=mysql_fetch_array($result100);
@@ -208,6 +218,27 @@ if(isset($_REQUEST['enquiry']))
 				<td width="20%" align="left"><b>CHECK_OUT_DATE</b></td>
 				<td align="left"><?php echo $row10['checkoutdate'] ?></td>
 			</tr>
+			<tr>
+				<td width="20%" align="left"><b>&nbsp;</b></td>
+				<td width="30%" align="center">
+				<table border=0 width=100%>
+				<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td align="right">
+				<a  href="edithotel.php?eid=<?php echo $eid ?>&hid=<?php echo $row100['hotel_id'] ?>&hname=<?php echo $row100['name'] ?>&adl=<?php echo $row10['noofadults'] ?>&chl=<?php echo $row10['noofchildren'] ?>&rum=<?php echo $row10['noofrooms'] ?>&amt=<?php echo $row10['amount'] ?>&cid=<?php echo $row10['checkindate'] ?>&cod=<?php echo $row10['checkoutdate'] ?>&aid=<?php echo $row10['accomodation_type_id'] ?>&action=edit"><b>Edit</b></a>
+				</td>
+				<td align="center"><a  href="edithotel.php?eid=<?php echo $eid ?>&aid=<?php echo $row10['accomodation_type_id'] ?>&action=delete" onclick="return confirm('Are you sure want to delete ??');"><b>Delete</b></a></td>
+				</tr>
+				</table>
+				
+				
+				
+				</td>
+				<td width="20%" align="right">&nbsp;</td>
+				<td align="left">&nbsp;</td>
+			</tr>
 		</table>
 			<?php
 							}
@@ -222,7 +253,7 @@ if(isset($_REQUEST['enquiry']))
 							while($row101 = mysql_fetch_assoc($result101)) {
 							?>
 							
-							<table border="0" width="100%" style="background-color:#EEFFEE;">
+			<table border="0" width="100%" style="background-color:#EEFFEE;">
 			<tr>
 				<td width="20%" align="left"><b>ADULT</b></td>
 				<td width="30%" align="left"><?php echo $row101['noofadults'] ?></td>
@@ -247,6 +278,32 @@ if(isset($_REQUEST['enquiry']))
 				<td width="20%" align="left"><b>TYPE</b></td>
 				<td align="left"><?php echo $row101['vehicletype'] ?></td>
 			</tr>
+			<tr>
+				<td width="20%" align="left"><b>&nbsp;</b></td>
+				<td width="30%" align="center">
+				<table border=0 width=100%>
+				<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td align="right">
+				<a  href="edittravel.php?tid=<?php echo $row101['transport_id'] ?>&action=edit&eid=<?php echo $eid ?>&adt=<?php echo $row101['noofadults'] ?>&chld=<?php echo $row101['noofchildren'] ?>&sp=<?php echo $row101['startingplace'] ?>&dst=<?php echo $row101['destination'] ?>&fd=<?php echo $row101['pickuptime'] ?>&td=<?php echo $row101['estimatedtime'] ?>&rate=<?php echo $row101['rate'] ?>&type=<?php echo $row101['vehicletype'] ?>"><b>Edit</b></a>
+				</td>
+				<td align="center"><a  href="edittravel.php?tid=<?php echo $row101['transport_id'] ?>&action=delete&eid=<?php echo $eid ?>"onclick="return confirm('Are you sure want to delete ??');"><b>Delete</b></a></td>
+				</tr>
+				</table>
+				
+				
+				
+				</td>
+				<td width="20%" align="right">&nbsp;</td>
+				<td align="left">&nbsp;</td>
+			</tr>
+			<tr style="background-color:#EEFFFF;>
+				<td colspan="4">&nbsp;</b></td>
+				
+			</tr>
+		
 		</table>
 		
 			<?php
@@ -255,6 +312,7 @@ if(isset($_REQUEST['enquiry']))
 
 
 					</div>
+
 				</div><!-- END #main-content-span -->
 				<!-- BEGIN #main-content-span -->
 			</div><!-- END main-content-row -->

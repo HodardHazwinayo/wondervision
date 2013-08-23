@@ -522,7 +522,7 @@ $( "#dialog-form3" ).dialog( "open" );
 					<!-- dilouge for hotel -->
 					
 					<div id="dialog-form" title="HOTEL INFO">
-						<p class="validateTips">* fields are required.</p>
+						<p class="validateTips"><h4>* fields are required.</h4></p>
 						<p align=center>
 						<form method="post" onsubmit="return vali_hotel()">					
 							<fieldset>
@@ -618,7 +618,7 @@ $( "#dialog-form3" ).dialog( "open" );
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td width="40%"><h4>Amount*</h4></td>
+			<td width="40%"><h4>Budget* (INR)</h4></td>
 			<td width="20%"><input type="text" size="30px" id="net_amount" name="net_amount" onblur="net_amount_chk()" >	</td>
 			<td>&nbsp;</td>
 		</tr>
@@ -646,7 +646,7 @@ $( "#dialog-form3" ).dialog( "open" );
 					<!-- dilouge for resort -->
 					
 					<div id="dialog-form1" title="RESORT INFO">
-						<p class="validateTips">* fields are required.</p>
+						<p class="validateTips"><h4>* fields are required.</h4></p>
 						<p align=center>
 						<form method="post" onsubmit="return vali_resort()">					
 							<fieldset>
@@ -742,7 +742,7 @@ $( "#dialog-form3" ).dialog( "open" );
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td width="40%"><h4>Amount*</h4></td>
+			<td width="40%"><h4>Budget*</h4></td>
 			<td width="20%"><input type="text" size="30px" id="net_amount1" name="net_amount1" onblur="net_amount_chk()" >	</td>
 			<td>&nbsp;</td>
 		</tr>
@@ -772,7 +772,7 @@ $( "#dialog-form3" ).dialog( "open" );
 					
 					
 					<div id="dialog-form2" title="TRAVEL INFO">
-						<p class="validateTips">* fields are required.</p>
+						<p class="validateTips"><h4>* fields are required.</h4></p>
 						<p align=center>
 						<form method="post" onsubmit="return vali_travel()">					
 							<fieldset>
@@ -843,7 +843,7 @@ $( "#dialog-form3" ).dialog( "open" );
 		</tr>
 		</tr>
 		<tr>
-			<td width="40%"><h4>Strating Place* </h4></td>
+			<td width="40%"><h4>Starting Place* </h4></td>
 			<td width="20%">
 			<input type="text" size="30px" id="vsp" name="vsp">	</td>
 			</td>
@@ -858,7 +858,7 @@ $( "#dialog-form3" ).dialog( "open" );
 		</tr>
 	
 		<tr>
-			<td width="40%"><h4>Amount*</h4></td>
+			<td width="40%"><h4>Budget*</h4></td>
 			<td width="20%"><input type="text" size="30px" id="net_amount2" name="net_amount2" onblur="net_amount_chk()" >	</td>
 			<td>&nbsp;</td>
 		</tr>

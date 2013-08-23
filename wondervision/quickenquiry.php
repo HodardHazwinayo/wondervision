@@ -40,7 +40,7 @@ if(isset($_REQUEST['enquiry']))
 
 	//insert into enquiry_details value
 	
-	$sql = "INSERT INTO enquiry_details( 	/*startdate,enddate,startingplace,destination,enquirydate,totaldiscount,net_amount,servicetax,VAT,*/user_id,country_name,state_name) VALUES (/*'".$_REQUEST['arrival_date']."','".$_REQUEST['departure_date']."','".$_REQUEST['from_city']."','".$_REQUEST['to_city']."','$date','".$_REQUEST['discount']."','".$_REQUEST['net_amount']."','".$_REQUEST['s_tax']."','".$_REQUEST['vat']."',*/(select user_id from user_master where user_id='".$cus_code."'),(select country_name from country_master where country_name='".$_REQUEST['c_country']."'),(select state_name from state_master where state_name='".$_REQUEST['c_state']."'))";
+	$sql = "INSERT INTO enquiry_details( 	/*startdate,enddate,startingplace,destination,*/enquirydate,/*totaldiscount,net_amount,servicetax,VAT,*/user_id,country_name,state_name) VALUES (/*'".$_REQUEST['arrival_date']."','".$_REQUEST['departure_date']."','".$_REQUEST['from_city']."','".$_REQUEST['to_city']."','$date','".$_REQUEST['discount']."','".$_REQUEST['net_amount']."','".$_REQUEST['s_tax']."','".$_REQUEST['vat']."',*/'$date',(select user_id from user_master where user_id='".$cus_code."'),(select country_name from country_master where country_name='".$_REQUEST['c_country']."'),(select state_name from state_master where state_name='".$_REQUEST['c_state']."'))";
 	
 	
 	$rs = mysql_query($sql);
