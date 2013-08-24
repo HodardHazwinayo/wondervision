@@ -174,6 +174,51 @@ return 0
 }
 
 </script>
+
+
+
+   <link href="themes/yui/style.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery-1.2.6.min.js" type="text/javascript"></script>
+    <script src="js/jquery.tablesorter-2.0.4.js" type="text/javascript"></script>
+    <script src="js/jquery.quicksearch.js" type="text/javascript"></script>
+	
+	<style type="text/css">    
+    div.quicksearch 
+    {              
+      padding-bottom: 10px;      
+    }
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+
+    //Setup the sorting for the table with the first column initially sorted ascending
+    //and the rows striped using the zebra widget
+        $("#tableOne").tablesorter({ sortList: [[0, 0]], widgets: ['zebra'] });
+
+    //Setup the quickSearch plugin with on onAfter event that first checks to see how
+    //many rows are visible in the body of the table. If there are rows still visible
+    //call tableSorter functions to update the sorting and then hide the tables footer. 
+    //Else show the tables footer  
+        $("#tableOne tbody tr").quicksearch({
+            labelText: 'Search for required tests: ',
+            attached: '#tableOne',
+            position: 'before',
+            delay: 100,
+            loaderText: 'Loading...',
+            onAfter: function() {
+                if ($("#tableOne tbody tr:visible").length != 0) {
+                    $("#tableOne").trigger("update");
+                    $("#tableOne").trigger("appendCache");
+                    $("#tableOne tfoot tr").hide();
+                }
+                else {
+                    $("#tableOne tfoot tr").show();
+                }
+            }
+        });
+
+});   
+</script>   
 	
 
 	<div class="main" id="main">
@@ -211,22 +256,17 @@ return 0
 					<h2>  Management messages</h2>
 					<div style="height:150px;">
 						<ul id="ticker_02" class="ticker">
+						<?php 
+						$msg_sql = mysql_query("SELECT description FROM mgmt_news_feed_details WHERE status='1'");
+						while($mrow = mysql_fetch_array($msg_sql))
+						{
+						?>
 							<li>
-								3 Days and 2 Nights at Bankok in 30,000 INR Only 
+								<?php echo $mrow['description']; ?>
 							</li>
-							<li>
-								Do not book  any  trip to Kedarnath, due to flood situation
-							</li>
-							
-							<li>
-								Special offer for Sikkim 20 % discount from Wonder Vision 
-							</li>
-							<li>
-								3 Days and 2 Nights at Singapore in 40,000 INR Only .
-							</li>
-							<li>
-								Cancel all the booking at Sikkim till farther notice. 
-							</li>	
+						<?php
+						}
+						?>
 						</ul>
 						
 					</div>	
@@ -249,24 +289,56 @@ return 0
 
 				<!-- BEGIN #main-content-span -->
 				<div class="span6" id="main-content-span">
-					<h2> Quick search  &nbsp;
-					<div style="padding-top:1px;">
-					<input type="text" placeholder="Enquiry id" size="8">&nbsp;&nbsp;
-					<input type="text" placeholder="Booking id" size="8">&nbsp;&nbsp;
-					<button style="float:right;"><img alt="" src="images/search.png"></button>
-					</div>
-					 </h2>
 					
 					
-					<div style="height:160px;overflow-y:scroll;">
-						<p style="padding:4px 0 4px 12px;background-color:#F0F0F0;">Booking ID WVE004  Negotiated by giving 20% on hotel rooms and food</p>
-						<p style="padding:4px 0 4px 12px;background-color:#FFFFFF;">Booking ID WVB002  Complimentary breakfast at Hotel Asivana Noida</p>
-						<p style="padding:4px 0 4px 12px;background-color:#F0F0F0;">Booking ID WVE106  Given special offer at Hotel Pulin Puri</p>
-						<p style="padding:4px 0 4px 12px;background-color:#FFFFFF;">Booking ID WVE107  Booked by partner on 10 % B2B commission negotiation</p>
-						<p style="padding:4px 0 4px 12px;background-color:#F0F0F0;">Booking ID WVA563  Requested for giving discount on Andaman tour package.</p>
-						<p style="padding:4px 0 4px 12px;background-color:#FFFFFF;">Enquiry ID WVE563  Seeking for hotel room under 2000INR at Bankok.</p>
-						<p style="padding:4px 0 4px 12px;background-color:#F0F0F0;">Enquiry ID WVE452  Looking for any available package for tour to France.</p>
-						<p style="padding:4px 0 4px 12px;background-color:#FFFFFF;">Enquiry ID WVE852  Looking for any available package for tour to Austrailia.</p>
+					<div style="height:160px;overflow-y:scroll;padding:5px;">
+						<table width="100%" border="0" cellpadding="1" cellspacing="1" id="tableOne" class="yui">
+							<thead>
+								<tr>
+									<th width="10%%" align="left"></th>
+									<th width="40%" align="center"></th>
+									<th width="50%" align="center"></th>
+								</tr>
+							</thead>	
+							
+							<?php
+								$sub = "SELECT * FROM enquiry_details";
+								$rs = mysql_query($sub);
+								
+								?>
+								<!-- <table width="100%" border="0" cellpadding="1" cellspacing="1" id="my-table"> -->
+								
+								<?php
+								while($r=mysql_fetch_array($rs))
+								{
+								?>
+			<tbody>					
+			<tr>
+			<td width="10%" align="left"><font color="#C91E29" size="2px"><?php echo $r['enquiry_id']; ?></font></td>
+			<td width="40%" align="center">INR &nbsp;<?php echo $r['startdate']; ?> &nbsp;/-</td>
+			<td width="50%" align="center"><?php echo $r['endate']; ?></td>
+			</tr>
+			</tbody>
+								<?php
+								$k++;
+								}
+								?>
+								<!-- </table> -->
+								<?php 
+								
+								
+							//}
+							
+							?>
+	<tfoot>
+	    <tr style="display:none;">
+	        <td colspan="5">
+	            No rows match the filter...
+	        </td>
+	    </tr>	    
+	</tfoot>
+							
+							</table>
 					</div>
 					
 				</div><!-- END #main-content-span -->
