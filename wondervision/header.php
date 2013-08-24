@@ -59,19 +59,26 @@ include('include/config.php');
 	  });
 	  </script>
 	
-   
-	<script type="text/javascript" src="js/myScript.js"></script>
+   <script type="text/javascript" src="js/myScript.js"></script>
 	<script language="JavaScript" type="text/javascript" src="search.js"></script>
 	
 <style>	
 	#main1{
+float:left;
+padding:15px;
+margin:0px 0px 0px 10px;
+width: 200px;
+}
+
+	#main2{
 float:right;
 padding:15px;
-margin:0px 0px 0px 360px;
+margin:0px 0px 0px 60px;
 width: 265px;
 }
+
 #layer2{
-	width:262px;
+	width:198px;
 	/*border:1px solid gray;*/
 	margin-top: -2px;
 	border-bottom-width: 0px;
@@ -83,31 +90,45 @@ width: 265px;
 	text-transform:capitalize;
 	padding:5px;
 }
+
+#layer3{
+	width:198px;
+	/*border:1px solid gray;*/
+	margin-top: -2px;
+	border-bottom-width: 0px;
+	position: absolute;
+	z-index:3px;
+}
+#layer3 aa{
+	text-decoration:none;
+	text-transform:capitalize;
+	padding:5px;
+}
 .suggest_link{
 background-color:#fff;
-border-bottom:1px solid gray;
+/*border-bottom:1px solid gray;*/
 }
 .small{
 background-color:#fff;
 border-bottom:1px solid gray;
 }
 .suggest_link_over{
-background-color:#fff;
-border-bottom:1px solid gray;
+/*background-color:#fff;
+border-bottom:1px solid gray;*/
 }
 .suggest_link:hover{
-background-color:#6d84b4;
-border-bottom:1px solid gray;
+/*background-color:#6d84b4;
+border-bottom:1px solid gray;*/
 }
 .suggest_link_over:hover{
-background-color:#6d84b4;
-border-bottom:1px solid gray;
+/*background-color:#6d84b4;
+border-bottom:1px solid gray;*/
 }
 #amots{
 	padding:5px;
 	border-radius:none;
-	width:250px;
-	border:2px solid gray;
+	width:200px;
+	border:1px solid #aaaaaa;
 	background: url("search.png") no-repeat scroll right 0 transparent;
 }
 
