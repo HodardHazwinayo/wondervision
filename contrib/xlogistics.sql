@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2013 at 03:20 PM
+-- Generation Time: Aug 24, 2013 at 12:43 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `accomodation_type_details` (
   PRIMARY KEY (`accomodation_type_id`),
   KEY `fk_accomodation_type_details_hotel_master1_idx` (`hotel_id`),
   KEY `fk_accomodation_type_details_lodging_details1_idx` (`lodging_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `accomodation_type_details`
@@ -56,7 +56,9 @@ CREATE TABLE IF NOT EXISTS `accomodation_type_details` (
 
 INSERT INTO `accomodation_type_details` (`accomodation_type_id`, `hotel_id`, `lodging_id`, `rate`) VALUES
 (1, 1, 2, 1000.00),
-(2, 2, 2, 1200.00);
+(2, 2, 2, 1200.00),
+(3, 3, 1, 2000.00),
+(4, 4, 2, 3000.00);
 
 -- --------------------------------------------------------
 
@@ -65,12 +67,20 @@ INSERT INTO `accomodation_type_details` (`accomodation_type_id`, `hotel_id`, `lo
 --
 
 CREATE TABLE IF NOT EXISTS `booking_details` (
-  `booking_id` bigint(20) NOT NULL,
+  `booking_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `bookingdate` datetime NOT NULL,
   `enquiry_id` bigint(20) NOT NULL,
   PRIMARY KEY (`booking_id`),
   KEY `fk_booking_details_enquiry_details_master1_idx` (`enquiry_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `booking_details`
+--
+
+INSERT INTO `booking_details` (`booking_id`, `bookingdate`, `enquiry_id`) VALUES
+(1, '2013-08-20 17:08:14', 11),
+(2, '2013-08-20 17:11:11', 12);
 
 -- --------------------------------------------------------
 
@@ -108,10 +118,25 @@ CREATE TABLE IF NOT EXISTS `enquiry_accomodation_mapping` (
   `discount` decimal(11,2) NOT NULL DEFAULT '0.00',
   `comments` varchar(255) DEFAULT NULL,
   `commission` decimal(11,2) NOT NULL DEFAULT '0.00',
+  `roomtype` varchar(200) NOT NULL,
   PRIMARY KEY (`enquiry_id`,`accomodation_type_id`),
   KEY `fk_enquiry_details_master_has_hotel_master_enquiry_details__idx` (`enquiry_id`),
   KEY `fk_enquiry_hotel_mapping_accomodation_type_details1_idx` (`accomodation_type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `enquiry_accomodation_mapping`
+--
+
+INSERT INTO `enquiry_accomodation_mapping` (`enquiry_id`, `accomodation_type_id`, `checkindate`, `checkoutdate`, `noofadults`, `noofchildren`, `noofrooms`, `amount`, `discount`, `comments`, `commission`, `roomtype`) VALUES
+(4, 2, '2013-08-15 00:00:00', '2013-08-16 00:00:00', 2, 0, 0, 4.00, 0.00, '', 0.00, ''),
+(12, 2, '2013-08-15 00:00:00', '2013-08-16 00:00:00', 2, 0, 0, 12.00, 0.00, '', 0.00, ''),
+(13, 1, '2013-08-22 00:00:00', '2013-08-24 00:00:00', 2, 1, 1, 2000.00, 0.00, '', 0.00, ''),
+(14, 1, '2013-08-15 00:00:00', '2013-08-16 00:00:00', 2, 0, 0, 15.00, 0.00, '', 0.00, ''),
+(15, 1, '2013-08-26 00:00:00', '2013-08-30 00:00:00', 4, 0, 2, 7000.00, 0.00, '', 0.00, ''),
+(15, 2, '2013-08-23 00:00:00', '2013-08-31 00:00:00', 2, 0, 0, 15000.00, 0.00, '', 0.00, ''),
+(16, 1, '2013-08-31 00:00:00', '2013-09-03 00:00:00', 2, 2, 1, 3000.00, 0.00, 'This guy is looking for a Sea facing Room.', 0.00, ''),
+(18, 1, '2013-08-28 00:00:00', '2013-08-30 00:00:00', 2, 0, 0, 20000.00, 0.00, '', 0.00, '');
 
 -- --------------------------------------------------------
 
@@ -126,22 +151,20 @@ CREATE TABLE IF NOT EXISTS `enquiry_comments_details` (
   `comment` longtext,
   PRIMARY KEY (`comment_id`),
   KEY `fk_enquiry_comments_enquiry_details1_idx` (`enquiry_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `enquiry_comments_details`
 --
 
 INSERT INTO `enquiry_comments_details` (`comment_id`, `enquiry_id`, `updatedate`, `comment`) VALUES
-(1, 0, '2013-08-14 13:28:08', ''),
-(2, 0, '2013-08-14 13:28:16', ''),
-(3, 0, '2013-08-16 12:16:31', 'Get to know'),
-(4, 0, '2013-08-16 12:16:38', ''),
-(5, 0, '2013-08-16 12:26:09', ''),
-(6, 0, '2013-08-16 12:29:18', ''),
-(7, 0, '2013-08-16 12:37:02', ''),
-(8, 0, '2013-08-16 12:52:17', 'Hotel with car parking at Goa.'),
-(9, 0, '2013-08-16 12:54:35', '');
+(1, 13, '2013-08-21 14:40:54', 'great6'),
+(2, 14, '2013-08-21 16:02:09', 'fgfgffgf'),
+(3, 15, '2013-08-21 17:50:20', 'Would like to book a hotel.'),
+(4, 16, '2013-08-22 12:15:38', 'Second time'),
+(5, 17, '2013-08-22 13:15:24', 't5t'),
+(6, 18, '2013-08-22 13:19:00', 'adadadad'),
+(7, 19, '2013-08-24 11:29:50', 'Ebquiry for goa');
 
 -- --------------------------------------------------------
 
@@ -150,7 +173,7 @@ INSERT INTO `enquiry_comments_details` (`comment_id`, `enquiry_id`, `updatedate`
 --
 
 CREATE TABLE IF NOT EXISTS `enquiry_details` (
-  `enquiry_id` bigint(20) NOT NULL,
+  `enquiry_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `startdate` datetime DEFAULT NULL,
   `enddate` datetime DEFAULT NULL,
   `startingplace` varchar(128) DEFAULT NULL,
@@ -167,16 +190,31 @@ CREATE TABLE IF NOT EXISTS `enquiry_details` (
   KEY `fk_enquiry_details_user_master1_idx` (`user_id`),
   KEY `fk_enquiry_details_country_master1_idx` (`country_name`),
   KEY `fk_enquiry_details_state_master1_idx` (`state_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `enquiry_details`
 --
 
 INSERT INTO `enquiry_details` (`enquiry_id`, `startdate`, `enddate`, `startingplace`, `destination`, `enquirydate`, `totaldiscount`, `net_amount`, `servicetax`, `VAT`, `user_id`, `country_name`, `state_name`) VALUES
-(0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '2013-08-14 13:28:08', 0.00, 0.00, 0.00, 0.00, 3, NULL, NULL),
 (1, '2013-09-03 00:00:00', '2013-09-10 00:00:00', 'Kolkata', 'Panjim', '2013-08-15 00:00:00', NULL, NULL, NULL, NULL, 7, 'India', 'West Bengal'),
-(2, '2013-08-27 00:00:00', '2013-08-31 00:00:00', 'Kolkata', 'Vizag', '2013-08-14 00:00:00', NULL, NULL, NULL, NULL, 7, 'India', 'West Bengal');
+(2, '2013-08-27 00:00:00', '2013-08-31 00:00:00', 'Kolkata', 'Vizag', '2013-08-14 00:00:00', NULL, NULL, NULL, NULL, 7, 'India', 'West Bengal'),
+(4, '2013-08-22 12:00:00', '2013-08-24 12:00:00', NULL, 'Goa', NULL, NULL, NULL, NULL, NULL, 7, 'India', 'West Bengal'),
+(5, '2013-08-22 12:00:00', '2013-08-24 12:00:00', NULL, 'Goa', NULL, NULL, NULL, NULL, NULL, 7, 'India', 'West Bengal'),
+(6, '2013-08-22 12:00:00', '2013-08-24 12:00:00', NULL, 'Goa', NULL, NULL, NULL, NULL, NULL, 7, 'India', 'West Bengal'),
+(7, '2013-08-22 12:00:00', '2013-08-24 12:00:00', NULL, 'Goa', NULL, NULL, NULL, NULL, NULL, 7, 'India', 'West Bengal'),
+(8, '2013-08-22 12:00:00', '2013-08-24 12:00:00', NULL, 'Goa', NULL, NULL, NULL, NULL, NULL, 7, 'India', 'West Bengal'),
+(9, '2013-08-22 12:00:00', '2013-08-24 12:00:00', NULL, 'Goa', NULL, NULL, NULL, NULL, NULL, 7, 'India', 'West Bengal'),
+(10, '2013-08-22 12:00:00', '2013-08-24 12:00:00', NULL, 'Goa', NULL, NULL, NULL, NULL, NULL, 7, 'India', 'West Bengal'),
+(11, '2013-08-22 12:00:00', '2013-08-24 12:00:00', NULL, 'Goa', NULL, NULL, NULL, NULL, NULL, 7, 'India', 'West Bengal'),
+(12, '2013-08-22 12:00:00', '2013-08-24 12:00:00', NULL, 'Goa', NULL, NULL, NULL, NULL, NULL, 7, 'India', 'West Bengal'),
+(13, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '2013-08-21 14:40:54', 0.00, 0.00, 0.00, 0.00, 7, 'India', 'West Bengal'),
+(14, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '2013-08-21 16:02:09', 0.00, 0.00, 0.00, 0.00, 7, NULL, NULL),
+(15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8, 'India', 'West Bengal'),
+(16, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '2013-08-22 12:15:38', 0.00, 0.00, 0.00, 0.00, 3, 'India', 'Orissa'),
+(17, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '2013-08-22 13:15:24', 0.00, 0.00, 0.00, 0.00, 3, NULL, NULL),
+(18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '2013-08-22 13:19:00', 0.00, 0.00, 0.00, 0.00, 3, NULL, NULL),
+(19, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '2013-08-24 11:29:50', 0.00, 0.00, 0.00, 0.00, 3, 'India', 'West Bengal');
 
 -- --------------------------------------------------------
 
@@ -483,7 +521,17 @@ CREATE TABLE IF NOT EXISTS `mgmt_news_feed_details` (
   `user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`message_id`),
   KEY `fk_mgmt_news_feed_details_user_master1_idx` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `mgmt_news_feed_details`
+--
+
+INSERT INTO `mgmt_news_feed_details` (`message_id`, `topic`, `description`, `publishdate`, `closingdate`, `status`, `user_id`) VALUES
+(1, 'Cancel Booking', 'Cancel all the booking for Sikkim for Farther Notice', '2013-08-24 00:00:00', '2013-08-27 00:00:00', 1, 2),
+(2, 'Bankok Tour', '3 Days and 2 Nights at Bankok in 30,000 INR Only ', '2013-08-24 00:00:00', '2013-08-30 00:00:00', 1, 2),
+(3, 'Kedarnath booking', 'Do not book any trip to Kedarnath, due to flood situation ', '2013-08-24 00:00:00', '2013-09-27 00:00:00', 1, 2),
+(4, '20% Off', 'Special offer for Sikkim 20 % discount from Wonder Vision ', '2013-08-24 00:00:00', '2013-08-29 00:00:00', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -700,14 +748,14 @@ CREATE TABLE IF NOT EXISTS `transport_availed_details` (
 --
 
 CREATE TABLE IF NOT EXISTS `transport_details` (
-  `transport_id` bigint(20) NOT NULL,
+  `transport_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `vehicle_no` varchar(45) DEFAULT NULL,
   `vehicletype` varchar(45) DEFAULT NULL,
   `noofadults` int(11) NOT NULL DEFAULT '0',
   `airconditioning` tinyint(1) DEFAULT '0',
   `pickuptime` datetime DEFAULT NULL,
   `enquiry_id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL COMMENT 'user_id here is that of the partner whos transport it is',
+  `user_id` bigint(20) DEFAULT NULL COMMENT 'user_id here is that of the partner whos transport it is',
   `startingplace` varchar(128) DEFAULT NULL,
   `destination` varchar(128) DEFAULT NULL,
   `estimateddistance` decimal(11,2) DEFAULT NULL,
@@ -716,13 +764,21 @@ CREATE TABLE IF NOT EXISTS `transport_details` (
   `discount` decimal(11,2) NOT NULL DEFAULT '0.00',
   `comments` varchar(255) DEFAULT NULL,
   `commission` decimal(11,2) NOT NULL DEFAULT '0.00',
-  `transport_mode_id` bigint(20) NOT NULL,
+  `transport_mode_id` bigint(20) DEFAULT NULL,
   `estimatedtime` datetime DEFAULT NULL,
   PRIMARY KEY (`transport_id`),
   KEY `fk_transport_details_enquiry_details1_idx` (`enquiry_id`),
   KEY `fk_transport_details_user_master1_idx` (`user_id`),
   KEY `fk_transport_details_transport_mode_master1_idx` (`transport_mode_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `transport_details`
+--
+
+INSERT INTO `transport_details` (`transport_id`, `vehicle_no`, `vehicletype`, `noofadults`, `airconditioning`, `pickuptime`, `enquiry_id`, `user_id`, `startingplace`, `destination`, `estimateddistance`, `noofchildren`, `rate`, `discount`, `comments`, `commission`, `transport_mode_id`, `estimatedtime`) VALUES
+(1, NULL, 'AC', 4, 0, '2013-08-23 00:00:00', 13, NULL, 'Panjim', 'Goa', NULL, 2, 1500.00, 0.00, '', 0.00, NULL, '2013-08-25 00:00:00'),
+(2, NULL, 'AC', 10, 0, '2013-08-29 00:00:00', 13, NULL, 'D', 'P', NULL, 10, 1500.00, 0.00, '', 0.00, NULL, '2013-08-30 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -954,7 +1010,7 @@ CREATE TABLE IF NOT EXISTS `user_master` (
   UNIQUE KEY `mobile_UNIQUE` (`mobile`),
   KEY `fk_user_master_user_types1_idx` (`user_typeid`),
   KEY `fk_user_master_guest_membership_type_master1_idx` (`member_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `user_master`
@@ -962,9 +1018,10 @@ CREATE TABLE IF NOT EXISTS `user_master` (
 
 INSERT INTO `user_master` (`user_id`, `username`, `firstname`, `lastname`, `status`, `login_expiry_date`, `email`, `mobile`, `creation_date`, `user_typeid`, `gender`, `member_type_id`, `updatedon`) VALUES
 (2, 'admin', 'Soumyajit', 'Mandal', 1, '2016-10-26 00:00:00', 'smondal@bluecoppertech.com', 9477411305, '2013-08-12 00:00:00', 1, 'Male', 1, '2013-08-12 00:00:00'),
-(3, 'user', 'Abhirup', 'Ghosh', 1, '2016-02-25 00:00:00', 'aghosh@bluecoppertech.com', 9434538735, '2013-08-12 00:00:00', 2, 'Male', 2, '2013-08-12 00:00:00'),
+(3, 'user', 'Abhirup', 'Ghosh', 1, '2016-02-25 00:00:00', 'aghosh@bluecoppertech.com', 9434538735, '2013-08-12 00:00:00', 3, 'Male', 2, '2013-08-12 00:00:00'),
 (6, 'Parijat', 'Parijat', 'Bose', 1, NULL, NULL, 9038349567, '2013-08-14 01:39:20', 4, NULL, 3, NULL),
-(7, 'Abhisek2013-08-16 12:52:17', 'Abhisek', 'Ghosh', 1, NULL, 'abghosh@gmail.com', 9830078148, '2013-08-16 12:52:17', 4, NULL, NULL, NULL);
+(7, 'Abhisek2013-08-16 12:52:17', 'Abhisek', 'Ghosh', 1, NULL, 'abghosh@gmail.com', 9830078148, '2013-08-16 12:52:17', 4, NULL, NULL, NULL),
+(8, 'Shyamal2013-08-21 17:50:20', 'Shyamal', 'Mandal', 1, NULL, 'srmshyamal@gmail.com', 9903440695, '2013-08-21 17:50:20', 4, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1040,7 +1097,8 @@ INSERT INTO `user_other_info` (`user_id`, `attribute`, `value`, `address1`, `add
 (2, '', '', 'Sonarpur 66 Purbachal Road', '', 'Kolkata', '700150'),
 (3, '', '', 'Moulali Sealdah', '', 'Kolkata', '700009'),
 (6, '', '', 'Sodepur', '', 'North 24 PGS', '7111111'),
-(7, '', '', 'Moulali', '', 'Kolkata', '700005');
+(7, '', '', 'Moulali', '', 'Kolkata', '700005'),
+(8, '', '', 'Sonarpur', '', 'Kolkata', '700150');
 
 -- --------------------------------------------------------
 
