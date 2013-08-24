@@ -76,10 +76,9 @@ if(isset($_REQUEST['enquiry']))
 function set_dropdown_travel(){
 document.getElementById("adult_count").selectedIndex = <?php echo $adt-1 ?>;
 document.getElementById("child_count").selectedIndex = <?php echo $chld-- ?>;
-if(("<?php echo $type ?>=="AC"))
-document.getElementById("ac").selectedIndex = 0;
-else
-document.getElementById("ac").selectedIndex = 1;
+
+document.getElementById("ac").selectedIndex = <?php echo $type ?>;
+
 
 
 
