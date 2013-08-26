@@ -1,6 +1,9 @@
 <?php
 session_start();
 include("header.php");	
+$eid=$_GET["eid"];
+$hname=$_GET["hname"];
+$atid=$_GET["atid"];
 
 if(isset($_REQUEST['submit']))
 {
@@ -42,6 +45,50 @@ if(isset($_REQUEST['submit']))
 		  <div style="float:left;width:1050px;height:auto;margin:20px 20px 20px 30px;">
 			<div id="tabs" style="float:left;width:430px;height:280px;">
 				<!-- hotel details -->
+				</br></br></br>
+				<div align="center">
+				<?php
+				$sqlh="select name,address1,address2,place,phonenumber,zip from hotel_master where name='$hname'";
+				$rsh=mysql_query($sqlh);
+				$rowh = mysql_fetch_assoc($rsh);
+				?>
+
+<table border="0" width="90%">
+	<tr>
+		<td width="30%">Hotel Name</td>
+		<td width="20%">&nbsp;</td>
+		<td width="50%"><?php echo $rowh['name'] ?></td>
+	</tr>
+		<tr>
+		<td width="30%">Address1</td>
+		<td width="20%">&nbsp;</td>
+		<td width="50%"><?php echo $rowh['address1'] ?></td>
+	</tr>
+		<tr>
+		<td width="30%">Address2</td>
+		<td width="20%">&nbsp;</td>
+		<td width="50%"><?php echo $rowh['address2'] ?></td>
+	</tr>
+		<tr>
+		<td width="30%">Place</td>
+		<td width="20%">&nbsp;</td>
+		<td width="50%"><?php echo $rowh['place'] ?></td>
+	</tr>	<tr>
+		<td width="30%">Phone Number</td>
+		<td width="20%">&nbsp;</td>
+		<td width="50%"><?php echo $rowh['phonenumber'] ?></td>
+	</tr>
+		<tr>
+		<td width="30%">Zip</td>
+		<td width="20%">&nbsp;</td>
+		<td width="50%"><?php echo $rowh['zip'] ?></td>
+	</tr>
+			
+</table>
+
+</div>
+
+				
 			</div>
 			
 			<div style="float:left;width:565px;height:215px;margin-left:30px;border:2px solid #AAAAAA; border-radius:5px;">
@@ -91,10 +138,15 @@ if(isset($_REQUEST['submit']))
 						<td style="padding-right:40px;" align="center">Departure</td>
 					</tr>
 					<tr>
-						<td style="padding-right:40px;" align="center"><?php ?></td>
-						<td style="padding-right:40px;" align="center"><?php ?></td>
-						<td style="padding-right:40px;" align="center"><?php ?></td>
-						<td style="padding-right:40px;" align="center"><?php ?></td>
+					<?php
+					$sql2="select checkindate,checkoutdate,noofrooms from enquiry_accomodation_mapping where enquiry_id='$eid' and accomodation_type_id='$atid'";
+					$rs2=mysql_query($sql2);
+					$row2 = mysql_fetch_assoc($rs2);
+					?>
+						<td style="padding-right:40px;" align="center"><?php echo $row2['checkindate'] ?></td>
+						<td style="padding-right:40px;" align="center"><?php echo $row2['noofrooms'] ?></td>
+						<td style="padding-right:40px;" align="center"><?php echo $row2['checkindate'] ?></td>
+						<td style="padding-right:40px;" align="center"><?php echo $row2['checkoutdate'] ?></td>
 					</tr>
 				</table>
 			</div>

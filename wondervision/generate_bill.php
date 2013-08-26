@@ -9,9 +9,7 @@ $total_amount=0;
 
 if(isset($_REQUEST['book']))
 {
-	$sql21="INSERT INTO booking_details(bookingdate,enquiry_id) VALUES ('$date','$eid')";
-	$rs21=mysql_query($sql21);
-	Header("Location:generate_bill.php.php?eid=$eid");
+
 }
 
 
@@ -53,13 +51,16 @@ if(isset($_REQUEST['book']))
 					<?php
 							
 							
-							$sql1="SELECT hotel_master.name,enquiry_accomodation_mapping.amount,enquiry_accomodation_mapping.servicetax,enquiry_accomodation_mapping.discount FROM enquiry_accomodation_mapping INNER JOIN accomodation_type_details ON enquiry_accomodation_mapping.accomodation_type_id=accomodation_type_details.accomodation_type_id INNER JOIN hotel_master ON accomodation_type_details.hotel_id=hotel_master.hotel_id WHERE enquiry_accomodation_mapping.enquiry_id='$eid'";
+							$sql1="SELECT hotel_master.name,enquiry_accomodation_mapping.amount,enquiry_accomodation_mapping.accomodation_type_id,enquiry_accomodation_mapping.servicetax,enquiry_accomodation_mapping.discount FROM enquiry_accomodation_mapping INNER JOIN accomodation_type_details ON enquiry_accomodation_mapping.accomodation_type_id=accomodation_type_details.accomodation_type_id INNER JOIN hotel_master ON accomodation_type_details.hotel_id=hotel_master.hotel_id WHERE enquiry_accomodation_mapping.enquiry_id='$eid'";
 
 							$rs1 = mysql_query($sql1);
 							while($row1 = mysql_fetch_assoc($rs1)) {
 					?>
-							<tr>
+							
+							<tr onclick="document.location = 'hotel_bil_generate.php?eid=<?php echo $eid ?>&hname=<?php echo $row1['name'] ?>&atid=<?php echo $row1['accomodation_type_id'] ?>';">
+								
 								<td width="40%"><h4><?php echo $row1['name'] ?></h4></td>
+							
 								<td width="20%">&nbsp;</td>
 								<td width="40%">
 								<h4>
@@ -80,6 +81,8 @@ if(isset($_REQUEST['book']))
 								</h4>
 								</td>
 							</tr>
+						
+							
 					
 					<?php
 							}
