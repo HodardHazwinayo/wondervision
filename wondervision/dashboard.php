@@ -235,16 +235,24 @@ $(document).ready(function() {
 					<div class="tabbable">
 						<h2>  Todays action item</h2>
 						<div style="height:170px;overflow-y:scroll;">
-							<p style="padding:0 0 5px 10px;"><img alt="" src="images/1371483313_evolution-tasks.png"><a href="booking_3.php">Guest against Booking ID WVB0012  arriving at  Bhugneswar airport at 6:30 AM  on <?php echo date('Y-m-d', strtotime("tomorrow"));  ?></a></p>
-							<p style="padding:0 0 5px 10px;"><img alt="" src="images/1371483313_evolution-tasks.png"><a href="booking_3.php">Cab booking required for Booking ID WVB0014 at Puri Hotel  to Puri station on <?php echo date('Y-m-d', strtotime("tomorrow"));  ?></a></p>
+						<?php
+							$action = mysql_query("SELECT * FROM `enquiry_details` INNER JOIN `enquiry_accomodation_mapping` ON enquiry_details.enquiry_id=enquiry_accomodation_mapping.enquiry_id");
+							while($rowss = mysql_fetch_array($action))
+							{
+						?>
+							<p style="padding:0 0 5px 10px;"><img alt="" src="images/1371483313_evolution-tasks.png"><a href="#"><?php echo $rowss['comments']  ?></a></p>
+						<?php
+							}
+						?>						
+							<!--<p style="padding:0 0 5px 10px;"><img alt="" src="images/1371483313_evolution-tasks.png"><a href="booking_3.php">Cab booking required for Booking ID WVB0014 at Puri Hotel  to Puri station on <?php //echo date('Y-m-d', strtotime("tomorrow"));  ?></a></p>
 							
-							<p style="padding:0 0 5px 10px;"><img alt="" src="images/1371483313_evolution-tasks.png"><a href="booking_3.php">Train booking required for Booking ID WVB0236 at kolkata  to New Delhi station on <?php echo date('Y-m-d', strtotime("tomorrow"));  ?></a></p>
+							<p style="padding:0 0 5px 10px;"><img alt="" src="images/1371483313_evolution-tasks.png"><a href="booking_3.php">Train booking required for Booking ID WVB0236 at kolkata  to New Delhi station on <?php// echo date('Y-m-d', strtotime("tomorrow"));  ?></a></p>
 							
-							<p style="padding:0 0 5px 10px;"><img alt="" src="images/1371483313_evolution-tasks.png"><a href="booking_3.php">Flight booking required for Booking ID WVB08963 at New Delhi to Mumbai on <?php echo date('Y-m-d', strtotime("tomorrow"));  ?></a></p>
+							<p style="padding:0 0 5px 10px;"><img alt="" src="images/1371483313_evolution-tasks.png"><a href="booking_3.php">Flight booking required for Booking ID WVB08963 at New Delhi to Mumbai on <?php //echo date('Y-m-d', strtotime("tomorrow"));  ?></a></p>
 							
-							<p style="padding:0 0 5px 10px;"><img alt="" src="images/1371483313_evolution-tasks.png"><a href="booking_3.php">Hotel booking required for Booking ID WVB4587 at Vizag on <?php echo date('Y-m-d', strtotime("tomorrow"));  ?></a></p>
+							<p style="padding:0 0 5px 10px;"><img alt="" src="images/1371483313_evolution-tasks.png"><a href="booking_3.php">Hotel booking required for Booking ID WVB4587 at Vizag on <?php //echo date('Y-m-d', strtotime("tomorrow"));  ?></a></p>
 							
-							<p style="padding:0 0 5px 10px;"><img alt="" src="images/1371483313_evolution-tasks.png"><a href="booking_3.php">Booking ID WVB5478 has requested for search another good hotel near his current location.</a></p>
+							<p style="padding:0 0 5px 10px;"><img alt="" src="images/1371483313_evolution-tasks.png"><a href="booking_3.php">Booking ID WVB5478 has requested for search another good hotel near his current location.</a></p>-->
 						</div>
 						
 						
@@ -295,14 +303,14 @@ $(document).ready(function() {
 						<table width="100%" border="0" cellpadding="1" cellspacing="1" id="tableOne" class="yui">
 							<thead>
 								<tr>
-									<th width="10%%" align="left"></th>
-									<th width="40%" align="center"></th>
-									<th width="50%" align="center"></th>
+									<th width="30%%" align="left">Name</th>
+									<th width="30%" align="center">Mobile</th>
+									<th width="40%" align="center">Date</th>
 								</tr>
 							</thead>	
 							
 							<?php
-								$sub = "SELECT * FROM enquiry_details";
+								$sub = "SELECT * FROM enquiry_details INNER JOIN user_master ON enquiry_details.user_id=user_master.user_id";
 								$rs = mysql_query($sub);
 								
 								?>
@@ -314,9 +322,9 @@ $(document).ready(function() {
 								?>
 			<tbody>					
 			<tr>
-			<td width="10%" align="left"><font color="#C91E29" size="2px"><?php echo $r['enquiry_id']; ?></font></td>
-			<td width="40%" align="center">INR &nbsp;<?php echo $r['startdate']; ?> &nbsp;/-</td>
-			<td width="50%" align="center"><?php echo $r['endate']; ?></td>
+			<td width="30%" align="left"><font color="#C91E29" size="2px"><?php echo $r['firstname']." ".$r['lastname']; ?></font></td>
+			<td width="30%" align="center"><?php echo $r['mobile']; ?> </td>
+			<td width="40%" align="center"><?php echo $r['startdate']; ?></td>
 			</tr>
 			</tbody>
 								<?php

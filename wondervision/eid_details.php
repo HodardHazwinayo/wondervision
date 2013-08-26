@@ -6,6 +6,13 @@ date_default_timezone_set('Asia/Calcutta');
 $date = date('Y-m-d H:i:s');
 $eid=$_GET["eid"];
 
+if(isset($_REQUEST['next_book']))
+{
+	
+
+
+}
+
 if(isset($_REQUEST['enquiry']))
 {
   //create username
@@ -128,6 +135,8 @@ if(isset($_REQUEST['enquiry']))
 								echo $row100['name']; 								
 				?>
 				</td>
+				<td width="20%" align="left"><h4>Room</h4></td>
+				<td width="30%" align="left"><?php echo $row10['noofrooms'] ?></td>
 				
 			</tr>
 			<tr><td>&nbsp;</td></tr>
@@ -139,20 +148,31 @@ if(isset($_REQUEST['enquiry']))
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
-				<td width="20%" align="left"><h4>Room</h4></td>
-				<td width="30%" align="left"><?php echo $row10['noofrooms'] ?></td>
-				<td width="20%" align="left"><h4>Amount</h4></td>
-				<td align="left"><?php echo $row10['amount'] ?></td>
-			</tr>
-			<tr><td>&nbsp;</td></tr>
-			<tr>
 				<td width="20%" align="left"><h4>Checkin date</h4></td>
 				<td width="30%" align="left"><?php echo $row10['checkindate'] ?> </td>
 				<td width="20%" align="left"><h4>Checkout date</h4></td>
 				<td align="left"><?php echo $row10['checkoutdate'] ?></td>
 			</tr>
+			
 			<tr><td>&nbsp;</td></tr>
 			<tr>
+				
+				<td width="20%" align="left"><h4>Amount</h4></td>
+				<td align="left"><input type="text" value="<?php echo $row10['amount'] ?>" name="amount"></td>
+				<td width="20%" align="left"><h4>Discount</h4></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row10['discount'] ?>" name="discount"></td>
+			</tr>
+			
+			<tr><td>&nbsp;</td></tr>
+			<tr>
+				<td width="20%" align="left"><h4>Commission</h4></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row10['commission'] ?>" name="commission"> </td>
+				<td width="20%" align="left"><h4>Service tax</h4></td>
+				<td align="left"><input type="text" value="<?php echo $row10['discount'] ?>" name="servicetax"></td>
+			</tr>
+			
+			<tr><td>&nbsp;</td></tr>
+			<!--<tr>
 				<td width="20%" align="left"><b>&nbsp;</b></td>
 				<td width="30%" align="center">
 				<table border=0 width=100%>
@@ -172,7 +192,7 @@ if(isset($_REQUEST['enquiry']))
 				</td>
 				<td width="20%" align="right">&nbsp;</td>
 				<td align="left">&nbsp;</td>
-			</tr>
+			</tr>-->
 		</table>
 			<?php
 							}
@@ -214,9 +234,9 @@ if(isset($_REQUEST['enquiry']))
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
-				<td width="20%" align="left"><h4>FROM_DATE</h4></td>
+				<td width="20%" align="left"><h4>FROM DATE</h4></td>
 				<td width="30%" align="left"><?php echo $row101['pickuptime'] ?> </td>
-				<td width="20%" align="left"><h4>TO_DATE</h4></td>
+				<td width="20%" align="left"><h4>TO DATE</h4></td>
 				<td align="left"><?php echo $row101['estimatedtime'] ?></td>
 			</tr>
 			<tr><td>&nbsp;</td></tr>
@@ -228,6 +248,13 @@ if(isset($_REQUEST['enquiry']))
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
+				<td width="20%" align="left"><h4>Commission</h4></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row101['rate'] ?>" name="tcommission"> </td>
+				<td width="20%" align="left"><h4>Service tax</h4></td>
+				<td align="left"><input type="text" value="<?php echo $row101['tax'] ?>" name="tservicetax"></td>
+			</tr>
+			<tr><td>&nbsp;</td></tr>
+			<!--<tr>
 				<td width="20%" align="left">&nbsp;</td>
 				<td width="30%" align="center">
 				<table border=0 width=100%>
@@ -247,7 +274,7 @@ if(isset($_REQUEST['enquiry']))
 				</td>
 				<td width="20%" align="right">&nbsp;</td>
 				<td align="left">&nbsp;</td>
-			</tr>
+			</tr>-->
 			<tr style="background-color:#EEFFFF;>
 				<td colspan="4">&nbsp;</b></td>
 				
@@ -262,7 +289,7 @@ if(isset($_REQUEST['enquiry']))
 	</div>
 	
 	
-	
+						<input type="submit" name="next_book" value="Submit" class="bbbtn">
 					</div>
 
 				</div><!-- END #main-content-span -->
