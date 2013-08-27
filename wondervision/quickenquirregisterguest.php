@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include('include/config.php');
+include('header.php');
 date_default_timezone_set('Asia/Calcutta');
 $date = date('Y-m-d H:i:s');
 $cus_code=$_GET["id"];
@@ -63,141 +63,7 @@ if(isset($_REQUEST['enquiry']))
 
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Analytical and Business Process Automation & Management tool for Tourism Business</title>
-	
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="css/glyphicons.all.css" />
 
-	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-	
-	<script type="text/javascript" src="flot/jquery.flot.js"></script>
-	<script type="text/javascript" src="flot/jquery.flot.pie.js"></script>
-	<script type="text/javascript" src="flot/jquery.flot.resize.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap-alert.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap-button.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap-carousel.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap-collapse.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap-dropdown.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap-modal.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap-tooltip.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap-popover.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap-scrollspy.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap-tab.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap-transition.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap-typeahead.js"></script>
-	<script type="text/javascript" src="validation.js"></script>
-	
-
-	<!-- Uncomment to use LESS The dynamic stylesheet language. | http://lesscss.org/ -->
-	<!-- <link rel="stylesheet/less" type="text/css" href="css/main.less" /> -->
-	<!-- <script type="text/javascript" src="js/less-1.3.0.min.js"></script> -->
-
-	<!-- Uncomment to use CSS -->
-	<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.css" />
-	
-
-	<!-- DEMO SCRIPTS -->
-	<script type="text/javascript" src="js/demo.js"></script>
-	
-	  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-	  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	  <link rel="stylesheet" href="/resources/demos/style.css" />
-	  <script>
-	  $(function() {
-	    $( "#datepicker" ).datepicker();
-	  });
-	  $(function() {
-	    $( "#datepicker1" ).datepicker();
-	  });
-	   $(function() {
-	    $( "#datepicker3" ).datepicker();
-	  });
-	   $(function() {
-	    $( "#datepicker4" ).datepicker();
-	  });
-	  </script>
-	
-	<script type="text/javascript" src="js/myScript.js"></script>
-	<script language="JavaScript" type="text/javascript" src="search.js"></script>
-	
-<style>	
-	#main1{
-float:right;
-padding:15px;
-margin:0px 0px 0px 360px;
-width: 265px;
-}
-#layer2{
-	width:262px;
-	/*border:1px solid gray;*/
-	margin-top: -2px;
-	border-bottom-width: 0px;
-	position: absolute;
-	z-index:3px;
-}
-#layer2 a{
-	text-decoration:none;
-	text-transform:capitalize;
-	padding:5px;
-}
-.suggest_link{
-background-color:#fff;
-border-bottom:1px solid gray;
-}
-.small{
-background-color:#fff;
-border-bottom:1px solid gray;
-}
-.suggest_link_over{
-background-color:#fff;
-border-bottom:1px solid gray;
-}
-.suggest_link:hover{
-background-color:#6d84b4;
-border-bottom:1px solid gray;
-}
-.suggest_link_over:hover{
-background-color:#6d84b4;
-border-bottom:1px solid gray;
-}
-#amots{
-	padding:5px;
-	border-radius:none;
-	width:250px;
-	border:2px solid gray;
-	background: url("search.png") no-repeat scroll right 0 transparent;
-}
-
-</style>
-
-</head>
-<body>
-	<!-- BEGIN #navbar -->
-	<div class="navbar" id="navbar">
-		<div class="navbar-inner">
-			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-user icon-white"></span>
-			</a>
-			<a class="brand" href="#">XLogistics<br><h3>Tour Management Edition</h3></a>
-			<div class="nav-collapse collapse">
-				
-				<ul class="nav pull-right">
-					<li><a href="index.php"><i class="icon-off icon-white"></i> logout</a></li>
-				</ul>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-		<?php include('menu.php'); ?>
-	</div> <!-- END #navbar -->
 
 	<!-- BEGIN #main -->
 	<div class="main" id="main">
@@ -215,11 +81,11 @@ border-bottom:1px solid gray;
 				<h2 style="width:195%;">Enquiry form</h2>
 				
 					<div class="enquiryfrom">
-					<div id="main1">
+					<!--<div id="main1">
 					Search By Name or Mobile:<br />
 					<input type="text" id="amots" name="amots" onKeyUp="bleble();" autocomplete="off"/>
 					<div id="layer2"></div>
-					</div> 
+					</div> -->
 						
 						<div style="float:left;margin:0px 0px 20px 140px;">
 		
@@ -275,46 +141,7 @@ border-bottom:1px solid gray;
 								<input type="text" size="30px" name="c_zip" id="c_zip" value="<?php echo($zip) ?>" readonly >
 								</td>
 							</tr>	
-								<tr>
-								<td><h4>Country</h4></td>
-								<td>
-								 <?php
-								 $get=mysql_query("SELECT country_name FROM country_master");
-								 ?>
-								 <select name="c_country" id="c_country" style="width:220px; height:25px; ">
-								 <option value="null">SELECT</option>
-								 <?php
-								    while($row = mysql_fetch_assoc($get))
-										{
-								?>
-											<option value = "<?php echo($row['country_name'])?>" ><?php echo($row['country_name']) ?></option>
-								<?php
-										}
-								?>
-								 </select>	
-
-								</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-									<td><h4>State</h4></td>
-								<td>
-								<?php
-								 $get=mysql_query("SELECT state_name FROM state_master");
-								 ?>
-								 <select name="c_state" id="c_state" style="width:220px; height:25px; ">
-								 <option value="null">SELECT</option>
-								 <?php
-								    while($row = mysql_fetch_assoc($get))
-										{
-								?>
-											<option value = "<?php echo($row['state_name'])?>" ><?php echo($row['state_name']) ?></option>
-								<?php
-										}
-								?>
-								 </select>	
-								</td>
-								
-							</tr>						
+														
 							<tr>
 								<td><h4>Reference</h4></td>
 								<td>

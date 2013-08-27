@@ -11,7 +11,7 @@ if(isset($_REQUEST['search']))
 		$query = mysql_query($sql);
 	
 	
-	
+	$count = mysql_num_rows($query);
 	
 }
 
@@ -46,29 +46,38 @@ if(isset($_REQUEST['search']))
 									<th>Enquiry #</th>
 									<th>Name</th>
 									<th>Mobile</th>
-									<th>Checkin date</th>
-									<th>Checkout date</th>
-									<th>Amount</th>
-									<th>No of adults</th>
-									<th>No of children</th>
-									<th>No of rooms</th>
+									
 									<th></th>
 								</tr>
-							<?php while($row = mysql_fetch_array($query))	{ ?>
+							<?php 
+							if($count!=0)	{
+							while($row = mysql_fetch_array($query))	{ ?>
 								<tr>
 									<td><?php echo $row['enquiry_id']; ?></td>
 									<td><?php echo $row['firstname']." ".$row['lastname']; ?></td>
 									<td><?php echo $row['mobile']; ?></td>
-									<td><?php echo $row['checkindate']; ?></td>
-									<td><?php echo $row['checkoutdate']; ?></td>
-									<td><?php echo $row['amount']; ?></td>
-									<td><?php echo $row['noofadults']; ?></td>
-									<td><?php echo $row['noofchildren']; ?></td>
-									<td><?php echo $row['noofrooms']; ?></td>
-									<td><a href="bookingentry.php?eid=<?php echo $row['enquiry_id'] ?>&uid=<?php echo $row['user_id']?>">Book</a></td>
+									
+									<td><a href="enquiryshow.php?id=<?php echo $row['user_id']?>">Enquiry Details</a></td>
+									
+									
 								</tr>	
 						
-							<?php }	?>
+							<?php }	
+								}	else	{	
+							?>
+							<tr>
+									<td>No</td>
+									<td>Result</td>
+									<td>To</td>
+									
+									<td>Display</td>
+									
+									
+								</tr>	
+							
+							<?php
+							}
+							?>
 							</table>
 						</div>
 					

@@ -41,16 +41,7 @@ if(isset($_REQUEST['book_1']))
 
 ?>
 
-	  <!--Include JQuery File-->
-<script type="text/javascript" language="Javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
- 
-<!--Include JQuery UI File-->
-<script type="text/javascript" language="Javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js"></script>
- 
-
- 
-	<script type="text/javascript" src="js/myScript.js"></script>
-	<script language="JavaScript" type="text/javascript" src="search.js"></script>
+	 
 
 	
 
@@ -72,16 +63,21 @@ if(isset($_REQUEST['book_1']))
 					<div class="enquiryfrom" style="padding:15px;">
 					<div align="center">
 					<form method="post">
-					<table border="0" width="50%" style="background-color:#EEEEEE;border-radius:8px; height:55px;padding:55px;">
+					<table border="0" width="50%" >
 					<?php
 							
 							
 							$sql1="SELECT hotel_master.name,enquiry_accomodation_mapping.amount,enquiry_accomodation_mapping.servicetax,enquiry_accomodation_mapping.discount,enquiry_accomodation_mapping.commission FROM enquiry_accomodation_mapping INNER JOIN accomodation_type_details ON enquiry_accomodation_mapping.accomodation_type_id=accomodation_type_details.accomodation_type_id INNER JOIN hotel_master ON accomodation_type_details.hotel_id=hotel_master.hotel_id WHERE enquiry_accomodation_mapping.enquiry_id='$eid'";
 
 							$rs1 = mysql_query($sql1);
+							
+							$c1 = mysql_num_rows($rs1);
+							
+							if($c1!=0)	{
+							
 							while($row1 = mysql_fetch_assoc($rs1)) {
 					?>
-							<tr>
+							<tr style="background-color:#EEEEEE;border-radius:8px; height:55px;padding:55px;">
 								<td width="40%" align="center"><h4><?php echo $row1['name'] ?></h4></td>
 								<td width="20%">&nbsp;</td>
 								<td width="40%">
@@ -134,23 +130,29 @@ if(isset($_REQUEST['book_1']))
 					
 					<?php
 							}
+							}
 					?>
 					</table>
 					
 					</br>
 					
-					<table border="0" width="50%" style="background-color:#EEFFEE;border-radius:8px; height:55px;padding:55px;">
+					<table border="0" width="50%">
 					<?php
 							
 							
 							$sql2="SELECT startingplace,destination,rate,discount,commission,servicetax FROM transport_details WHERE enquiry_id='$eid'";
 
 							$rs2 = mysql_query($sql2);
+							
+							$c2 = mysql_num_rows($rs2);
+							
+							if($c2!=0)	{
+							
 							while($row2 = mysql_fetch_assoc($rs2)) {
 							
 							
 					?>
-							<tr>
+							<tr style="background-color:#EEFFEE;border-radius:8px; height:55px;padding:55px;">
 								<td width="40%" align="center"><h4><?php echo $row2['startingplace']?> - <?php echo $row2['destination'] ?></h4></td>
 								<td width="20%">&nbsp;</td>
 								<td width="40%">
@@ -195,6 +197,7 @@ if(isset($_REQUEST['book_1']))
 							</tr>
 					
 					<?php
+							}
 							}
 					?>
 					</table>
@@ -259,7 +262,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4efc0', end
 							?>
 								
 								<p align="right">
-								<a href="payment.php?pid=<?php echo $berow['enquiry_id'] ?>"><input type="button" value="Payment" class="bbbtn" style="width:120px;"></a>
+								<a href="payment.php?pid=<?php echo $berow['enquiry_id'] ?>"><input type="button" value="Payments" class="bbbtn" style="width:120px;"></a>
 								</p>
 								
 							<?php	
