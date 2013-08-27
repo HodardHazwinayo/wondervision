@@ -268,7 +268,7 @@ $( "#dialog-form3" ).dialog( "open" );
 	<script type="text/javascript" src="js/myScript.js"></script>
 	
 </head>
-<body>
+<body onload="test()">
 	<!-- BEGIN #navbar -->
 	<div class="navbar" id="navbar">
 		<div class="navbar-inner">
@@ -359,15 +359,60 @@ $( "#dialog-form3" ).dialog( "open" );
 							</tr>
 
 							
-							<tr>
+							<tr id=="tr_id">
 								<td><h4>Services</h4></td>
 								<td>
-								<select id="service" name="service" id="service" style="width:220px; height:25px; ">
+								<?php
+								$query1="SELECT * from enquiry_accomodation_mapping where enquiry_id=(SELECT enquiry_id FROM enquiry_details where user_id='$cus_code' ORDER BY enquiry_id DESC LIMIT 1)";
+								
+								$query2="SELECT * from transport_details where enquiry_id=(SELECT enquiry_id FROM enquiry_details where user_id='$cus_code' ORDER BY enquiry_id DESC LIMIT 1)";
+"
+";
+								$result1 = mysql_query($query1);
+								$result2 = mysql_query($query2);
+								
+								$num1 = mysql_num_rows($result1);
+								$num2 = mysql_num_rows($result2);
+								
+								
+								 if($num1 == 0 && $num2==0){
+
+										echo "<select name='service' id='service' style='width:220px; height:25px;'>";
+										echo "<option value='1'>HOTEL</option>";
+										echo "<option value='2'>RESORT</option>";
+										echo "<option value='4'>TRANSPORT</option>";
+										echo "</select>";
+									}elseif($num1==0){
+
+										echo "<select name='service' id='service' style='width:220px; height:25px;'>";
+               
+										echo "<option value='1'>HOTEL</option>";
+										echo "<option value='2'>RESORT</option>";
+										echo "</select>";
+
+										
+									}elseif($num2==0){
+
+										echo "<select name='service' id='service' style='width:220px; height:25px;'>";
+               
+										echo "<option value='4'>TRANSPORT</option>";
+										echo "</select>";
+
+										
+									}else{
+										echo "<select name='service' id='service' readonly style='width:220px; height:25px;'>";
+               
+										echo "<option >MAXIMUM ENQUIRY DONE</option>";
+										echo "</select>";
+									}
+								
+								?>
+								<!--<select id="service" name="service" id="service" style="width:220px; height:25px; ">
 								<option value="1">HOTEL</option>
 								<option value="2">RESORT</option>
 								
 								<option value="4">TRAVEL</option>
-								</select> 
+								</select> -->
 								</td>
 								<td><input type="button" id="create-user"/ value="ADD"></td>
 								<td>&nbsp;</td>
@@ -376,6 +421,7 @@ $( "#dialog-form3" ).dialog( "open" );
 								&nbsp;
 								</td>
 							</tr>
+							
 							
 							<!-- Dynamicaly create table for hotel booking-->
 							

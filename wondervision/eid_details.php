@@ -13,63 +13,31 @@ if(isset($_REQUEST['next_book']))
 
 }
 
-if(isset($_REQUEST['enquiry']))
+elseif(isset($_REQUEST['enq']))
 {
-  //create username
-  $username=$_REQUEST['c_fname'].$date;
-  $status=1;
-   
-  
-    //user details insert in user_master
-	 $sql2 = "INSERT INTO user_master(username,firstname,lastname,status,email,mobile,creation_date,user_typeid) VALUES ('$username','".$_REQUEST['c_fname']."','".$_REQUEST['c_lname']."','$status','".$_REQUEST['c_email']."','".$_REQUEST['c_mobile']."','$date',(SELECT user_typeid FROM `user_types` WHERE user_typeid =4) )";
-	
-	$rs2 = mysql_query($sql2);
-	
-	//fetch the highest user_id for create $cus_code
-	
-	$get=mysql_query("SELECT user_id FROM user_master ORDER BY user_id DESC LIMIT 1 ");	
-    while($row = mysql_fetch_assoc($get)) {
-	$cus_code=$row['user_id'];	
-	}
-	$_SESSION['cus_code']=$cus_code;
-	
-	//insert extra data guest_other_info table
-	
-	
-	if($_REQUEST['c_addrs1']=="" && $_REQUEST['c_addrs2']=="" && $_REQUEST['c_place']=="" && $_REQUEST['c_zip']=="")
-	 {
-	 
-	}
-	else
-	 {
-	 $sql21 = "INSERT INTO user_other_info(user_id,address1,address2,place,zip) VALUES ((select user_id from user_master where user_id='$cus_code'),'".$_REQUEST['c_addrs1']."','".$_REQUEST['c_addrs2']."','".$_REQUEST['c_place']."','".$_REQUEST['c_zip']."' )";
-	 $rs21 = mysql_query($sql21); 
-	 }
+	$arrdate=date("Y-m-d", strtotime($_REQUEST['arrival_date']));
+	$deptdate=date("Y-m-d", strtotime($_REQUEST['departure_date']));
+    
+	 $sql15 = "UPDATE enquiry_accomodation_mapping SET checkindate='$arrdate',checkoutdate='$deptdate',noofadults='".$_REQUEST['adult']."',noofchildren='".$_REQUEST['child']."',noofrooms='".$_REQUEST['room']."',amount='".$_REQUEST['amount']."',commission='".$_REQUEST['commission']."',discount='".$_REQUEST['discount']."',roomtype='".$_REQUEST['rtype']."',servicetax='".$_REQUEST['servicetax']."'/*,vat='".$_REQUEST['vat']."'*/ WHERE enquiry_id='$eid'";
 
-	//insert into enquiry_details value
-	
-	$sql = "INSERT INTO enquiry_details( 	/*startdate,enddate,startingplace,destination,enquirydate,totaldiscount,net_amount,servicetax,VAT,*/user_id,country_name,state_name) VALUES (/*'".$_REQUEST['arrival_date']."','".$_REQUEST['departure_date']."','".$_REQUEST['from_city']."','".$_REQUEST['to_city']."','$date','".$_REQUEST['discount']."','".$_REQUEST['net_amount']."','".$_REQUEST['s_tax']."','".$_REQUEST['vat']."',*/(select user_id from user_master where user_id='".$cus_code."'),(select country_name from country_master where country_name='".$_REQUEST['c_country']."'),(select state_name from state_master where state_name='".$_REQUEST['c_state']."'))";
+	$rs15 = mysql_query($sql15);
 	
 	
-	$rs = mysql_query($sql);
-	
-	
-	 $get=mysql_query("SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1 ");
-	
-    while($row = mysql_fetch_assoc($get)) {
-	$idmax=$row['enquiry_id'];
-	
-	}
-	
-	
-	 $sql1="INSERT INTO enquiry_comments_details
-	(enquiry_id,updatedate,comment) values
-	((select enquiry_id from enquiry_details where enquiry_id='$idmax'),'$date','".$_REQUEST['any_notes']."')";
-	
-	
-	$rs1 = mysql_query($sql1);
+	$tarrdate=date("Y-m-d", strtotime($_REQUEST['t_arrival_date']));
+	$tdeptdate=date("Y-m-d", strtotime($_REQUEST['t_d_date']));
+    
+	  $sql15 = "UPDATE transport_details SET pickuptime='$tarrdate',estimatedtime='$tdeptdate',noofadults='".$_REQUEST['tadult']."',noofchildren='".$_REQUEST['tchild']."',startingplace='".$_REQUEST['tsp']."',destination='".$_REQUEST['td']."',rate='".$_REQUEST['tr']."',commission='".$_REQUEST['tc']."',discount='".$_REQUEST['tdsc']."',servicetax='".$_REQUEST['ttax']."',/*vat='".$_REQUEST['vat']."',*/vehicletype='".$_REQUEST['ttype']."' WHERE enquiry_id='$eid'";
 
-	header("Location:itinerary.php");
+	$rs15 = mysql_query($sql15);
+	
+	?>
+	
+	<script>
+	window.location='totalamount.php?eid=<?php echo $eid ?>';
+	</script>
+<?php	
+	//Header("Location:totalamount.php?eid=$eid");
+	
 }
 
 ?>
@@ -108,8 +76,11 @@ if(isset($_REQUEST['enquiry']))
 							
 							$result10 = mysql_query($query10);
 							while($row10 = mysql_fetch_assoc($result10)) {
+							/*if( $row10['servicetax']=="" || $row10['commission']=="" || $row10['discount']=="")
+								$valid_next_page=1;*/
 							
 					?>
+					<form method="post" onsubmit="return shownextpage()">
 					<div style="background-color:#EEEEEE;padding:20px;border-radius:8px;">
 		 <table border="0" width="100%">
 			<tr>
@@ -136,39 +107,47 @@ if(isset($_REQUEST['enquiry']))
 				?>
 				</td>
 				<td width="20%" align="left"><h4>Room</h4></td>
-				<td width="30%" align="left"><?php echo $row10['noofrooms'] ?></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row10['noofrooms'] ?>" name="room" id="room"></td>
 				
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><h4>Adult</h4></td>
-				<td width="30%" align="left"><?php echo $row10['noofadults'] ?></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row10['noofadults'] ?>" name="adult" id="adult"></td>
 				<td width="20%" align="left"><h4>Children</h4></td>
-				<td align="left"><?php echo $row10['noofchildren'] ?></td>
+				<td align="left"><input type="text" value="<?php echo $row10['noofchildren'] ?>" name="child" id="child"></td>
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><h4>Checkin date</h4></td>
-				<td width="30%" align="left"><?php echo $row10['checkindate'] ?> </td>
+				<td width="30%" align="left"><input type="text"  id="datepicker" name="arrival_date" value="<?php echo $row10['checkindate'] ?>"readonly> </td>
 				<td width="20%" align="left"><h4>Checkout date</h4></td>
-				<td align="left"><?php echo $row10['checkoutdate'] ?></td>
+				<td align="left"><input type="text"  id="datepicker1" name="departure_date" readonly value="<?php echo $row10['checkoutdate'] ?>"></td>
 			</tr>
 			
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				
-				<td width="20%" align="left"><h4>Amount</h4></td>
-				<td align="left"><input type="text" value="<?php echo $row10['amount'] ?>" name="amount"></td>
-				<td width="20%" align="left"><h4>Discount</h4></td>
-				<td width="30%" align="left"><input type="text" value="<?php echo $row10['discount'] ?>" name="discount"></td>
+				<td width="20%" align="left"><h4>Amount (INR)</h4></td>
+				<td align="left"><input type="text" value="<?php echo $row10['amount'] ?>" name="amount" id="amount"></td>
+				<td width="20%" align="left"><h4>Discount (%)</h4></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row10['discount'] ?>" name="discount" id="discount"></td>
 			</tr>
 			
 			<tr><td>&nbsp;</td></tr>
 			<tr>
-				<td width="20%" align="left"><h4>Commission</h4></td>
-				<td width="30%" align="left"><input type="text" value="<?php echo $row10['commission'] ?>" name="commission"> </td>
-				<td width="20%" align="left"><h4>Service tax</h4></td>
-				<td align="left"><input type="text" value="<?php echo $row10['discount'] ?>" name="servicetax"></td>
+				<td width="20%" align="left"><h4>Commission (%)</h4></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row10['commission'] ?>" name="commission" id="commission"> </td>
+				<td width="20%" align="left"><h4>Service tax (%)</h4></td>
+				<td align="left"><input type="text" value="<?php echo $row10['servicetax'] ?>" name="servicetax" id="servicetax"></td>
+			</tr>
+			
+			<tr><td>&nbsp;</td></tr>
+			<tr>
+				<td width="20%" align="left"><h4>ROOM TYPE</h4></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row10['roomtype'] ?>" name="rtype" id="rtype"> </td>
+				<td width="20%" align="left"><h4>&nbsp;</h4></td>
+				<td align="left">&nbsp;</td>
 			</tr>
 			
 			<tr><td>&nbsp;</td></tr>
@@ -207,6 +186,9 @@ if(isset($_REQUEST['enquiry']))
 							
 							$result101 = mysql_query($query101);
 							while($row101 = mysql_fetch_assoc($result101)) {
+							
+							/*if( $row101['servicetax']=="" || $row101['commission']=="" ||  $row101['discount']=="")
+								$valid_next_page=1;*/
 							?>
 							
 			<table border="0" width="100%">
@@ -220,38 +202,45 @@ if(isset($_REQUEST['enquiry']))
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
-				<td width="20%" align="left"><h4>ADULT</h4></td>
-				<td width="30%" align="left"><?php echo $row101['noofadults'] ?></td>
-				<td width="20%" align="left"><h4>CHILDREN</h4></td>
-				<td align="left"><?php echo $row101['noofchildren'] ?></td>
+				<td width="20%" align="left"><h4>Adult</h4></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row101['noofadults'] ?>" name="tadult" id="tadult"> </td>
+				<td width="20%" align="left"><h4>Children</h4></td>
+				<td align="left"><input type="text" value="<?php echo $row101['noofchildren'] ?>" name="tchild" id="tchild"> </td>
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
-				<td width="20%" align="left"><h4>START PLACE</h4></td>
-				<td width="30%" align="left"><?php echo $row101['startingplace'] ?></td>
-				<td width="20%" align="left"><h4>DESTINATION</h4></td>
-				<td align="left"><?php echo $row101['destination'] ?></td>
+				<td width="20%" align="left"><h4>Start place</h4></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row101['startingplace'] ?>" name="tsp" id="tsp"></td>
+				<td width="20%" align="left"><h4>Destination</h4></td>
+				<td align="left"><input type="text" value="<?php echo $row101['destination'] ?>" name="td" id="td"></td>
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
-				<td width="20%" align="left"><h4>FROM DATE</h4></td>
-				<td width="30%" align="left"><?php echo $row101['pickuptime'] ?> </td>
-				<td width="20%" align="left"><h4>TO DATE</h4></td>
-				<td align="left"><?php echo $row101['estimatedtime'] ?></td>
+				<td width="20%" align="left"><h4>From date</h4></td>
+				<td width="30%" align="left"><input type="text"  id="datepicker3" name="t_arrival_date" value="<?php echo $row101['pickuptime'] ?>"readonly> </td>
+				<td width="20%" align="left"><h4>To date</h4></td>
+				<td align="left"><input type="text" id="datepicker4" name="t_d_date" value="<?php echo $row101['estimatedtime'] ?>"readonly></td>
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
-				<td width="20%" align="left"><h4>RATE</h4></td>
-				<td width="30%" align="left"><?php echo $row101['rate'] ?> </td>
-				<td width="20%" align="left"><h4>TYPE</h4></td>
-				<td align="left"><?php echo $row101['vehicletype'] ?></td>
+				<td width="20%" align="left"><h4>Rate (INR)</h4></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row101['rate'] ?>" name="tr" id="tr"> </td>
+				<td width="20%" align="left"><h4>Type</h4></td>
+				<td align="left"><input type="text" value="<?php echo $row101['vehicletype'] ?>" name="ttype" id="ttype"></td>
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
-				<td width="20%" align="left"><h4>Commission</h4></td>
-				<td width="30%" align="left"><input type="text" value="<?php echo $row101['rate'] ?>" name="tcommission"> </td>
-				<td width="20%" align="left"><h4>Service tax</h4></td>
-				<td align="left"><input type="text" value="<?php echo $row101['tax'] ?>" name="tservicetax"></td>
+				<td width="20%" align="left"><h4>Commission (%)</h4></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row101['commission'] ?>" name="tc" id="tc"> </td>
+				<td width="20%" align="left"><h4>Service tax (%)</h4></td>
+				<td align="left"><input type="text" value="<?php echo $row101['servicetax'] ?>" name="ttax" id="ttax"></td>
+			</tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr>
+				<td width="20%" align="left"><h4>DISCOUNT (%)</h4></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row101['discount'] ?>" name="tdsc" id="tdsc"> </td>
+				<td width="20%" align="left">&nbsp;</td>
+				<td align="left">&nbsp;</td>
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<!--<tr>
@@ -289,7 +278,38 @@ if(isset($_REQUEST['enquiry']))
 	</div>
 	
 	
-						<input type="submit" name="next_book" value="Submit" class="bbbtn">
+						
+		<table width="100%">
+		   <tr>
+								<td>
+								<p align="center">
+								<input type="submit" value="Submit" class="bbbtn" style="width:120px;" name="enq" id="enq">
+								</p>
+								</td>
+			</tr>
+		</table>
+		<script type="text/javascript" >
+
+	 function shownextpage()
+       {
+	 
+           submitOK="true";
+		   
+		
+		   if(document.getElementById("amount").value=="" || document.getElementById("discount").value=="" || document.getElementById("commission").value=="" || document.getElementById("servicetax").value=="" || document.getElementById("td").value==""|| document.getElementById("tc").value=="" || document.getElementById("ttax").value=="" || document.getElementById("tdsc").value=="" )
+           	{
+				  alert("Plese fill up the mandatory field");   
+                  submitOK="false";
+            }
+            
+            if(submitOK=="false")
+         return false;
+			else
+         return true;
+       }
+	</script>
+	</form>
+
 					</div>
 
 				</div><!-- END #main-content-span -->

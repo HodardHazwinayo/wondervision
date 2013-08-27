@@ -5,20 +5,26 @@ include('header.php');
 date_default_timezone_set('Asia/Calcutta');
 $date = date('Y-m-d H:i:s');
 $eid=$_GET["eid"];
-$total_amount=0;
+//$total_amount=0;
 
 if(isset($_REQUEST['book_1']))
 {
 	$sql21="INSERT INTO booking_details(bookingdate,enquiry_id) VALUES ('$date','$eid')";
 	$rs21=mysql_query($sql21);
 	
+	$get=mysql_query("SELECT booking_id FROM booking_details ORDER BY booking_id DESC LIMIT 1 ");	
+    while($row = mysql_fetch_assoc($get)) {
+	$b_id=$row['booking_id'];	
+	}
+	
+	$sql22="INSERT INTO payment_details (booking_id,populationdate,commisionamount,totalamount) VALUES ((SELECT booking_id FROM booking_details WHERE booking_id='".$b_id."'),'$date','".$_REQUEST['tb']."','".$_REQUEST['ta']."')";
+	
+	$rs22=mysql_query($sql22);
+	
 	
 	//header("Location:generate_bill.php?eid=$eid");
 	?>
-		<script>
-			window.location.href='generate_bill.php?eid=<?php echo $eid ?>';
 		
-		</script>
 	
 	<?php
 	
@@ -63,7 +69,7 @@ if(isset($_REQUEST['book_1']))
 					<?php
 							
 							
-							$sql1="SELECT hotel_master.name,enquiry_accomodation_mapping.amount,enquiry_accomodation_mapping.servicetax,enquiry_accomodation_mapping.discount FROM enquiry_accomodation_mapping INNER JOIN accomodation_type_details ON enquiry_accomodation_mapping.accomodation_type_id=accomodation_type_details.accomodation_type_id INNER JOIN hotel_master ON accomodation_type_details.hotel_id=hotel_master.hotel_id WHERE enquiry_accomodation_mapping.enquiry_id='$eid'";
+							$sql1="SELECT hotel_master.name,enquiry_accomodation_mapping.amount,enquiry_accomodation_mapping.servicetax,enquiry_accomodation_mapping.discount,enquiry_accomodation_mapping.commission FROM enquiry_accomodation_mapping INNER JOIN accomodation_type_details ON enquiry_accomodation_mapping.accomodation_type_id=accomodation_type_details.accomodation_type_id INNER JOIN hotel_master ON accomodation_type_details.hotel_id=hotel_master.hotel_id WHERE enquiry_accomodation_mapping.enquiry_id='$eid'";
 
 							$rs1 = mysql_query($sql1);
 							while($row1 = mysql_fetch_assoc($rs1)) {
@@ -73,7 +79,13 @@ if(isset($_REQUEST['book_1']))
 								<td width="20%">&nbsp;</td>
 								<td width="40%">
 								<h4>
-								<?php echo $test=$row1['amount']+(($row1['servicetax']/100)*$row1['amount'])-(($row1['discount']/100)*$row1['amount']);
+								 
+								<?php
+								$tax=($row1['servicetax']/100)*$row1['amount'];
+								$dsc=(($row1['discount']/100)*$row1['amount']);
+								echo $test=(($row1['amount']+$tax)-$dsc);
+								
+								$c_h=((($row1['commission']/100)*$row1['amount']));
 									
 									$total_amount=$total_amount+$test;
 									$num_length = strlen((string)$test);
@@ -81,10 +93,18 @@ if(isset($_REQUEST['book_1']))
 									
 									if($test_string[$num_length-3] == ".") {
 										$add_zero="";	
-									} else {
+									} 
+									elseif($test_string[$num_length-2] == "."){
+									$add_zero="0";
+									}
+									else {
 										$add_zero=".00";
 									}
 								echo $add_zero;
+								
+							
+							
+								
 
 								?>
 								</h4>
@@ -106,6 +126,8 @@ if(isset($_REQUEST['book_1']))
 
 							$rs2 = mysql_query($sql2);
 							while($row2 = mysql_fetch_assoc($rs2)) {
+							
+							
 					?>
 							<tr>
 								<td width="40%"><h4><?php echo $row2['startingplace']?> - <?php echo $row2['destination'] ?></h4></td>
@@ -113,6 +135,8 @@ if(isset($_REQUEST['book_1']))
 								<td width="40%">
 								<h4>
 								<?php echo $test=$row2['rate']+(($row2['servicetax']/100)*$row2['rate'])-(($row2['discount']/100)*$row2['rate']);
+								    
+									$c_t=((($row2['commission']/100)*$row2['rate']));
 									
 									$total_amount=$total_amount+$test;
 									$num_length = strlen((string)$test);
@@ -120,7 +144,12 @@ if(isset($_REQUEST['book_1']))
 									
 									if($test_string[$num_length-3] == ".") {
 										$add_zero="";	
-									} else {
+									}
+									elseif($test_string[$num_length-2] == "."){
+									$add_zero="0";
+									}
+
+									else {
 										$add_zero=".00";
 									}
 								echo $add_zero;
@@ -136,17 +165,32 @@ if(isset($_REQUEST['book_1']))
 					</table>
 					</br>
 					<table width="70%">
+					<tr>
 					<td width="40%"><h4>Total Amount</h4></td>
-					<td width="20%">&nbsp;</td>
+					<td width="20%">
+					<input type="hidden" value=<?php echo $total_amount; ?> id="ta" name="ta">
+					<?php
+				
+					
+					$t_c=$c_h+$c_t;
+					?>
+					<input type="hidden" value=<?php echo $t_c; ?> id="tb" name="tb">
+					</td>
 					<td width="40%"><h4>
 					<?php
 					echo $total_amount;
+					
 					$num_length = strlen((string)$total_amount);
 					$test_string = mysql_real_escape_string($total_amount);
 									
 									if($test_string[$num_length-3] == ".") {
 										$add_zero="";	
-									} else {
+									}
+									elseif($test_string[$num_length-2] == "."){
+									$add_zero="0";
+									}
+									
+									else {
 										$add_zero=".00";
 									}
 								echo $add_zero;
@@ -154,6 +198,7 @@ if(isset($_REQUEST['book_1']))
 					
 					</h4>
 					</td>
+					</tr>
 				
 					
 					</table>
