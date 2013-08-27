@@ -32,6 +32,13 @@ if(isset($_REQUEST['book_1']))
 
 
 
+
+//echo $besql = "SELECT * FROM enquiry_details INNER JOIN booking_details ON enquiry_details.enquiry_id=booking_details.enquiry_id WHERE enquiry_details.enquiry_id='".$eid."' ";
+							
+							$besql = mysql_query("SELECT * FROM enquiry_details INNER JOIN booking_details ON enquiry_details.enquiry_id=booking_details.enquiry_id WHERE enquiry_details.enquiry_id='".$eid."'"); 
+							
+							$berow = mysql_fetch_array($besql);
+
 ?>
 
 	  <!--Include JQuery File-->
@@ -65,7 +72,7 @@ if(isset($_REQUEST['book_1']))
 					<div class="enquiryfrom" style="padding:15px;">
 					<div align="center">
 					<form method="post">
-					<table border="0" width="70%" style="background-color:#EEEEEE;">
+					<table border="0" width="50%" style="background-color:#EEEEEE;border-radius:8px; height:55px;padding:55px;">
 					<?php
 							
 							
@@ -75,7 +82,7 @@ if(isset($_REQUEST['book_1']))
 							while($row1 = mysql_fetch_assoc($rs1)) {
 					?>
 							<tr>
-								<td width="40%"><h4><?php echo $row1['name'] ?></h4></td>
+								<td width="40%" align="center"><h4><?php echo $row1['name'] ?></h4></td>
 								<td width="20%">&nbsp;</td>
 								<td width="40%">
 								<h4>
@@ -109,6 +116,20 @@ if(isset($_REQUEST['book_1']))
 								?>
 								</h4>
 								</td>
+								<td align="center">
+								<?php
+								if(!empty($berow['booking_id']))
+								{
+								?>
+									<a href="bookingform.php?eid=124" target="_blank">Generate Bill</a>
+								<?php
+								}	else	{
+								?>
+									None
+								<?php
+								}
+								?>
+								</td>
 							</tr>
 					
 					<?php
@@ -118,7 +139,7 @@ if(isset($_REQUEST['book_1']))
 					
 					</br>
 					
-					<table border="0" width="70%" style="background-color:#EEFFEE;">
+					<table border="0" width="50%" style="background-color:#EEFFEE;border-radius:8px; height:55px;padding:55px;">
 					<?php
 							
 							
@@ -130,7 +151,7 @@ if(isset($_REQUEST['book_1']))
 							
 					?>
 							<tr>
-								<td width="40%"><h4><?php echo $row2['startingplace']?> - <?php echo $row2['destination'] ?></h4></td>
+								<td width="40%" align="center"><h4><?php echo $row2['startingplace']?> - <?php echo $row2['destination'] ?></h4></td>
 								<td width="20%">&nbsp;</td>
 								<td width="40%">
 								<h4>
@@ -157,6 +178,20 @@ if(isset($_REQUEST['book_1']))
 								?>
 								</h4>
 								</td>
+								<td align="center">
+								<?php
+								if(!empty($berow['booking_id']))
+								{
+								?>
+									<a href="">Generate Bill</a>
+								<?php
+								}	else	{
+								?>
+									None
+								<?php
+								}
+								?>
+								</td>
 							</tr>
 					
 					<?php
@@ -164,9 +199,17 @@ if(isset($_REQUEST['book_1']))
 					?>
 					</table>
 					</br>
-					<table width="70%">
+					<table width="50%" style="background-color:background: #e4efc0; /* Old browsers */
+background: -moz-linear-gradient(top,  #e4efc0 0%, #abbd73 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e4efc0), color-stop(100%,#abbd73)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #e4efc0 0%,#abbd73 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #e4efc0 0%,#abbd73 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #e4efc0 0%,#abbd73 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #e4efc0 0%,#abbd73 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4efc0', endColorstr='#abbd73',GradientType=0 ); /* IE6-9 */
+;border-radius:8px; height:55px;padding:55px;">
 					<tr>
-					<td width="40%"><h4>Total Amount</h4></td>
+					<td width="40%" align="center"><h4>Total Amount</h4></td>
 					<td width="20%">
 					<input type="hidden" value=<?php echo $total_amount; ?> id="ta" name="ta">
 					<?php
@@ -205,12 +248,30 @@ if(isset($_REQUEST['book_1']))
 					
 					<table >
 						    <tr>
-								<td>
+							<td>
+							<?php 
+							
+							
+							
+							
+							if(!empty($berow['booking_id']))
+							{
+							?>
+								
 								<p align="right">
-								<input type="submit" value="Book" class="bbbtn" style="width:120px;" name="book_1"  onclick="return confirm('Are you sure?');">
+								<a href="payment.php?pid=<?php echo $berow['enquiry_id'] ?>"><input type="button" value="Payment" class="bbbtn" style="width:120px;"></a>
 								</p>
+								
+							<?php	
+							}	else	{	
+							?>
+							<p align="right">
+								<input type="submit" value="Book" class="bbbtn" style="width:120px;" name="book_1"  onclick="return confirm('Are you sure?');">
+							</p>
+							<?php
+							}
+							?>
 								</td>
-	
 								<td>
 								<p align="left">
 								<a href="eid_details.php?eid=<?php echo $eid; ?>"><input type="button" value="Cancel" class="bbbtn" style="width:120px;"></a>

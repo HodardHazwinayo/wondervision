@@ -286,6 +286,12 @@ elseif(isset($_REQUEST['enq']))
 								<input type="submit" value="Submit" class="bbbtn" style="width:120px;" name="enq" id="enq">
 								</p>
 								</td>
+								
+								<td>
+								<p align="center">
+								<input type="button" value="Cancel" class="bbbtn" style="width:120px;" onclick="history.go(-1);">
+								</p>
+								</td>
 			</tr>
 		</table>
 		<script type="text/javascript" >
