@@ -41,6 +41,10 @@ include('include/config.php');
 	<!-- DEMO SCRIPTS -->
 	<script type="text/javascript" src="js/demo.js"></script>
 	
+	
+	
+
+	
 	  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 	  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -144,6 +148,63 @@ border-bottom:1px solid gray;*/
 	    $( "#tabs" ).tabs();
 	  });
 	  </script>
+	  
+	  
+	  
+	  <script type="text/javascript" src="js/jquery.min.js"></script>
+<!-- http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js -->
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+  $("#keywords").keyup(function()
+  {
+    var kw = $("#keywords").val();
+	//alert(kw);
+	if(kw != '')  
+	 {
+	  $.ajax
+	  ({
+	     type: "POST",
+		 url: "search.php",
+		 data: "kw="+ kw,
+		 success: function(option)
+		 {
+		   $("#results").html(option);
+		 }
+	  });
+	 }
+	 else
+	 {
+	   $("#results").html("");
+	 }
+	return false;
+  });
+   //Here I did a small html trick by the use of jquery. 
+   //Think, you are searching something by typing in the input field and the corresponding search
+   //result showing in the corresponding specified div, just below the input field. Now if you click
+   //on any displayed result, it will go to the specified url, but suppose you don't want to click anywhere
+   //on the displayed search results, and want to just close the displayed result, then what you do?
+   //For that's why I have added a extra div "overlay" which contain overall viewport, so when you will click
+   //anywhere other than "keywords" text field and "inputbox" div, "overlay" and "results" div will set to display none,
+   //mean they will hide.
+   //Similarly when "keywords" input field regain focus, "overlay" an "results" div become visible to you.
+   $(".overlay").click(function()
+   {
+     $(".overlay").css('display','none');
+	 $("#results").css('display','none');
+   });
+   $("#keywords").focus(function()
+   {
+     $(".overlay").css('display','block');
+     $("#results").css('display','block');
+   });
+});
+
+
+
+</script>
+
 
 
 	</head>

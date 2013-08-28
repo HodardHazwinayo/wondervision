@@ -1,6 +1,27 @@
 ﻿<?php
 session_start();
-include('header.php'); ?>
+include('header.php'); 
+
+if(isset($_REQUEST['notes']))
+{
+	$issuedate = date("Y-m-d", strtotime($_REQUEST['issuedate'])); 
+	$_REQUEST['issuenote'];
+	
+	$nsql = mysql_query("INSERT INTO quick_notes(datefornotes,description) VALUES ('".$issuedate."','".$_REQUEST['issuenote']."')");
+
+}
+?>
+
+
+	  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	  <link rel="stylesheet" href="/resources/demos/style.css" />
+	  <script>
+	  $(function() {
+	    $( "#datepicker" ).datepicker();
+	  });
+	  </script>
 
 <style type="text/css" media="all">
 		
@@ -200,7 +221,7 @@ $(document).ready(function() {
     //call tableSorter functions to update the sorting and then hide the tables footer. 
     //Else show the tables footer  
         $("#tableOne tbody tr").quicksearch({
-            labelText: 'Search for required tests: ',
+            labelText: 'Search for Enquiry: ',
             attached: '#tableOne',
             position: 'before',
             delay: 100,
@@ -236,11 +257,11 @@ $(document).ready(function() {
 						<h2>  Todays action item</h2>
 						<div style="height:170px;overflow-y:scroll;">
 						<?php
-							$action = mysql_query("SELECT * FROM `enquiry_details` INNER JOIN `enquiry_accomodation_mapping` ON enquiry_details.enquiry_id=enquiry_accomodation_mapping.enquiry_id");
+							$action = mysql_query("SELECT * FROM `quick_notes`");
 							while($rowss = mysql_fetch_array($action))
 							{
 						?>
-							<p style="padding:0 0 5px 10px;"><img alt="" src="images/1371483313_evolution-tasks.png"><a href="#"><?php echo $rowss['comments']  ?></a></p>
+							<p style="padding:0 0 5px 10px;"><img alt="" src="images/1371483313_evolution-tasks.png"><a href="#"><?php echo $rowss['datefornotes']." --> ".$rowss['description']  ?></a></p>
 						<?php
 							}
 						?>						
@@ -289,8 +310,13 @@ $(document).ready(function() {
 					<div class="tabbable">
 						<h2> Writing notes</h2>
 						<div style="margin:5px;">
-						<textarea cols="70" rows="7" placeholder="Quick notes"></textarea>
-						<input type="button" value="Submit" class="bbbtn" onclick="alert('Your notes have been submitted');" />
+						<form method="post">
+						<table width="100%" cellpadding="1" cellspacing="1">
+						<tr><td><input type="text" name="issuedate" placeholder="yyyy-mm-dd" id="datepicker"></td></tr>
+						<tr><td><textarea cols="70" rows="2" placeholder="Quick notes" name="issuenote"></textarea></td></tr>
+						<tr><td><input type="submit" value="Submit" name="notes" class="bbbtn"  /></td></tr>
+						</table>
+						</form>
 						</div>
 					</div>
 				</div><!-- END #main-content-span -->
@@ -322,9 +348,9 @@ $(document).ready(function() {
 								?>
 			<tbody>					
 			<tr>
-			<td width="30%" align="left"><font color="#C91E29" size="2px"><?php echo $r['firstname']." ".$r['lastname']; ?></font></td>
+			<td width="30%" align="left"><font color="#C91E29" size="2px"><a href="enquiryshow.php?id=<?php echo $r['user_id']?>"><?php echo $r['firstname']." ".$r['lastname']; ?></a></font></td>
 			<td width="30%" align="center"><?php echo $r['mobile']; ?> </td>
-			<td width="40%" align="center"><?php echo $r['startdate']; ?></td>
+			<td width="40%" align="center"><?php echo $r['enquirydate']; ?></td>
 			</tr>
 			</tbody>
 								<?php
@@ -354,7 +380,9 @@ $(document).ready(function() {
 			</div>
 
 			<!-- BEGIN #main-content-row -->
-				<div id="toPopup"> 
+				
+           
+		   <div id="toPopup"> 
     	
         <div class="close"></div>
        	<span class="ecs_tooltip">Press Esc to close <span class="arrow"></span></span>
@@ -400,6 +428,7 @@ $(document).ready(function() {
         </div> <!--your content end-->
     
     </div> <!--toPopup end-->
+		   
     
 	<div class="loader"></div>
    	<div id="backgroundPopup"></div>

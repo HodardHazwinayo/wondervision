@@ -74,7 +74,6 @@ if(isset($_REQUEST['enquiry']))
 
 
 
-
 	<!-- BEGIN #main -->
 	<div class="main" id="main">
 		<!-- BEGIN #main-nav -->
@@ -90,11 +89,20 @@ if(isset($_REQUEST['enquiry']))
 					<div class="enquiryfrom">
 					
 					
-					<div id="main1">
+					<!--<div id="main1">
 					Search By Name or Mobile:<br />
 					<input type="text" id="amots" name="amots" onKeyUp="bleble();" autocomplete="off"/>
 					<div id="layer2"></div>
-					</div> 
+					</div> -->
+					
+					<div class="ajax_body" style="margin:20px 0 0 20px;">
+  <div id="textspan"><span>Enter Mobile or Name :</span>&nbsp;&nbsp;</div>
+  <div id="inputbox">
+    <input type="text" id="keywords" name="keywords" value="" />
+  </div>
+</div>
+<div id="results" ></div>
+<div class="overlay" style="z-index:5;"></div>
 					
 					
 						<div style="float:left;margin:0px 0px 20px 140px;">

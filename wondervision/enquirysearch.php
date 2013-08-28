@@ -34,51 +34,17 @@ if(isset($_REQUEST['search']))
 				
 					<div class="enquiryfrom" style="padding:15px;">
 						
-						<form action="" method="post">
-						<table>
-							<tr><td><input type="text" name="searchv" id="searchv"></td><td><input type="submit" value="Search" name="search"></td></tr>
-						</table>	
-						</form>
+						<div class="ajax_body" style="margin:20px 0 0 20px;">
+  <div id="textspan"><span>Enter Mobile or Name :</span>&nbsp;&nbsp;</div>
+  <div id="inputbox">
+    <input type="text" id="keywords" name="keywords" value="" />
+  </div>
+</div>
+<div id="results" ></div>
+<div class="overlay" style="z-index:5;"></div>
 						
 						<div style="float:left;margin:0px 0px 20px 0px;">
-							<table width="100%" cellpadding="15" cellspacing="0">
-								<tr>
-									<th>Enquiry #</th>
-									<th>Name</th>
-									<th>Mobile</th>
-									
-									<th></th>
-								</tr>
-							<?php 
-							if($count!=0)	{
-							while($row = mysql_fetch_array($query))	{ ?>
-								<tr>
-									<td><?php echo $row['enquiry_id']; ?></td>
-									<td><?php echo $row['firstname']." ".$row['lastname']; ?></td>
-									<td><?php echo $row['mobile']; ?></td>
-									
-									<td><a href="enquiryshow.php?id=<?php echo $row['user_id']?>">Enquiry Details</a></td>
-									
-									
-								</tr>	
-						
-							<?php }	
-								}	else	{	
-							?>
-							<tr>
-									<td>No</td>
-									<td>Result</td>
-									<td>To</td>
-									
-									<td>Display</td>
-									
-									
-								</tr>	
 							
-							<?php
-							}
-							?>
-							</table>
 						</div>
 					
 					
