@@ -55,8 +55,14 @@ if(isset($_REQUEST['enquiry']))
 	
 	
 	$rs1 = mysql_query($sql1);
+	?>
+	<script>
+	window.location=('itinerary.php');
+	</script>
+	
+	<?php
 
-	header("Location:itinerary.php");
+	//header("Location:itinerary.php");
 }
 
 		
