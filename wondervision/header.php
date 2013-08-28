@@ -28,6 +28,7 @@ include('include/config.php');
 	<script type="text/javascript" src="bootstrap/js/bootstrap-tab.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap-transition.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap-typeahead.js"></script>
+	<script type="text/javascript" src="validation.js"></script>
 
 	<!-- Uncomment to use LESS The dynamic stylesheet language. | http://lesscss.org/ -->
 	<!-- <link rel="stylesheet/less" type="text/css" href="css/main.less" /> -->
@@ -57,19 +58,7 @@ include('include/config.php');
 	   $(function() {
 	    $( "#datepicker4" ).datepicker();
 	  });
-	   $(function() {
-	    $( "#datepicker5" ).datepicker();
-	  });
-	   $(function() {
-	    $( "#datepicker6" ).datepicker();
-	  });
 	  </script>
-	  
-	    <!--Include JQuery File-->
-<script type="text/javascript" language="Javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
- 
-<!--Include JQuery UI File-->
-<script type="text/javascript" language="Javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js"></script>
 	
    <script type="text/javascript" src="js/myScript.js"></script>
 	<script language="JavaScript" type="text/javascript" src="search.js"></script>

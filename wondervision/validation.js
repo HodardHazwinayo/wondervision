@@ -1,9 +1,211 @@
-var RE_EMAIL = /^(\w)+@([a-z]+\.)+[A-Za-z]+$/;
-var balance=/^\d*\.?((25)|(50)|(5)|(75)|(0)|(00))?$/;
+var RE_EMAIL = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+var balance=/^\d+(\.\d{1,2})?$/;
+var two_two=/^\d{0,2}(\.\d{1,2})?$/;
 var phno= /^(\d){10}$/;
+var n3= /^(\d){1,}$/;
 var landnumber=/^(\d){6,}$/;
 var zipp=/^(\d){6}$/;
 var charr=/^[A-z]+$/;
+var croom,cadult,cchild,camount,tamount,t_type,sp,td,p_t_a,p_t_a1;
+
+function h_adult1()
+   {
+       var ph;
+       ph=document.getElementById("child").value;
+       if(ph.length!=0)
+           {
+               if(n3.test(ph))
+               {
+                   
+               }
+               else
+                   {
+                       alert("Only digit possible");
+                       document.getElementById("child").value=cchild;
+                   }
+           }
+   }
+   
+   function f_h_adult1(){
+   cchild=document.getElementById("child").value;
+   }
+
+
+function h_adult()
+   {
+       var ph;
+       ph=document.getElementById("adult").value;
+       if(ph.length!=0)
+           {
+               if(n3.test(ph))
+               {
+                   
+               }
+               else
+                   {
+                       alert("Only digit possible");
+                       document.getElementById("adult").value=cadult;
+                   }
+           }
+   }
+   
+   function f_h_adult(){
+   cadult=document.getElementById("adult").value;
+   }
+
+
+function h_room()
+   {
+       var ph;
+       ph=document.getElementById("room").value;
+       if(ph.length!=0)
+           {
+               if(n3.test(ph))
+               {
+                   
+               }
+               else
+                   {
+                       alert("Only digit possible");
+                       document.getElementById("room").value=croom;
+                   }
+           }
+   }
+   
+   function f_h_room(){
+   croom=document.getElementById("room").value;
+   }
+
+
+
+
+function t_adult1()
+   {
+       var ph;
+       ph=document.getElementById("tchild").value;
+       if(ph.length!=0)
+           {
+               if(n3.test(ph))
+               {
+                   
+               }
+               else
+                   {
+                       alert("Only digit possible");
+                       document.getElementById("tchild").value=p_t_a1;
+                   }
+           }
+   }
+   
+   function f_t_adult1(){
+   p_t_a1=document.getElementById("tchild").value;
+   }
+
+
+
+function t_adult()
+   {
+       var ph;
+       ph=document.getElementById("tadult").value;
+       if(ph.length!=0)
+           {
+               if(n3.test(ph))
+               {
+                   
+               }
+               else
+                   {
+                       alert("Only digit possible");
+                       document.getElementById("tadult").value=p_t_a;
+                   }
+           }
+   }
+   
+   function f_t_adult(){
+   p_t_a=document.getElementById("tadult").value;
+   }
+
+
+
+     function t_start_p()
+   {
+       var name;
+       name=document.getElementById("tsp").value;
+       if(name.length!=0)
+           {
+               if(charr.test(name))
+               {
+                   
+               }
+               else
+                   {
+                       alert("Please give only character");
+                       document.getElementById("tsp").value=sp;
+                   }
+           }
+   }
+   
+   function fetch_tsp(){
+   sp=document.getElementById("tsp").value;
+   }
+   
+      function t_d()
+   {
+       var name;
+       name=document.getElementById("td").value;
+       if(name.length!=0)
+           {
+               if(charr.test(name))
+               {
+                   
+               }
+               else
+                   {
+                       alert("Please give only character");
+                       document.getElementById("td").value=td;
+                   }
+           }
+   }
+   
+   function fetch_td(){
+   td=document.getElementById("td").value;
+   }
+   
+     function i_t_d()
+   {
+       var name;
+       name=document.getElementById("vd").value;
+       if(name.length!=0)
+           {
+               if(charr.test(name))
+               {
+                   
+               }
+               else
+                   {
+                       alert("Please give only character");
+                       document.getElementById("vd").value="";
+                   }
+           }
+   }
+   
+       function i_t_s()
+   {
+       var name;
+       name=document.getElementById("vsp").value;
+       if(name.length!=0)
+           {
+               if(charr.test(name))
+               {
+                   
+               }
+               else
+                   {
+                       alert("Please give only character");
+                       document.getElementById("vsp").value="";
+                   }
+           }
+   }
 
 
 function valid_mail1()
@@ -262,13 +464,104 @@ function valid_mail1()
 	
 	}
 	
+		function net_amount_chk1(){
+	var name;
+	name=document.getElementById("net_amount1").value;
+	if(name.length!=0)
+           {
+               if(balance.test(name))
+               {
+
+               }
+               else
+                   {
+				   alert("Please give proper value\n Example xx.yy");		   
+                   document.getElementById("net_amount1").value="";
+                   }
+           }
+	
+	
+	}
+	
+			function net_amount_chk2(){
+	var name;
+	name=document.getElementById("net_amount2").value;
+	if(name.length!=0)
+           {
+               if(balance.test(name))
+               {
+
+               }
+               else
+                   {
+				   alert("Please give proper value\n Example xx.yy");		   
+                   document.getElementById("net_amount2").value="";
+                   }
+           }
+	
+	
+	}
+	
+	function hamount_eiddetails(){
+	var name;
+	name=document.getElementById("amount").value;
+	
+	
+	if(name.length!=0)
+           {
+               if(balance.test(name))
+               {
+
+               }
+               else
+                   {
+				   alert("Please give proper value\n Example xx.yy");				   
+                   document.getElementById("amount").value=camount;
+                   }
+           }
+	
+	
+	}
+	
+	function fetchamount(){
+	camount=document.getElementById("amount").value;
+	
+	}
+	
+		function tamount_eiddetails(){
+	var name;
+	name=document.getElementById("tr").value;
+	
+	
+	if(name.length!=0)
+           {
+               if(balance.test(name))
+               {
+
+               }
+               else
+                   {
+				   alert("Please give proper value\n Example xx.yy");				   
+                   document.getElementById("tr").value=tamount;
+                   }
+           }
+	
+	
+	}
+	
+	function t_fetchamount(){
+	tamount=document.getElementById("tr").value;
+	
+	}
+	
+	
 	function discount_chk(){
 	
 	var name;
 	name=document.getElementById("discount").value;
 	if(name.length!=0)
            {
-               if(balance.test(name))
+               if(two_two.test(name))
                {
 
                }
@@ -281,76 +574,132 @@ function valid_mail1()
 	
 	}
 	
-  function service_tax_chk(){
+		function t_discount_chk(){
 	
 	var name;
-	name=document.getElementById("s_tax").value;
+	name=document.getElementById("tdsc").value;
 	if(name.length!=0)
            {
-               if(balance.test(name))
+               if(two_two.test(name))
                {
 
                }
                else
                    {
 				   alert("Please give proper value\n Example xx.yy");		   
-                   document.getElementById("s_tax").value="";
+                   document.getElementById("tdsc").value="";
                    }
            }
 	
 	}
 	
-  function vat_chk(){
-  
-  var name;
-	name=document.getElementById("vat").value;
+  function service_tax_chk(){
+	
+	var name;
+	name=document.getElementById("servicetax").value;
 	if(name.length!=0)
            {
-               if(balance.test(name))
+               if(two_two.test(name))
                {
 
                }
                else
                    {
 				   alert("Please give proper value\n Example xx.yy");		   
-                   document.getElementById("vat").value="";
+                   document.getElementById("servicetax").value="";
                    }
            }
+	
+	}
+	
+	  function t_service_tax_chk(){
+	
+	var name;
+	name=document.getElementById("ttax").value;
+	if(name.length!=0)
+           {
+               if(two_two.test(name))
+               {
+
+               }
+               else
+                   {
+				   alert("Please give proper value\n Example xx.yy");		   
+                   document.getElementById("ttax").value="";
+                   }
+           }
+	
+	}
+	
+  function t_commission_chk(){
+  
+  var name;
+	name=document.getElementById("tc").value;
+	if(name.length!=0)
+           {
+               if(two_two.test(name))
+               {
+
+               }
+               else
+                   {
+				   alert("Please give proper value\n Example xx.yy");		   
+                   document.getElementById("tc").value="";
+                   }
+           }
+  }
+  
+    function commission_chk(){
+  
+  var name;
+	name=document.getElementById("commission").value;
+	if(name.length!=0)
+           {
+               if(two_two.test(name))
+               {
+
+               }
+               else
+                   {
+				   alert("Please give proper value\n Example xx.yy");		   
+                   document.getElementById("commission").value="";
+                   }
+           }
+  }
+  
+  function type_test(){
+  var type=document.getElementById("ttype").value;
+  if(type=="AC" || type=="NON-AC")
+   {
+   }
+  else
+   {
+   alert("VAlue allow AC or NON-AC");
+   document.getElementById("ttype").value=t_type;
+   }
+  }
+  
+  function fetch_type(){
+  t_type=document.getElementById("ttype").value;
+  document.getElementById("ttype").value="";
+  
+  
   }
   
  function valid()
        {
            submitOK="true";
-		   var note,zip;
-           /*var fcity,tcity,adate,ddate,norum,totday;
-           fcity=document.getElementById("from_city").value.trim();
-		   tcity=document.getElementById("to_city").value.trim();*/
-		   /*adate=document.getElementById("datepicker").value.trim();
-		   ddate=document.getElementById("datepicker1").value.trim();*/
-		  /* norum=document.getElementById("noroom").value.trim();
-		   totday=document.getElementById("totdate").value.trim();*/
+		   var note,zip,mob,fn,adr;
+   
 		   note=document.getElementById("any_notes").value.trim();
 		   zip=document.getElementById("c_zip").value.trim();
-		   
-		   
-			/* if(adate!="")
-          {
-              var cadate=adate.substring(6)+"-"+adate.substring(0,2)+"-"+adate.substring(3,5);
-             document.getElementById("datepicker").value=cadate;
-              
-          }
-			
-		   if(ddate !="" || ddate!="null")
-		    {
-			  var cddate=ddate.substring(6)+"-"+ddate.substring(0,2)+"-"+ddate.substring(3,5);
-             document.getElementById("datepicker1").value=cddate;
-			}*/
-	   
-	   
-           //if(fcity=="" || tcity=="" || adate=="" || ddate=="" || norum=="" || totday=="")*/
-		   if(note=="" || note=="null" || zip=="" || zip=="null")
+		   mob=document.getElementById("c_mobile").value.trim();
+		   fn=document.getElementById("c_fname").value.trim();
+		   adr=document.getElementById("c_addrs1").value.trim();
+	
+		   if(note=="" || note=="null" || zip=="" || zip=="null" || mob=="" || fn=="" || adr=="")
            	{
-           	      //alert("All necesary data is not given");
+           	   
 				  alert("Plese fill up the mandatory field");
                       
                       

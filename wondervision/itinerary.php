@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include('header.php');
+include('include/config.php');
 date_default_timezone_set('Asia/Calcutta');
 $date = date('Y-m-d H:i:s');
 $cus_code=$_SESSION['cus_code']; 
@@ -109,7 +109,70 @@ elseif(isset($_REQUEST['t_save'])){
 
 
 ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Analytical and Business Process Automation & Management tool for Tourism Business</title>
+	
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="css/glyphicons.all.css" />
 
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	
+	<script type="text/javascript" src="flot/jquery.flot.js"></script>
+	<script type="text/javascript" src="flot/jquery.flot.pie.js"></script>
+	<script type="text/javascript" src="flot/jquery.flot.resize.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap-alert.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap-button.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap-carousel.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap-collapse.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap-dropdown.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap-modal.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap-tooltip.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap-popover.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap-scrollspy.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap-tab.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap-transition.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap-typeahead.js"></script>
+	<script type="text/javascript" src="validation.js"></script>
+
+	<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.css" />
+	
+
+	<!-- DEMO SCRIPTS -->
+	<script type="text/javascript" src="js/demo.js"></script>
+	
+	  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	  <link rel="stylesheet" href="/resources/demos/style.css" />
+	  <script>
+	  $(function() {
+	    $( "#datepicker" ).datepicker();
+	  });
+	  $(function() {
+	    $( "#datepicker1" ).datepicker();
+	  });
+	   $(function() {
+	    $( "#datepicker3" ).datepicker();
+	  });
+	   $(function() {
+	    $( "#datepicker4" ).datepicker();
+	  });
+	  
+	   $(function() {
+	    $( "#datepicker5" ).datepicker();
+	  });
+	  
+	   $(function() {
+	    $( "#datepicker6" ).datepicker();
+	  });
+	  </script>
 <!-- jquery for fetch value from dilouge box -->	  
 	  <script>
 			$(function() {
@@ -202,7 +265,27 @@ $( "#dialog-form3" ).dialog( "open" );
 
 <!-- end here the dilouge box -->
 	  	
+	<script type="text/javascript" src="js/myScript.js"></script>
 	
+</head>
+<body onload="test()">
+	<!-- BEGIN #navbar -->
+	<div class="navbar" id="navbar">
+		<div class="navbar-inner">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-user icon-white"></span>
+			</a>
+			<a class="brand" href="#">XLogistics<br><h3>Tour Management Edition</h3></a>
+			<div class="nav-collapse collapse">
+				
+				<ul class="nav pull-right">
+					<li><a href="index.php"><i class="icon-off icon-white"></i> logout</a></li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<?php include('menu.php'); ?>
+	</div> <!-- END #navbar -->
 
 	<!-- BEGIN #main -->
 	<div class="main" id="main">
@@ -356,12 +439,12 @@ $( "#dialog-form3" ).dialog( "open" );
 							while($row10 = mysql_fetch_assoc($result10)) {
 							?>
 							
-							<tr style="background-color:#EEEEEE;border:1px solid #000000; ">								<td colspan="6">
-								 		<table border="0" width="100%" style="height:45px; color:#000000; padding:25px; border-radius:8px;">
+							<tr style="background-color:#EEEEEE;border:1px solid #ffffff; height:25px; color:#000000">								<td colspan="6">
+								 		<table border="0" width="100%">
 			<tr>
-				<td><b>NAME</b></td>
+				<td align="center" colspan="4"><b>NAME&nbsp;&nbsp; </b>
 
-				<td>
+				
 				<?php
 								  
 								  $query100="SELECT name FROM hotel_master where (hotel_id=(select hotel_id from accomodation_type_details where accomodation_type_id='".$row10['accomodation_type_id']."'))";
@@ -372,29 +455,24 @@ $( "#dialog-form3" ).dialog( "open" );
 								echo $row100['name']; 								
 								?>
 				</td>
-				<td>&nbsp;</td>
-				<td>----</td>
 				
 			</tr>
-			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><b>ADULT</b></td>
 				<td width="30%" align="left"><?php echo $row10['noofadults'] ?></td>
 				<td width="20%" align="left"><b>CHILDREN</b></td>
 				<td align="left"><?php echo $row10['noofchildren'] ?></td>
 			</tr>
-			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><b>ROOM</b></td>
 				<td width="30%" align="left"><?php echo $row10['noofrooms'] ?></td>
 				<td width="20%" align="left"><b>AMOUNT</b></td>
 				<td align="left"><?php echo $row10['amount'] ?></td>
 			</tr>
-			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 			<tr>
-				<td width="20%" align="left"><b>CHECKIN DATE</b></td>
+				<td width="20%" align="left"><b>CHECK_IN_DATE</b></td>
 				<td width="30%" align="left"><?php echo $row10['checkindate'] ?> </td>
-				<td width="20%" align="left"><b>CHECKOUT DATE</b></td>
+				<td width="20%" align="left"><b>CHECK_OUT_DATE</b></td>
 				<td align="left"><?php echo $row10['checkoutdate'] ?></td>
 			</tr>
 		</table>
@@ -427,7 +505,7 @@ $( "#dialog-form3" ).dialog( "open" );
 							while($row101 = mysql_fetch_assoc($result101)) {
 							?>
 							
-							<tr style="background-color:#EEFFEE;border:1px solid #ffffff; height:45px; color:#000000">								<td colspan="6">
+							<tr style="background-color:#EEFFEE;border:1px solid #ffffff; height:25px; color:#000000">								<td colspan="6">
 								 		<table border="0" width="100%">
 			<tr>
 				<td width="20%" align="left"><b>ADULT</b></td>
@@ -435,21 +513,18 @@ $( "#dialog-form3" ).dialog( "open" );
 				<td width="20%" align="left"><b>CHILDREN</b></td>
 				<td align="left"><?php echo $row101['noofchildren'] ?></td>
 			</tr>
-			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><b>START PLACE</b></td>
 				<td width="30%" align="left"><?php echo $row101['startingplace'] ?></td>
 				<td width="20%" align="left"><b>DESTINATION</b></td>
 				<td align="left"><?php echo $row101['destination'] ?></td>
 			</tr>
-			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><b>FROM_DATE</b></td>
 				<td width="30%" align="left"><?php echo $row101['pickuptime'] ?> </td>
 				<td width="20%" align="left"><b>TO_DATE</b></td>
 				<td align="left"><?php echo $row101['estimatedtime'] ?></td>
 			</tr>
-			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><b>RATE</b></td>
 				<td width="30%" align="left"><?php echo $row101['rate'] ?> </td>
@@ -471,14 +546,13 @@ $( "#dialog-form3" ).dialog( "open" );
 						    <tr>
 								<td colspan="2">
 								<p align="right">
-								<input type="submit" value="Submit" class="bbbtn" style="width:120px;" name="enquiry" id="enquiry" onclick="fake_submit()">
+								<input type="submit" value="Save" class="bbbtn" style="width:120px;" name="enquiry" id="enquiry" onclick="fake_submit()">
 								</p>
 								</td>
 								<td colspan="2">
-								<!--<p align="left">
+								<p align="left">
 								<input type="submit" value="Book" class="bbbtn" style="width:120px;" name="book" id="book">
-								</p>-->
-								&nbsp;
+								</p>
 								</td>	
 								<td colspan="2">
 								<p align="left">
@@ -522,7 +596,7 @@ $( "#dialog-form3" ).dialog( "open" );
 		</tr>
 		<tr>
 			<td width="40%"><h4>Check In Date</h4></td>
-			<td width="20%"><input type="text" size="30px" id="datepicker" name="arrival_date" readonly></td>
+			<td width="20%"><input type="text" size="30px" id="datepicker" name="arrival_date" readonly ></td>
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
@@ -597,13 +671,13 @@ $( "#dialog-form3" ).dialog( "open" );
 		
 		<tr>
 			<td width="40%"><h4>Comment</h4></td>
-			<td width="20%"><input type="text" size="30px" id="comment" name="comment" >	</td>
+			<td width="20%"><input type="text" size="30px" id="comment" name="comment" onkeyup= "this.value = this.value.toUpperCase()">	</td>
 			<td>&nbsp;</td>
 		</tr>
 		
 		<tr>
 			<td width="40%">&nbsp;</td>
-			<td width="20%"><input type="submit" value="Submit" class="bbbtn" style="width:120px;" name="h_save" id="h_save"></td>
+			<td width="20%"><input type="submit" value="Save" class="bbbtn" style="width:120px;" name="h_save" id="h_save"></td>
 			<td>&nbsp;</td>
 		</tr>
 	</table>
@@ -715,13 +789,13 @@ $( "#dialog-form3" ).dialog( "open" );
 		</tr>
 		<tr>
 			<td width="40%"><h4>Budget*</h4></td>
-			<td width="20%"><input type="text" size="30px" id="net_amount1" name="net_amount1" onblur="net_amount_chk()" >	</td>
+			<td width="20%"><input type="text" size="30px" id="net_amount1" name="net_amount1" onblur="net_amount_chk1()" >	</td>
 			<td>&nbsp;</td>
 		</tr>
 		
 		<tr>
 			<td width="40%"><h4>Comment</h4></td>
-			<td width="20%"><input type="text" size="30px" id="comment" name="comment" >	</td>
+			<td width="20%"><input type="text" size="30px" id="comment" name="comment" onkeyup= "this.value = this.value.toUpperCase()">	</td>
 			<td>&nbsp;</td>
 		</tr>
 	
@@ -817,27 +891,27 @@ $( "#dialog-form3" ).dialog( "open" );
 		<tr>
 			<td width="40%"><h4>Starting Place* </h4></td>
 			<td width="20%">
-			<input type="text" size="30px" id="vsp" name="vsp">	</td>
+			<input type="text" size="30px" id="vsp" name="vsp" onkeyup= "this.value = this.value.toUpperCase()" onblur="i_t_s()">	</td>
 			</td>
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td width="40%"><h4>Destination* </h4></td>
 			<td width="20%">
-			<input type="text" size="30px" id="vd" name="vd">	</td>
+			<input type="text" size="30px" id="vd" name="vd" onkeyup= "this.value = this.value.toUpperCase()" onblur="i_t_d()">	</td>
 			</td>
 			<td>&nbsp;</td>
 		</tr>
 	
 		<tr>
 			<td width="40%"><h4>Budget*</h4></td>
-			<td width="20%"><input type="text" size="30px" id="net_amount2" name="net_amount2" onblur="net_amount_chk()" >	</td>
+			<td width="20%"><input type="text" size="30px" id="net_amount2" name="net_amount2" onblur="net_amount_chk2()" >	</td>
 			<td>&nbsp;</td>
 		</tr>
 	
 		<tr>
 			<td width="40%"><h4>Comment</h4></td>
-			<td width="20%"><input type="text" size="30px" id="comment2" name="comment2" >	</td>
+			<td width="20%"><input type="text" size="30px" id="comment2" name="comment2" onkeyup= "this.value = this.value.toUpperCase()">	</td>
 			<td>&nbsp;</td>
 		</tr>
 		

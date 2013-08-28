@@ -60,12 +60,12 @@ if(isset($_REQUEST['enquiry']))
 	
 	
 	$rs1 = mysql_query($sql1);
-	?>
-	<script>
-	window.location=('itinerary.php');
-	</script>
-	<?php
+?>
+ <script>
+ window.location=('itinerary.php');
+ </script>
 
+<?php
 	//header("Location:itinerary.php");
 }
 
@@ -101,7 +101,7 @@ if(isset($_REQUEST['enquiry']))
 						<form method="post" action="" onsubmit="return valid()">
 						<table>
 							<tr>
-								<td><h4>Mobile</h4></td>
+								<td><h4>Mobile*</h4></td>
 								<td>
 									<input type="text" size="30px" name="c_mobile" id="c_mobile" value="" onblur="valid_phn()">
 									
@@ -115,35 +115,35 @@ if(isset($_REQUEST['enquiry']))
 								
 							</tr>
 							<tr>
-								<td><h4>First Name</h4></td>
+								<td><h4>First Name*</h4></td>
 								<td>
-									<input type="text" size="30px" name="c_fname" id="c_fname" value="" onblur="valid_fname()">
+									<input type="text" size="30px" name="c_fname" id="c_fname" value="" onblur="valid_fname()" onkeyup= "this.value = this.value.toUpperCase()">
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 								<td><h4>Last Name</h4></td>
 								<td>
-									<input type="text" size="30px" name="c_lname" id="c_lname" value="" onblur="valid_lname()">
+									<input type="text" size="30px" name="c_lname" id="c_lname" value="" onblur="valid_lname()" onkeyup= "this.value = this.value.toUpperCase()">
 								</td>
 								
 								
 							</tr>
 							<tr>
-								<td><h4>Address Line 1</h4></td>
+								<td><h4>Address Line 1*</h4></td>
 								<td>
-								<input type="text" size="30px" name="c_addrs1" id="c_addrs1" value="" >
+								<input type="text" size="30px" name="c_addrs1" id="c_addrs1" value="" onkeyup= "this.value = this.value.toUpperCase()">
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 								<td><h4>Address Line 2</h4></td>
 								<td>
-								<input type="text" size="30px" name="c_addrs2" id="c_addrs2" value="" >
+								<input type="text" size="30px" name="c_addrs2" id="c_addrs2" value="" onkeyup= "this.value = this.value.toUpperCase()">
 								</td>
 							</tr>
 							<tr>
 								<td><h4>Place</h4></td>
 								<td>
-								<input type="text" size="30px" name="c_place" id="c_place" value=""  onblur="valid_place()">
+								<input type="text" size="30px" name="c_place" id="c_place" value=""  onblur="valid_place()" onkeyup= "this.value = this.value.toUpperCase()">
 								</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
@@ -194,7 +194,7 @@ if(isset($_REQUEST['enquiry']))
 							<tr>
 							<td><h4>Reference</h4></td>
 								<td>								
-								<input type="text" size="30px" id="ref" name="ref" onKeyUp="bleble1();" autocomplete="off"/>	
+								<input type="text" size="30px" id="ref" name="ref"  autocomplete="off" onkeyup= "this.value = this.value.toUpperCase()">	
 							</td>
 								<div id="layer3"></div>						
 								<td>&nbsp;</td>
@@ -207,7 +207,7 @@ if(isset($_REQUEST['enquiry']))
 							<tr>
 								<td><h4>Note*</h4></td>							
 								<td colspan="5">
-								<textarea cols="80" rows="5" name="any_notes" id="any_notes"></textarea>
+								<textarea cols="80" rows="5" name="any_notes" id="any_notes" onkeyup= "this.value = this.value.toUpperCase()"></textarea>
 								</td>							
 							</tr>	
 						    <tr>

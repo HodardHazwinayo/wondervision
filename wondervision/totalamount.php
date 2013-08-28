@@ -86,13 +86,20 @@ if(isset($_REQUEST['book_1']))
 								<?php
 								$tax=($row1['servicetax']/100)*$row1['amount'];
 								$dsc=(($row1['discount']/100)*$row1['amount']);
-								echo $test=(($row1['amount']+$tax)-$dsc);
+								
+								$h_price=(($row1['amount']+$tax)-$dsc);		
+								echo $test=number_format((($row1['amount']+$tax)-$dsc),2);
 								
 								$c_h=((($row1['commission']/100)*$row1['amount']));
 									
-									$total_amount=$total_amount+$test;
+									//$total_amount=$total_amount+$test;
 									$num_length = strlen((string)$test);
-									$test_string = mysql_real_escape_string($test);
+									
+									
+									
+									 $test_string = mysql_real_escape_string($test);
+									
+									
 									
 									if($test_string[$num_length-3] == ".") {
 										$add_zero="";	
@@ -102,6 +109,7 @@ if(isset($_REQUEST['book_1']))
 									}
 									else {
 										$add_zero=".00";
+										
 									}
 								echo $add_zero;
 								
@@ -157,13 +165,14 @@ if(isset($_REQUEST['book_1']))
 								<td width="20%">&nbsp;</td>
 								<td width="40%">
 								<h4>
-								<?php echo $test=$row2['rate']+(($row2['servicetax']/100)*$row2['rate'])-(($row2['discount']/100)*$row2['rate']);
+								<?php echo $test1=number_format($row2['rate']+(($row2['servicetax']/100)*$row2['rate'])-(($row2['discount']/100)*$row2['rate']),2);
+								$t_price=$row2['rate']+(($row2['servicetax']/100)*$row2['rate'])-(($row2['discount']/100)*$row2['rate']);
 								    
 									$c_t=((($row2['commission']/100)*$row2['rate']));
 									
-									$total_amount=$total_amount+$test;
-									$num_length = strlen((string)$test);
-									$test_string = mysql_real_escape_string($test);
+									//$total_amount=$total_amount+$test;
+									$num_length = strlen((string)$test1);
+									$test_string = mysql_real_escape_string($test1);
 									
 									if($test_string[$num_length-3] == ".") {
 										$add_zero="";	
@@ -214,7 +223,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4efc0', end
 					<tr>
 					<td width="40%" align="center"><h4>Total Amount</h4></td>
 					<td width="20%">
-					<input type="hidden" value=<?php echo $total_amount; ?> id="ta" name="ta">
+					<input type="hidden" value=<?php echo number_format($h_price+$t_price,2); ?> id="ta" name="ta">
 					<?php
 				
 					
@@ -224,7 +233,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4efc0', end
 					</td>
 					<td width="40%"><h4>
 					<?php
-					echo $total_amount;
+					echo $total_amount=number_format($h_price+$t_price,2);
+					//echo $total_amount;
 					
 					$num_length = strlen((string)$total_amount);
 					$test_string = mysql_real_escape_string($total_amount);
@@ -239,7 +249,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4efc0', end
 									else {
 										$add_zero=".00";
 									}
-								echo $add_zero;
+								//echo $add_zero;
 					?>
 					
 					</h4>

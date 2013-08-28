@@ -107,15 +107,15 @@ elseif(isset($_REQUEST['enq']))
 				?>
 				</td>
 				<td width="20%" align="left"><h4>Room</h4></td>
-				<td width="30%" align="left"><input type="text" value="<?php echo $row10['noofrooms'] ?>" name="room" id="room"></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row10['noofrooms'] ?>" name="room" id="room" onclick="f_h_room()" onblur="h_room()"></td>
 				
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><h4>Adult</h4></td>
-				<td width="30%" align="left"><input type="text" value="<?php echo $row10['noofadults'] ?>" name="adult" id="adult"></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row10['noofadults'] ?>" name="adult" id="adult" onclick="f_h_adult()" onblur="h_adult()"></td>
 				<td width="20%" align="left"><h4>Children</h4></td>
-				<td align="left"><input type="text" value="<?php echo $row10['noofchildren'] ?>" name="child" id="child"></td>
+				<td align="left"><input type="text" value="<?php echo $row10['noofchildren'] ?>" name="child" id="child" onclick="f_h_adult1()" onblur="h_adult1()"></td>
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
@@ -129,23 +129,23 @@ elseif(isset($_REQUEST['enq']))
 			<tr>
 				
 				<td width="20%" align="left"><h4>Amount (INR)</h4></td>
-				<td align="left"><input type="text" value="<?php echo $row10['amount'] ?>" name="amount" id="amount"></td>
+				<td align="left"><input type="text" value="<?php echo $row10['amount'] ?>" name="amount" id="amount" onblur="hamount_eiddetails()" onclick="fetchamount()"></td>
 				<td width="20%" align="left"><h4>Discount (%)</h4></td>
-				<td width="30%" align="left"><input type="text" value="<?php echo $row10['discount'] ?>" name="discount" id="discount"></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row10['discount'] ?>" name="discount" id="discount" onblur="discount_chk()"></td>
 			</tr>
 			
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><h4>Commission (%)</h4></td>
-				<td width="30%" align="left"><input type="text" value="<?php echo $row10['commission'] ?>" name="commission" id="commission"> </td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row10['commission'] ?>" name="commission" id="commission"onblur="commission_chk()"> </td>
 				<td width="20%" align="left"><h4>Service tax (%)</h4></td>
-				<td align="left"><input type="text" value="<?php echo $row10['servicetax'] ?>" name="servicetax" id="servicetax"></td>
+				<td align="left"><input type="text" value="<?php echo $row10['servicetax'] ?>" name="servicetax" id="servicetax" onblur="service_tax_chk()"></td>
 			</tr>
 			
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><h4>ROOM TYPE</h4></td>
-				<td width="30%" align="left"><input type="text" value="<?php echo $row10['roomtype'] ?>" name="rtype" id="rtype"> </td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row10['roomtype'] ?>" name="rtype" id="rtype" onkeyup= "this.value = this.value.toUpperCase()"> </td>
 				<td width="20%" align="left"><h4>&nbsp;</h4></td>
 				<td align="left">&nbsp;</td>
 			</tr>
@@ -203,16 +203,16 @@ elseif(isset($_REQUEST['enq']))
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><h4>Adult</h4></td>
-				<td width="30%" align="left"><input type="text" value="<?php echo $row101['noofadults'] ?>" name="tadult" id="tadult"> </td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row101['noofadults'] ?>" name="tadult" id="tadult" onclick="f_t_adult()" onblur="t_adult()"> </td>
 				<td width="20%" align="left"><h4>Children</h4></td>
-				<td align="left"><input type="text" value="<?php echo $row101['noofchildren'] ?>" name="tchild" id="tchild"> </td>
+				<td align="left"><input type="text" value="<?php echo $row101['noofchildren'] ?>" name="tchild" id="tchild" onclick="f_t_adult1()" onblur="t_adult1()"> </td>
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><h4>Start place</h4></td>
-				<td width="30%" align="left"><input type="text" value="<?php echo $row101['startingplace'] ?>" name="tsp" id="tsp"></td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row101['startingplace'] ?>" name="tsp" id="tsp" onkeyup= "this.value = this.value.toUpperCase()" onclick="fetch_tsp()" onblur="t_start_p()"></td>
 				<td width="20%" align="left"><h4>Destination</h4></td>
-				<td align="left"><input type="text" value="<?php echo $row101['destination'] ?>" name="td" id="td"></td>
+				<td align="left"><input type="text" value="<?php echo $row101['destination'] ?>" name="td" id="td" onkeyup= "this.value = this.value.toUpperCase()" onclick="fetch_td()" onblur="t_d()"></td>
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
@@ -224,21 +224,21 @@ elseif(isset($_REQUEST['enq']))
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><h4>Rate (INR)</h4></td>
-				<td width="30%" align="left"><input type="text" value="<?php echo $row101['rate'] ?>" name="tr" id="tr"> </td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row101['rate'] ?>" name="tr" id="tr" onblur="tamount_eiddetails()" onclick="t_fetchamount()"> </td>
 				<td width="20%" align="left"><h4>Type</h4></td>
-				<td align="left"><input type="text" value="<?php echo $row101['vehicletype'] ?>" name="ttype" id="ttype"></td>
+				<td align="left"><input type="text" value="<?php echo $row101['vehicletype'] ?>" name="ttype" id="ttype" onblur="type_test()" onclick="fetch_type()" onkeyup= "this.value = this.value.toUpperCase()"></td>
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><h4>Commission (%)</h4></td>
-				<td width="30%" align="left"><input type="text" value="<?php echo $row101['commission'] ?>" name="tc" id="tc"> </td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row101['commission'] ?>" name="tc" id="tc" onblur="t_commission_chk()"> </td>
 				<td width="20%" align="left"><h4>Service tax (%)</h4></td>
-				<td align="left"><input type="text" value="<?php echo $row101['servicetax'] ?>" name="ttax" id="ttax"></td>
+				<td align="left"><input type="text" value="<?php echo $row101['servicetax'] ?>" name="ttax" id="ttax" onblur="t_service_tax_chk()"></td>
 			</tr>
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td width="20%" align="left"><h4>DISCOUNT (%)</h4></td>
-				<td width="30%" align="left"><input type="text" value="<?php echo $row101['discount'] ?>" name="tdsc" id="tdsc"> </td>
+				<td width="30%" align="left"><input type="text" value="<?php echo $row101['discount'] ?>" name="tdsc" id="tdsc" onblur="t_discount_chk()"> </td>
 				<td width="20%" align="left">&nbsp;</td>
 				<td align="left">&nbsp;</td>
 			</tr>
@@ -284,12 +284,6 @@ elseif(isset($_REQUEST['enq']))
 								<td>
 								<p align="center">
 								<input type="submit" value="Submit" class="bbbtn" style="width:120px;" name="enq" id="enq">
-								</p>
-								</td>
-								
-								<td>
-								<p align="center">
-								<input type="button" value="Cancel" class="bbbtn" style="width:120px;" onclick="history.go(-1);">
 								</p>
 								</td>
 			</tr>
