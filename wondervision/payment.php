@@ -2,44 +2,43 @@
 session_start();
 include("header.php");
 
-$recieptno = rand().rand();	
+$booking_id = $_REQUEST['bid'];
 
-$amount = $_REQUEST['amount'];
+$transport_id = $_REQUEST['tid'];
 
-//echo $bsql = "SELECT * FROM booking_details INNER JOIN payment_details ON booking_details.booking_id=payment_details.booking_id WHERE booking_details.enquiry_id='".$_REQUEST['pid']."' ORDER BY payment_details.payment_id DESC Limit 1";
-//query for getting payment details
+/*if(!empty($transport_id))	{
+$usql = "SELECT * FROM transport_details INNER JOIN enquiry_details ON transport_details.enquiry_id=enquiry_details.enquiry_id INNER JOIN user_master ON enquiry_details.user_id=user_master.user_id WHERE transport_id='".$transport_id."'";
 
-$bsql = mysql_query("SELECT * FROM booking_details INNER JOIN payment_details ON booking_details.booking_id=payment_details.booking_id WHERE booking_details.enquiry_id='".$_REQUEST['pid']."' ORDER BY payment_details.payment_id DESC Limit 1");
-$brow = mysql_fetch_array($bsql);
+$urs = mysql_query($usql);
 
-$bookingid = $brow['booking_id'];
+$urow = mysql_fetch_array($urs);
+}	else*/if(!empty($_REQUEST['eid']))	{
+$usql = "SELECT * FROM enquiry_details INNER JOIN user_master ON enquiry_details.user_id=user_master.user_id WHERE enquiry_details.enquiry_id='".$_REQUEST['eid']."'";
 
-//query for seleting user details
+$urs = mysql_query($usql);
 
-$msql = mysql_query("SELECT * FROM enquiry_details INNER JOIN user_master ON enquiry_details.user_id=user_master.user_id WHERE enquiry_details.enquiry_id='".$_REQUEST['pid']."'");
+$urow = mysql_fetch_array($urs);
 
-$mrow = mysql_fetch_array($msql);
+}
+
 
 if(isset($_REQUEST['submit']))
 {
-	$_REQUEST['amount_recieved'];
-	$_REQUEST['total_amount'];
-	
-	
-	//echo $psql = "INSERT INTO payment_details(booking_id,paidamount,populationdate,payee,totalamount,paymentmode) VALUES ('".$bookingid."','".$_REQUEST['amount_recieved']."','".$_SESSION['populationdate']."','".$_SESSION['name']."','".$_REQUEST['total_amount']."'-'".$_REQUEST['amount_recieved']."','".$_REQUEST['paymentmode']."')";
-	
-	$psql = mysql_query("INSERT INTO payment_details(booking_id,paidamount,populationdate,payee,totalamount,paymentmode) VALUES ('".$bookingid."','".$_REQUEST['amount_recieved']."','".$_SESSION['populationdate']."','".$_SESSION['name']."','".$_REQUEST['total_amount']."'-'".$_REQUEST['amount_recieved']."','".$_REQUEST['paymentmode']."')");
-	
-?>
-	<script>
-	
-		window.location='payment.php?refresh&pid=<?php echo $_REQUEST['pid']; ?>';
-	</script>
-<?php	
+$transql=mysql_query("select * from transaction_master where payment_id='".$_REQUEST['pid']."' order by transaction_id desc limit 1");
+$tranrow = mysql_fetch_array($transql);
+
+$transid = $tranrow['transaction_id'];
+?>	
+<script>
+	window.location="transportpayment.php?eid=<?php echo $_REQUEST['eid'] ?>&pid=<?php echo $_REQUEST['pid'] ?>&trid=<?php echo $transid ?>&bid=<?php echo $_REQUEST['bid'] ?>&tid=<?php echo $_REQUEST['tid'] ?>";
+</script>
+<?php
 }
 
  
 ?>
+
+
 
 
 	<!-- BEGIN #main -->
@@ -54,31 +53,25 @@ if(isset($_REQUEST['submit']))
 			<!-- BEGIN #main-content-span -->
 		<div class="span6" id="main-content-span">
 		<h2 style="width:195%;">Money Reciept</h2>
-		    <div style="float:left;width:1050px;height:auto;margin:20px 20px 20px 30px;">
+		    <div style="float:left;height:auto;">
 			<form method="post">
 				<table border="0">
 					<tr>
 						<!--<td><h4>Cash reciept #</h4></td><td colspan="3"><?php //echo $_SESSION['recieptno'] = $recieptno ?></td>-->
-						<td><h4>Recieved from</h4></td><td colspan="3"><?php echo $_SESSION['name'] = $mrow['firstname']." ".$mrow['lastname'] ?></td>
+						<td><h4>Recieved from</h4></td><td colspan="3"><?php echo  $urow['firstname']." ".$urow['lastname'] ?></td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
-						<td><h4>Date</h4></td><td colspan="3"><?php echo $_SESSION['populationdate'] = date('Y-m-d H:i:s'); ?></td>
+						<td><h4>Date</h4></td><td colspan="3"><?php echo  date('Y-m-d H:i:s'); ?></td>
 					</tr>
 					<!--<tr>
 						<td><h4>Recieved from</h4></td><td colspan="3"><?php //echo $_SESSION['name'] = $mrow['firstname']." ".$mrow['lastname'] ?></td>
 					</tr>-->
 					<tr>
-						<td><h4>Phone number</h4></td><td colspan="3"><?php echo $mrow['mobile'] ?></td>
+						<td><h4>Phone number</h4></td><td colspan="3"><?php echo $urow['mobile'] ?></td>
+						
 					</tr>
 				
-					<tr>
-						<td><h4>Amount recieved</h4></td><td><input type="text" name="amount_recieved" value="<?php //echo $brow['paidamount'] ?>" style="width:230px;">&nbsp;/- INR</td>
-					</tr>
-					
-					<tr>
-						<td><h4>Total amount</h4></td><td><input type="text" name="total_amount" value="<?php echo $brow['totalamount'] ?>" style="width:230px;" readonly>&nbsp;/- INR</td>
-					</tr>
-					
+															
 					<tr>
 						<td><h4>Mode of Payment</h4></td>
 						<td><input type="radio" value="Cheque" name="paymentmode">&nbsp;Cheque payment
@@ -102,35 +95,45 @@ if(isset($_REQUEST['submit']))
 					<?php 
 					}
 					?>
-						<td>&nbsp;</td><td><a href="totalamount.php?eid=<?php echo $_REQUEST['pid']?>"><input type="button" value="Total Bill" name="back" class="bbbtn" /></a></td>
+						<td>&nbsp;</td><td><a href="bookingformtransport.php"><input type="button" value="Back" name="back" class="bbbtn" /></a></td>
 					</tr>
 				</table>
 			</form>
 			 <div style="float:left;width:1050px;height:auto;margin:20px 20px 20px 30px;">
 			 <?php
-			 $hsql = mysql_query("SELECT * FROM payment_details WHERE booking_id='".$bookingid."'");
+			 $hsql = mysql_query("SELECT * FROM transaction_master WHERE payment_id='".$_REQUEST['pid']."'");
 			 
 			 ?>
-				<table width="100%" cellpadding="2" cellspacing="2">
+				<table width="100%" cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+				<thead>
 					<tr>
-						<th>Total amount</th>
-						<th>Recieved amount</th>
+						<th>Gross Total</th>
+						<th>Due</th>
+						<th>Commission</th>
+						<th>Advance</th>
 						<th>Date Time</th>
-						<th>Payment mode</th>
+						
 					</tr>
+				</thead>	
 					<?php
 					while($hrow = mysql_fetch_array($hsql))
 					{
 					?>
+					<tbody>
 					<tr>
-						<td align="center"><?php echo $hrow['totalamount'] ?></td>
-						<td align="center"><?php echo $hrow['paidamount'] ?></td>
-						<td align="center"><?php echo $hrow['populationdate'] ?></td>
-						<td align="center"><?php echo $hrow['paymentmode'] ?></td>
+						<td align="center"><?php echo $hrow['total_amount'] ?></td>
+						<td align="center"><?php echo $hrow['remaining_amount'] ?></td>
+						<td align="center"><?php echo $hrow['commission_amount'] ?></td>
+						<td align="center"><?php echo $hrow['advance_amount'] ?></td>
+						<td align="center"><?php echo $hrow['date'] ?></td>
+						
 					</tr>
+										
+					</tbody>
 					<?php
 					}
 					?>
+					
 				</table>
 			 </div>
 			</div><!-- END #main-content-span -->

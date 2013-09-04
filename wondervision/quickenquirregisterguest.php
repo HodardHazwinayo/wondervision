@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 
 include('include/config.php');
 date_default_timezone_set('Asia/Calcutta');
@@ -55,13 +56,25 @@ if(isset($_REQUEST['enquiry']))
 	
 	
 	$rs1 = mysql_query($sql1);
+	
+	$eisql = mysql_query("select enquiry_id from enquiry_details where enquiry_id='".$idmax."'");
+	$eirow = mysql_fetch_array($eisql);
+	
+	$enq_id = $eirow['enquiry_id'];
 
-	header("Location:itinerary.php");
+	//header("Location:itinerary.php");
+	?>
+	<script>
+		window.location="itinerary.php?eid=<?php echo $enq_id ?>";
+	
+	</script>
+	
+	<?php
 }
-
+?>
 		
 
-
+<?php
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -129,55 +142,6 @@ if(isset($_REQUEST['enquiry']))
 	<script type="text/javascript" src="js/myScript.js"></script>
 	<script language="JavaScript" type="text/javascript" src="search.js"></script>
 	
-<style>	
-	#main1{
-float:right;
-padding:15px;
-margin:0px 0px 0px 360px;
-width: 265px;
-}
-#layer2{
-	width:262px;
-	/*border:1px solid gray;*/
-	margin-top: -2px;
-	border-bottom-width: 0px;
-	position: absolute;
-	z-index:3px;
-}
-#layer2 a{
-	text-decoration:none;
-	text-transform:capitalize;
-	padding:5px;
-}
-.suggest_link{
-background-color:#fff;
-border-bottom:1px solid gray;
-}
-.small{
-background-color:#fff;
-border-bottom:1px solid gray;
-}
-.suggest_link_over{
-background-color:#fff;
-border-bottom:1px solid gray;
-}
-.suggest_link:hover{
-background-color:#6d84b4;
-border-bottom:1px solid gray;
-}
-.suggest_link_over:hover{
-background-color:#6d84b4;
-border-bottom:1px solid gray;
-}
-#amots{
-	padding:5px;
-	border-radius:none;
-	width:250px;
-	border:2px solid gray;
-	background: url("search.png") no-repeat scroll right 0 transparent;
-}
-
-</style>
 
 </head>
 <body>
@@ -271,58 +235,8 @@ border-bottom:1px solid gray;
 								<input type="text" size="30px" name="c_zip" id="c_zip" value="<?php echo($zip) ?>" readonly >
 								</td>
 							</tr>	
-								<tr>
-								<td><h4>Country</h4></td>
-								<td>
-								 <?php
-								 $get=mysql_query("SELECT country_name FROM country_master");
-								 ?>
-								 <select name="c_country" id="c_country" style="width:220px; height:25px; ">
-								 <option value="null">SELECT</option>
-								 <?php
-								    while($row = mysql_fetch_assoc($get))
-										{
-								?>
-											<option value = "<?php echo($row['country_name'])?>" ><?php echo($row['country_name']) ?></option>
-								<?php
-										}
-								?>
-								 </select>	
-
-								</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-									<td><h4>State</h4></td>
-								<td>
-								<?php
-								 $get=mysql_query("SELECT state_name FROM state_master");
-								 ?>
-								 <select name="c_state" id="c_state" style="width:220px; height:25px; ">
-								 <option value="null">SELECT</option>
-								 <?php
-								    while($row = mysql_fetch_assoc($get))
-										{
-								?>
-											<option value = "<?php echo($row['state_name'])?>" ><?php echo($row['state_name']) ?></option>
-								<?php
-										}
-								?>
-								 </select>	
-								</td>
-								
-							</tr>						
-							<tr>
-								<td><h4>Reference</h4></td>
-								<td>
-								<input type="text" size="30px" id="ref" name="ref" onkeyup= "this.value = this.value.toUpperCase()">	
-								</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td><h4>&nbsp;</h4></td>
-								<td>					
-								&nbsp;
-								</td>
-							</tr>
+													
+							
 							<tr>
 							<td colspan="6">
 							<div id="users-contain" class="ui-widget">
@@ -337,7 +251,7 @@ border-bottom:1px solid gray;
 								<tr>
 								<td><h4>Note*</h4></td>
 								<td colspan="5">
-								<textarea cols="80" rows="5" name="any_notes" id="any_notes" onkeyup= "this.value = this.value.toUpperCase()"></textarea>
+								<textarea cols="80" rows="5" name="any_notes" id="any_notes"></textarea>
 								</td>
 							</tr>					
 						    <tr>

@@ -34,8 +34,8 @@
 		<li class='active'><a href='quickenquiry.php'><span>Quick enquiry</span></a></li>
 		
 		<li class='active'><a href='enquirysearch.php'><span>Booking</span></a></li>
-			 
-		<li class='last'><a target="blank_" href='http://localhost:8080/birt-viewer/frameset?__report=performance_report.rptdesign'><span>Reporting</span></a></li>
+			 <li><a href='#'><span>Payment Details</span></a></li> 
+		<li class='last'><a href="bookingsearch.php"><span>Reporting</span></a></li>
 	</ul>
 </div>
 <?php	} else	{	?>
@@ -45,7 +45,8 @@
 			   			
 				
 			   <li><a href='quickenquiry.php'><span>Quick Enquiry</span></a>
-			   <li class='last'><a href='#'><span>Booking</span></a></li>
+			   <li><a href='#'><span>Payment Details</span></a></li>
+			   <li class='last'><a href='enquirysearch.php'><span>Booking</span></a></li>
 			</ul>
 		</div>
 <?php } ?>		

@@ -81,7 +81,7 @@ elseif(isset($_REQUEST['enq']))
 							
 					?>
 					<form method="post" onsubmit="return shownextpage()">
-					<div style="background-color:#EEEEEE;padding:20px;border-radius:8px;">
+					<div style="background-color:#EEEEEE;padding:20px;border-radius:8px;float:left;">
 		 <table border="0" width="100%">
 			<tr>
 				<td><h4>Hotel details </h4></td>
@@ -177,8 +177,9 @@ elseif(isset($_REQUEST['enq']))
 							}
 							?>
 		</div>					
-				</br></br>	
-			<div style="background-color:#EEFFEE;padding:20px;border-radius:8px;">		
+			
+				<div style="background-color:#EEFFEE;padding:20px;border-radius:8px;float:left;">
+					
 			<?php
 							
 							

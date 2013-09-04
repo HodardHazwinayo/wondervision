@@ -6,6 +6,7 @@ date_default_timezone_set('Asia/Calcutta');
 $date = date('Y-m-d H:i:s');
 $cus_code=$_SESSION['cus_code']; 
 
+
 $query  = "SELECT * FROM user_master WHERE user_id = '$cus_code'";
 $result = mysql_query($query);
 
@@ -29,21 +30,48 @@ while($row = mysql_fetch_assoc($result1)) {
 
 if(isset($_REQUEST['book']))
 {
-/*$_SESSION['customer_id'] = $cus_code; 
-$_SESSION['fname'] = $fname;
-$_SESSION['lname'] = $lname;
-$_SESSION['mobile'] = $mobile;
-$_SESSION['phone'] = $phone;
-$_SESSION['gender'] = $gender;
-$_SESSION['email'] = $email;
-$_SESSION['addr1'] = $addrs1;
-$_SESSION['addr2'] = $addr2;
-$_SESSION['place'] = $place;
-$_SESSION['state'] = $state;
-$_SESSION['country'] = $country;
-$_SESSION['zip'] = $zip;
-$_SESSION['mfrom'] = $mfrom;*/
-header("Location:undercontruction.php");
+//echo $_SESSION['customer_id'] = $cus_code; 
+/*$_SESSION['fname'] = $_REQUEST['c_fname'];
+$_SESSION['lname'] = $_REQUEST['c_lname'];
+$_SESSION['mobile'] = $_REQUEST['c_mobile'];
+$_SESSION['email'] = $_REQUEST['c_email'];
+$_SESSION['addr1'] = $_REQUEST['c_addrs1'];
+$_SESSION['addr2'] = $_REQUEST['c_addrs2'];
+$_SESSION['place'] = $_REQUEST['c_place'];
+$_SESSION['zip'] = $_REQUEST['c_zip'];*/
+
+
+$ttsql ="SELECT transport_id FROM transport_details ORDER BY transport_id DESC LIMIT 1 "; 
+$ttrs = mysql_query($ttsql);
+$ttrow = mysql_fetch_array($ttrs);
+
+$tid = $ttrow['transport_id'];
+
+$eesql = "SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1";
+$eers = mysql_query($eesql);
+$eerow = mysql_fetch_array($eers);
+
+$eeid = $eerow['enquiry_id'];
+
+
+
+
+$bsql = "INSERT INTO booking_details(bookingdate,enquiry_id) VALUES ('".$date."','".$eeid."')";  
+$brs = mysql_query($bsql);
+
+$bbsql = "SELECT booking_id FROM booking_details ORDER BY booking_id DESC LIMIT 1";
+$bbrs = mysql_query($bbsql);
+
+$bbrow = mysql_fetch_array($bbrs);
+
+$bid = $bbrow['booking_id'];
+//header("Location:bookingformtransport.php?tid=$tid");
+?>
+	<script>
+		window.location="bookingformtransport.php?tid=<?php echo $tid ?>&bid=<?php echo $bid ?>&eid=<?php echo $eeid ?>";
+	</script>
+<?php
+
 }
 elseif(isset($_REQUEST['enquiry']))
 {
@@ -91,17 +119,19 @@ elseif(isset($_REQUEST['t_save'])){
 	$deptdate=date("Y-m-d", strtotime($_REQUEST['dept_date']));
 
 
-    echo $sql10 = "INSERT INTO transport_details( 	vehicletype,noofadults,pickuptime,enquiry_id,startingplace,destination,noofchildren,rate,comments,estimatedtime) VALUES
+    $sql10 = "INSERT INTO transport_details( 	vehicletype,noofadults,pickuptime,enquiry_id,startingplace,destination,noofchildren,rate,comments,estimatedtime) VALUES
 	('".$_REQUEST['ac']."','".$_REQUEST['adult_count']."','$arrdate',(SELECT enquiry_id FROM enquiry_details ORDER BY enquiry_id DESC LIMIT 1),'".$_REQUEST['vsp']."','".$_REQUEST['vd']."','".$_REQUEST['child_count']."','".$_REQUEST['net_amount2']."','".$_REQUEST['comment2']."','$deptdate')";
 	
 	
 	$rs15 = mysql_query($sql10);
 	
-
-   
-   
-   header("Location:itinerary.php");
-
+	//header("Location:itinerary.php?eid=$_REQUEST['eid']");
+	
+?>
+   <script>
+		window.location='itinerary.php';
+   </script>
+<?php
 }
 
 
@@ -442,7 +472,7 @@ $( "#dialog-form3" ).dialog( "open" );
 							<tr style="background-color:#EEEEEE;border:1px solid #ffffff; height:25px; color:#000000">								<td colspan="6">
 								 		<table border="0" width="100%">
 			<tr>
-				<td align="center" colspan="4"><b>NAME&nbsp;&nbsp; </b>
+				<td><b>NAME&nbsp;&nbsp; </b>
 
 				
 				<?php
@@ -470,9 +500,9 @@ $( "#dialog-form3" ).dialog( "open" );
 				<td align="left"><?php echo $row10['amount'] ?></td>
 			</tr>
 			<tr>
-				<td width="20%" align="left"><b>CHECK_IN_DATE</b></td>
+				<td width="20%" align="left"><b>CHECKIN DATE</b></td>
 				<td width="30%" align="left"><?php echo $row10['checkindate'] ?> </td>
-				<td width="20%" align="left"><b>CHECK_OUT_DATE</b></td>
+				<td width="20%" align="left"><b>CHECKOUT DATE</b></td>
 				<td align="left"><?php echo $row10['checkoutdate'] ?></td>
 			</tr>
 		</table>
@@ -509,27 +539,27 @@ $( "#dialog-form3" ).dialog( "open" );
 								 		<table border="0" width="100%">
 			<tr>
 				<td width="20%" align="left"><b>ADULT</b></td>
-				<td width="30%" align="left"><?php echo $row101['noofadults'] ?></td>
+				<td width="30%" align="left"><?php echo $_SESSION['noofadults'] = $row101['noofadults'] ?></td>
 				<td width="20%" align="left"><b>CHILDREN</b></td>
-				<td align="left"><?php echo $row101['noofchildren'] ?></td>
+				<td align="left"><?php echo $_SESSION['noofchildren'] = $row101['noofchildren'] ?></td>
 			</tr>
 			<tr>
 				<td width="20%" align="left"><b>START PLACE</b></td>
-				<td width="30%" align="left"><?php echo $row101['startingplace'] ?></td>
+				<td width="30%" align="left"><?php echo $_SESSION['startingplace'] = $row101['startingplace'] ?></td>
 				<td width="20%" align="left"><b>DESTINATION</b></td>
-				<td align="left"><?php echo $row101['destination'] ?></td>
+				<td align="left"><?php echo $_SESSION['destination'] = $row101['destination'] ?></td>
 			</tr>
 			<tr>
 				<td width="20%" align="left"><b>FROM_DATE</b></td>
-				<td width="30%" align="left"><?php echo $row101['pickuptime'] ?> </td>
+				<td width="30%" align="left"><?php echo $_SESSION['arrival'] = $row101['pickuptime'] ?> </td>
 				<td width="20%" align="left"><b>TO_DATE</b></td>
-				<td align="left"><?php echo $row101['estimatedtime'] ?></td>
+				<td align="left"><?php echo $_SESSION['departure'] = $row101['estimatedtime'] ?></td>
 			</tr>
 			<tr>
 				<td width="20%" align="left"><b>RATE</b></td>
-				<td width="30%" align="left"><?php echo $row101['rate'] ?> </td>
+				<td width="30%" align="left"><?php echo $_SESSION['rate'] = $row101['rate'] ?> </td>
 				<td width="20%" align="left"><b>TYPE</b></td>
-				<td align="left"><?php echo $row101['vehicletype'] ?></td>
+				<td align="left"><?php echo $_SESSION['vehicletype'] = $row101['vehicletype'] ?></td>
 			</tr>
 		</table>
 
@@ -546,7 +576,7 @@ $( "#dialog-form3" ).dialog( "open" );
 						    <tr>
 								<td colspan="2">
 								<p align="right">
-								<input type="submit" value="Save" class="bbbtn" style="width:120px;" name="enquiry" id="enquiry" onclick="fake_submit()">
+								<input type="submit" value="Submit" class="bbbtn" style="width:120px;" name="enquiry" id="enquiry" onclick="fake_submit()">
 								</p>
 								</td>
 								<td colspan="2">

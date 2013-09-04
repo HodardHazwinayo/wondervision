@@ -5,6 +5,8 @@ include('header.php');
 date_default_timezone_set('Asia/Calcutta');
 $date = date('Y-m-d H:i:s');
 
+
+
 if(isset($_REQUEST['enquiry']))
 {
   //create username
@@ -50,7 +52,7 @@ if(isset($_REQUEST['enquiry']))
 	
     while($row = mysql_fetch_assoc($get)) {
 	$idmax=$row['enquiry_id'];
-	
+	$idmax;
 	}
 	
 	
@@ -60,9 +62,14 @@ if(isset($_REQUEST['enquiry']))
 	
 	
 	$rs1 = mysql_query($sql1);
+	
+	
+	
+	
+	
 ?>
  <script>
- window.location=('itinerary.php');
+ window.location='itinerary.php';
  </script>
 
 <?php

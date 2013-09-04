@@ -336,7 +336,7 @@ $(document).ready(function() {
 							</thead>	
 							
 							<?php
-								$sub = "SELECT * FROM enquiry_details INNER JOIN user_master ON enquiry_details.user_id=user_master.user_id";
+								$sub = "SELECT DISTINCT * FROM enquiry_details INNER JOIN user_master ON enquiry_details.user_id=user_master.user_id";
 								$rs = mysql_query($sub);
 								
 								?>

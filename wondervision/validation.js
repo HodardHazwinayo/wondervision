@@ -8,6 +8,145 @@ var zipp=/^(\d){6}$/;
 var charr=/^[A-z]+$/;
 var croom,cadult,cchild,camount,tamount,t_type,sp,td,p_t_a,p_t_a1;
 
+function cal_ta2(){
+
+var pdtrate=document.getElementById("rate").value;
+
+var totday=document.getElementById("totday").value;
+
+var noofrooms=document.getElementById("noofrooms").value;
+
+if(pdtrate != "")
+document.getElementById("rate_f").value=(pdtrate*totday*noofrooms).toFixed(2);
+}
+
+
+
+function cal_due(){
+var adv=document.getElementById("advance").value;
+var amount=document.getElementById("gtotal").value;
+
+if(adv.length==0){
+  alert("Give the advance");
+ }
+else
+ {
+  document.getElementById("due").value=(parseFloat(amount)-parseFloat(adv)).toFixed(2);
+ 
+ }
+}
+
+function test_adv(){
+
+var name;
+	name=document.getElementById("advance").value;
+	if(name.length!=0)
+           {
+               if(balance.test(name))
+               {
+
+               }
+               else
+                   {
+				   alert("Please give proper value\n Example xx.yy");		   
+                   document.getElementById("advance").value="";
+                   }
+           }
+
+}
+
+function cal_gt(){
+var st=document.getElementById("ser_tax").value;
+var sc=document.getElementById("charge").value;
+var rate=document.getElementById("rate_f").value;
+if(st.length==0 || sc.length==0 || rate.length==0){
+alert("All mandotory field is not given");
+}
+else{
+st=((st/100)*rate).toFixed(2);
+sc=((sc/100)*rate).toFixed(2);
+
+rate=(parseFloat(rate)+parseFloat(sc)+parseFloat(st)).toFixed(2);
+document.getElementById("gtotal").value=rate;
+}
+
+}
+
+
+function test_st(){
+ 
+  
+  var name;
+	name=document.getElementById("ser_tax").value;
+	if(name.length!=0)
+           {
+               if(two_two.test(name))
+               {
+
+               }
+               else
+                   {
+				   alert("Please give proper value\n Example xx.yy");		   
+                   document.getElementById("ser_tax").value="";
+                   }
+           }
+  
+}
+
+function test_sc(){
+ 
+  
+  var name;
+	name=document.getElementById("charge").value;
+	if(name.length!=0)
+           {
+               if(two_two.test(name))
+               {
+
+               }
+               else
+                   {
+				   alert("Please give proper value\n Example xx.yy");		   
+                   document.getElementById("charge").value="";
+                   }
+           }
+  
+}
+
+
+function valid_rate(){
+ 
+  
+  var name;
+	name=document.getElementById("rate").value;
+	if(name.length!=0)
+           {
+               if(balance.test(name))
+               {
+
+               }
+               else
+                   {
+				   alert("Please give proper value\n Example xx.yy");		   
+                   document.getElementById("rate").value="";
+                   }
+           }
+  
+}
+
+function cal_ta(){
+
+var p_dt_rate=document.getElementById("rate").value;
+
+var tot_day=document.getElementById("tot_day").value;
+
+if(p_dt_rate != "")
+document.getElementById("rate_f").value=(p_dt_rate*tot_day).toFixed(2);
+
+
+
+}
+
 function h_adult1()
    {
        var ph;
